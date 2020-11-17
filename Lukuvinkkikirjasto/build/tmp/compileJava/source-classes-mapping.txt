@@ -1,2 +1,0 @@
-lukuvinkkikirjasto/Main.java
- lukuvinkkikirjasto.Main
