@@ -1,0 +1,2 @@
+# lukuvinkkikirjasto
+Ohjelmistotuotanto miniprojekti
