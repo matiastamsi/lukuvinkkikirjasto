@@ -1,2 +1,2 @@
-Lukuvinkkikirjasto/Main.java
- Lukuvinkkikirjasto.Main
+lukuvinkkikirjasto/Main.java
+ lukuvinkkikirjasto.Main
