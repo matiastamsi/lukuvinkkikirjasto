@@ -1,5 +1,8 @@
 package lukuvinkkikirjasto;
 
+import lukuvinkkikirjasto.userinterface.ConsoleIO;
+import lukuvinkkikirjasto.userinterface.UserInterface;
+
 /**
  * The Main class of the application that is a mini-project on the
  * 'Ohjelmistotuotanto'-course.
@@ -14,6 +17,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        UserInterface ui = new UserInterface(new ConsoleIO());
+        ui.run();
     }
 }
