@@ -14,24 +14,24 @@ public class UserInterface {
     }
 
     public void run() {
-        io.print("Alla on lueteltu ohjelman toiminnot ja toimintoja vastaavat numeronäppäimet. Valitse toiminto painamalla sitä vastaavaa numeronäppäintä.");
-        io.print("1: Lisää uusi lukuvinkki.");
-        io.print("2: Listaa lisäämiesi lukuvinkkien otsikot.");
-        io.print("0: Poistu ohjelmasta.");
+        io.print("Alla on lueteltu ohjelman toiminnot ja toimintoja vastaavat näppäimet. Valitse toiminto painamalla sitä vastaavaa näppäintä.");
+        io.print("u: Lisää uusi lukuvinkki.");
+        io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
+        io.print("p: Poistu ohjelmasta.");
         
         Boolean continues = true;
         
         while (continues) {
-            io.print("Valitse toiminto (0 - 2): ");
-            int command = Integer.valueOf(io.nextLine());
+            io.print("Valitse toiminto (u, l tai p): ");
+            String command = io.nextLine();
             switch (command) {
-                case 0: 
+                case "p": 
                     continues = false;
                     break;
-                case 1:
+                case "u":
                     addToLibrary();
                     break;
-                case 2:
+                case "l":
                     listItems();
                     break;
                 default:
