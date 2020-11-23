@@ -9,14 +9,17 @@ import lukuvinkkikirjasto.userinterface.UserInterface;
  *
  * @author Lukuvinkkikirjasto-group
  */
-public class Main {
-
+final class Main {
+    private Main() {  
+        throw new AssertionError("Error");
+    }
     /**
      * The main method that launches the user interface.
      *
      * @param args
      */
-    public static void main(String[] args) {
+
+    public static void main(final String[] args) {
         UserInterface ui = new UserInterface(new ConsoleIO());
         ui.run();
     }

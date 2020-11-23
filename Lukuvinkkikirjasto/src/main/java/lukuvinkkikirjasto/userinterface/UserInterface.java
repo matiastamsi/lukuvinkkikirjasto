@@ -6,15 +6,18 @@ import lukuvinkkikirjasto.Lukuvinkki;
 
 public class UserInterface {
     private InputOutput io;
-    List<Lukuvinkki> library;
+    private List<Lukuvinkki> library;
 
-    public UserInterface(InputOutput io) {
+    public UserInterface(final InputOutput io) {
+
         this.io = io;
         this.library = new ArrayList<>();
     }
 
     public void run() {
-        io.print("Alla on lueteltu ohjelman toiminnot ja toimintoja vastaavat näppäimet. Valitse toiminto painamalla sitä vastaavaa näppäintä.");
+        io.print("Alla on lueteltu ohjelman toiminnot ja niitä vastaavat "
+                + "näppäimet. Valitse toiminto painamalla sitä vastaavaa "
+                + "näppäintä.");
         io.print("u: Lisää uusi lukuvinkki.");
         io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
         io.print("p: Poistu ohjelmasta.");
@@ -50,7 +53,8 @@ public class UserInterface {
         io.print("Anna lukuvinkin otsikko: ");
         String title = io.nextLine();
         if (title.equals("")) {
-            io.print("Otsikossa täytyy olla vähintään yksi kirjain. Yritä uudestaan.");
+            io.print("Otsikossa täytyy olla vähintään yksi kirjain. "
+                    + "Yritä uudestaan.");
         } else {
             Lukuvinkki newItem = new Lukuvinkki(title);
             this.library.add(newItem);

@@ -15,7 +15,7 @@ public class ConsoleIO implements InputOutput {
     }
 
     @Override
-    public void print(String input) {
+    public void print(final String input) {
         System.out.println(input);
     }
 

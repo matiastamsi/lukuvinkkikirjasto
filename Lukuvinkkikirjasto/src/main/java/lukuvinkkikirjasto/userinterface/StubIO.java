@@ -13,7 +13,7 @@ public class StubIO implements InputOutput {
     private String[] inputs;
     private ArrayList<String> outputs;
     
-    public StubIO(String[] inputs) {
+    public StubIO(final String[] inputs) {
         this.inputs = inputs;
         this.pointer = 0;
         this.outputs = new ArrayList<>();
@@ -30,7 +30,8 @@ public class StubIO implements InputOutput {
     }
     
     @Override
-    public void print(String input) {
+
+    public void print(final String input) {
         outputs.add(input);
     }
     
