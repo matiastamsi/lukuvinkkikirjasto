@@ -28,15 +28,12 @@ test {
     systemProperties System.getProperties()
 }
 
-<<<<<<< HEAD
-=======
 jar {
     manifest {
         attributes 'Main-Class': 'lukuvinkkikirjasto.Main'
     }
 }
 
->>>>>>> upstream/main
 run {
     standardInput = System.in
 }
