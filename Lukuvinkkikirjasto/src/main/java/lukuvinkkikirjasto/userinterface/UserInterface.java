@@ -53,8 +53,7 @@ public class UserInterface {
         io.print("Anna lukuvinkin otsikko: ");
         String title = io.nextLine();
         if (title.equals("")) {
-            io.print("Otsikossa täytyy olla vähintään yksi kirjain. "
-                    + "Yritä uudestaan.");
+            io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
         } else {
             Lukuvinkki newItem = new Lukuvinkki(title);
             this.library.add(newItem);

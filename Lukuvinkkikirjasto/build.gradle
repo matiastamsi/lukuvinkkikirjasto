@@ -10,6 +10,7 @@ mainClassName = 'lukuvinkkikirjasto.Main'
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 project.ext {
@@ -24,6 +25,7 @@ dependencies {
 }
 
 test {
+    
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
 }
@@ -37,3 +39,11 @@ jar {
 run {
     standardInput = System.in
 }
+
+configurations {
+	cucumberRuntime {
+		extendsFrom testRuntime
+	}
+}
+
+
