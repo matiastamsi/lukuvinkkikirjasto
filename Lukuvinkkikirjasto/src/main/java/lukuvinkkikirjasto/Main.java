@@ -18,6 +18,7 @@ final class Main {
      *
      * @param args
      */
+
     public static void main(final String[] args) {
         UserInterface ui = new UserInterface(new ConsoleIO());
         ui.run();

@@ -1,4 +1,5 @@
-Lukuvinkkikirjasto/.gradle/
+
+/Lukuvinkkikirjasto/.gradle/
 /Lukuvinkkikirjasto/build
 /Lukuvinkkikirjasto/.project
 /Lukuvinkkikirjasto/.classpath

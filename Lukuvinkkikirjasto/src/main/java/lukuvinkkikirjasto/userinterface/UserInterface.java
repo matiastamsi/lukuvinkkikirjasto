@@ -9,6 +9,7 @@ public class UserInterface {
     private List<Lukuvinkki> library;
 
     public UserInterface(final InputOutput io) {
+
         this.io = io;
         this.library = new ArrayList<>();
     }
