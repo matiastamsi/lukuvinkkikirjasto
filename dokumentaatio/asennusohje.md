@@ -5,7 +5,7 @@
 Saadakseen sovelluksen pyörimään paikallisesti on tehtävä seuraavat asiat.
   1. Ladattava ohjelma omalle koneelle. Tämä onnistuu joko ...
   
-   - ... [lataamalla zip-tiedosto](https://github.com/matiastamsi/lukuvinkkikirjasto/archive/main.zip).
+   - ... [lataamalla zip-tiedosto](https://github.com/matiastamsi/lukuvinkkikirjasto/archive/main.zip). Huom. juurihakemiston nimeksi tulee lukuvinkkikirjasto-main tällä tavalla, joten kannattaa ottaa loppuosa "-main" pois eli nimeksi jää "lukuvinkkikirjasto".
    - ... kloonaamalla projekti komentorivin kautta komennolla:
     
             git clone git@github.com:matiastamsi/lukuvinkkikirjasto.git
