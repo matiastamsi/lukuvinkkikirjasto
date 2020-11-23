@@ -21,3 +21,6 @@ jobs:
     - name: Test with Gradle
       working-directory: ./Lukuvinkkikirjasto
       run: ./gradlew test
+    - name: Checkstyle test
+      working-directory: ./Lukuvinkkikirjasto
+      run: ./gradlew checkstyleMain
