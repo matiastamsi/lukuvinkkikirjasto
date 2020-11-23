@@ -1,7 +1,10 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
 
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'checkstyle'
+}
 
 mainClassName = 'lukuvinkkikirjasto.Main'
 
@@ -9,6 +12,22 @@ repositories {
     jcenter()
 }
 
+project.ext {
+    cucumberVersion = '6.8.1'
+    junitVersion = '4.13'
+}
+
 dependencies {
-    testCompile 'junit:junit:4.12'
+    testImplementation 'io.cucumber:cucumber-java:' + cucumberVersion
+    testImplementation 'io.cucumber:cucumber-junit:' + cucumberVersion
+    testImplementation 'junit:junit:' + junitVersion
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+run {
+    standardInput = System.in
 }

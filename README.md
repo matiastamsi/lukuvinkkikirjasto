@@ -10,3 +10,9 @@ Ohjelmistotuotanto miniprojekti
 * Toteutetun koodin testikattavuus 70%
 * Toteutettu koodi menee läpi CI-palvelusta
 * Toteutettu koodi Checkstylen mukainen
+
+## Asennusohje
+[Siirry asennusohjeeseen](https://github.com/matiastamsi/lukuvinkkikirjasto/blob/main/dokumentaatio/asennusohje.md)
+
+## Käyttöohje
+[Siirry käyttöohjeeseen](https://github.com/matiastamsi/lukuvinkkikirjasto/blob/main/dokumentaatio/kayttoohje.md)

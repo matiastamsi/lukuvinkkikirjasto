@@ -1,2 +1,8 @@
-/Lukuvinkkikirjasto/.gradle/
-/Lukuvinkkikirjasto/build/
+Lukuvinkkikirjasto/.gradle/
+/Lukuvinkkikirjasto/build
+/Lukuvinkkikirjasto/.project
+/Lukuvinkkikirjasto/.classpath
+/Lukuvinkkikirjasto/bin/
+/Lukuvinkkikirjasto/.settings/
+/.vscode/
+

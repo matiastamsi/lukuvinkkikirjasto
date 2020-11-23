@@ -1,14 +1,10 @@
 
 package lukuvinkkikirjasto;
 
-/**
- *
- * @author villsave
- */
 public class Lukuvinkki {
-    private String otsikko;
+    private final String otsikko;
     
-    public Lukuvinkki(String otsikko) {
+    public Lukuvinkki(final String otsikko) {
        this.otsikko = otsikko;
     }
     
