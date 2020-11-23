@@ -6,10 +6,6 @@
         <property name="file" value="${config_loc}/suppressions.xml"/>
     </module>
     <module name="TreeWalker">
-        <module name="JavadocMethod"/>
-        <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
-        <module name="JavadocStyle"/>
         <module name="ConstantName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
