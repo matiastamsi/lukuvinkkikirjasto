@@ -31,6 +31,7 @@ public class StepDefinitions {
     @When("käyttäjä lisää vinkin otsikolla {string}")
         public void linkinLisäysOtsikolla(String otsikko) {
             syotteet.add(otsikko);
+            syotteet.add("e");
         }
     
     @When("käyttäjä lisää tyhjän {string} otsikon")
