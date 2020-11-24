@@ -73,7 +73,7 @@ public class UserInterface {
     }
     
     private void searchItems() {
-        while(true) {
+        while (true) {
             io.print("Anna hakusana tai poistu antamalla tyhjä merkkijono: ");
             System.out.println("jeejee");
             String title = io.nextLine();
@@ -81,7 +81,7 @@ public class UserInterface {
                 break;
             } else {
                 List<Lukuvinkki> results = this.library.searchByTitle(title);
-                switch(results.size()) {
+                switch (results.size()) {
                     case 0:
                         io.print("Tuloksia ei löytynyt.");
                         break;
@@ -101,7 +101,7 @@ public class UserInterface {
         }
     }
     
-    private void readingTipMenu(Lukuvinkki lukuvinkki) {
+    private void readingTipMenu(final Lukuvinkki lukuvinkki) {
         // Tässä voisi sitten kysellä poistetaanko/muokataanko vinkkiä.
     }
     
