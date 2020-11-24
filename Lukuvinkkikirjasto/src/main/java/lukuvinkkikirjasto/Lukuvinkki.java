@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class Lukuvinkki {
     private final String otsikko;
-    private ArrayList<String> tagit;
+    private final ArrayList<String> tagit;
     
     public Lukuvinkki(final String otsikko) {
        this.otsikko = otsikko;
        this.tagit = new ArrayList<>();
     }
 
-    public void lisaaTagi(String tag) {
+    public void lisaaTagi(final String tag) {
         this.tagit.add(tag);
     }
 
