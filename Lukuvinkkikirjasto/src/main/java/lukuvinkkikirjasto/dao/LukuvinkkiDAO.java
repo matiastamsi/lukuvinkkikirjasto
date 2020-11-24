@@ -32,5 +32,10 @@ public class LukuvinkkiDAO implements DAO {
     public void edit(final Lukuvinkki lukuvinkki) {
 
     }
+    
+    @Override
+    public void searchByTitle(final String title) {
+        
+    }
 
 }

@@ -17,4 +17,6 @@ public interface DAO {
     void add(Lukuvinkki lukuvinkki);
 
     void edit(Lukuvinkki lukuvinkki);
+    
+    void searchByTitle(String title);
 }
