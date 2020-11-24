@@ -1,17 +1,16 @@
 package lukuvinkkikirjasto.userinterface;
 
-import java.util.ArrayList;
-import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
+import lukuvinkkikirjasto.dao.EiPysyvaTallennusDAO;
 
 public class UserInterface {
     private InputOutput io;
-    private List<Lukuvinkki> library;
+    private EiPysyvaTallennusDAO library;
 
     public UserInterface(final InputOutput io) {
 
         this.io = io;
-        this.library = new ArrayList<>();
+        this.library = new EiPysyvaTallennusDAO();
     }
 
     public void run() {
@@ -44,7 +43,7 @@ public class UserInterface {
     }
 
     private void listItems() {
-        this.library.stream()
+        this.library.getAll().stream()
             .map(l -> l.getOtsikko())
             .forEach(t -> io.print(t));
     }
