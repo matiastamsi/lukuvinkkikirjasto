@@ -1,6 +1,6 @@
 package lukuvinkkikirjasto.dao;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
@@ -36,6 +36,27 @@ public class LukuvinkkiDAO implements DAO {
 
     @Override
     public void edit(final Lukuvinkki lukuvinkki) {
+        System.out.println("Metodia ei ole vielä toteutettu.");
+
+    }
+
+    @Override
+    public void createDatabase() {
+        try {
+            this.connection.setAutoCommit(false);
+            this.connection.getStatement().execute("CREATE TABLE Lukuvinkit (id INTEGER PRIMARY KEY, otsikko TEXT, tagit Text)");
+            connection.commit();
+            connection.setAutoCommit(true);
+            System.out.println("Tietokanta luotu.");
+        } catch (SQLException e) {
+            System.out.println("Tietokannan luominen epäonnistui, tai tietokanta on jo luotu.");
+            e.printStackTrace();
+        }
+            
+    }
+
+    @Override
+    public void initializeDatabase() {
         System.out.println("Metodia ei ole vielä toteutettu.");
 
     }

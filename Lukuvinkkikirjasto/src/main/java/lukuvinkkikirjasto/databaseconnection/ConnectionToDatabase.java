@@ -13,6 +13,7 @@ public class ConnectionToDatabase {
         try {
             this.connection = DriverManager.getConnection(url);
             this.statement = connection.createStatement();
+            System.out.println("Yhteyden muodostaminen onnistui: " + isConnected());
         } catch (SQLException e) {
             System.out.println("Yhteyden muodostaminen tietokantaan epäonnistui: ");
             e.printStackTrace();
@@ -24,7 +25,10 @@ public class ConnectionToDatabase {
     }
 
     public Boolean isConnected() throws SQLException {
-        return this.connection.isClosed();
+        if (this.connection.isClosed()) {
+            return false;
+        }
+        return true;
     }
 
     public Statement getStatement() {
@@ -39,18 +43,8 @@ public class ConnectionToDatabase {
         this.connection.commit();
     }
 
-    public void createDatabase()  {
-        try {
-            this.connection.setAutoCommit(false);
-            this.statement.execute("CREATE TABLE Lukuvinkit (id INTEGER PRIMARY KEY, otsikko TEXT, tagit Text)");
-            connection.commit();
-            connection.setAutoCommit(true);
-            System.out.println("Tietokanta luotu.");
-        } catch (SQLException e) {
-            System.out.println("Tietokannan luominen epäonnistui, tai tietokanta on jo luotu.");
-            e.printStackTrace();
-        }
-        
+    public void setAutoCommit(Boolean bool) throws SQLException {
+        this.connection.setAutoCommit(bool);
     }
     
 }

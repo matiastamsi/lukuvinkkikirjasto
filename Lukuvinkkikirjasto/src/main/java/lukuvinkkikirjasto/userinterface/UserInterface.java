@@ -1,8 +1,6 @@
 package lukuvinkkikirjasto.userinterface;
 
 import lukuvinkkikirjasto.Lukuvinkki;
-import lukuvinkkikirjasto.dao.EiPysyvaTallennusDAO;
-import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.dao.DAO;
 
 public class UserInterface {
@@ -22,11 +20,14 @@ public class UserInterface {
         io.print("u: Lisää uusi lukuvinkki.");
         io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
         io.print("p: Poistu ohjelmasta.");
+
+        io.print("t: Luo tietokanta. Toiminto luo tietokannan, ellei sitä ole jo luotu.");
+        io.print("a: Alusta tietokanta. Toiminto poistaa vanhan tietokannan ja luo uuden tietokannan.");
         
         Boolean continues = true;
         
         while (continues) {
-            io.print("Valitse toiminto (u, l tai p): ");
+            io.print("Valitse toiminto (u, l, lt, at tai p): ");
             String command = io.nextLine();
             switch (command) {
                 case "p": 
@@ -37,6 +38,12 @@ public class UserInterface {
                     break;
                 case "l":
                     listItems();
+                    break;
+                case "lt":
+                    this.library.createDatabase();
+                    break;
+                case "at":
+                    this.library.initializeDatabase();
                     break;
                 default:
                     io.print("Virheellinen näppäinvalinta. Yritä uudestaan.");

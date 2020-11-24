@@ -1,7 +1,5 @@
 package lukuvinkkikirjasto;
 
-import java.sql.Connection;
-
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
 import lukuvinkkikirjasto.dao.DAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;

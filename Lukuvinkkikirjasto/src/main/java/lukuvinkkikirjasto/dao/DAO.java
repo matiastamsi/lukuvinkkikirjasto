@@ -17,4 +17,8 @@ public interface DAO {
     void add(Lukuvinkki lukuvinkki);
 
     void edit(Lukuvinkki lukuvinkki);
+
+	void createDatabase();
+
+	void initializeDatabase();
 }
