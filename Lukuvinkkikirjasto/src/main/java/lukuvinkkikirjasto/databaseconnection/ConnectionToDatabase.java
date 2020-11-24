@@ -9,13 +9,15 @@ public class ConnectionToDatabase {
     private Connection connection;
     private Statement statement;
 
-    public ConnectionToDatabase(String url) {
+    public ConnectionToDatabase(final String url) {
         try {
             this.connection = DriverManager.getConnection(url);
             this.statement = connection.createStatement();
-            System.out.println("Yhteyden muodostaminen onnistui: " + isConnected());
+            System.out.println("Yhteyden muodostaminen onnistui: "
+            + isConnected());
         } catch (SQLException e) {
-            System.out.println("Yhteyden muodostaminen tietokantaan epäonnistui: ");
+            System.out.println("Yhteyden muodostaminen "
+            + "tietokantaan epäonnistui: ");
             e.printStackTrace();
         }
     }
@@ -43,7 +45,7 @@ public class ConnectionToDatabase {
         this.connection.commit();
     }
 
-    public void setAutoCommit(Boolean bool) throws SQLException {
+    public void setAutoCommit(final Boolean bool) throws SQLException {
         this.connection.setAutoCommit(bool);
     }
     

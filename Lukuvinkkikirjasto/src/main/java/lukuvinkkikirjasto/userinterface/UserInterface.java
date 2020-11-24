@@ -8,7 +8,7 @@ public class UserInterface {
     private DAO library;
 
 
-    public UserInterface(final InputOutput io, DAO dao) {
+    public UserInterface(final InputOutput io, final DAO dao) {
         this.io = io;
         this.library = dao;
     }
@@ -21,8 +21,10 @@ public class UserInterface {
         io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
         io.print("p: Poistu ohjelmasta.");
 
-        io.print("t: Luo tietokanta. Toiminto luo tietokannan, ellei sitä ole jo luotu.");
-        io.print("a: Alusta tietokanta. Toiminto poistaa vanhan tietokannan ja luo uuden tietokannan.");
+        io.print("t: Luo tietokanta. Toiminto luo "
+        + "tietokannan, ellei sitä ole jo luotu.");
+        io.print("a: Alusta tietokanta. Toiminto poistaa "
+        + "vanhan tietokannan ja luo uuden tietokannan.");
         
         Boolean continues = true;
         

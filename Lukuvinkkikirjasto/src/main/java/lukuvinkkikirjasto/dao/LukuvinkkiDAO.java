@@ -15,7 +15,7 @@ import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 public class LukuvinkkiDAO implements DAO {
     private ConnectionToDatabase connection;
 
-    public LukuvinkkiDAO(ConnectionToDatabase connection) {
+    public LukuvinkkiDAO(final ConnectionToDatabase connection) {
         this.connection = connection;
     }
 
@@ -44,12 +44,15 @@ public class LukuvinkkiDAO implements DAO {
     public void createDatabase() {
         try {
             this.connection.setAutoCommit(false);
-            this.connection.getStatement().execute("CREATE TABLE Lukuvinkit (id INTEGER PRIMARY KEY, otsikko TEXT, tagit Text)");
+            this.connection.getStatement()
+                .execute("CREATE TABLE Lukuvinkit "
+                + "(id INTEGER PRIMARY KEY, otsikko TEXT, tagit Text)");
             connection.commit();
             connection.setAutoCommit(true);
             System.out.println("Tietokanta luotu.");
         } catch (SQLException e) {
-            System.out.println("Tietokannan luominen epäonnistui, tai tietokanta on jo luotu.");
+            System.out.println("Tietokannan luominen "
+            + "epäonnistui, tai tietokanta on jo luotu.");
             e.printStackTrace();
         }
             

@@ -23,7 +23,8 @@ final class Main {
      */
 
     public static void main(final String[] args) {
-        ConnectionToDatabase connection = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
+        ConnectionToDatabase connection = 
+            new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
         DAO dao = new LukuvinkkiDAO(connection);
         UserInterface ui = new UserInterface(new ConsoleIO(), dao);
         ui.run();
