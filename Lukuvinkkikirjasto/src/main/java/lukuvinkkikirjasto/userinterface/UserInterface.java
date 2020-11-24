@@ -2,15 +2,17 @@ package lukuvinkkikirjasto.userinterface;
 
 import lukuvinkkikirjasto.Lukuvinkki;
 import lukuvinkkikirjasto.dao.EiPysyvaTallennusDAO;
+import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
+import lukuvinkkikirjasto.dao.DAO;
 
 public class UserInterface {
     private InputOutput io;
-    private EiPysyvaTallennusDAO library;
+    private DAO library;
 
-    public UserInterface(final InputOutput io) {
 
+    public UserInterface(final InputOutput io, DAO dao) {
         this.io = io;
-        this.library = new EiPysyvaTallennusDAO();
+        this.library = dao;
     }
 
     public void run() {

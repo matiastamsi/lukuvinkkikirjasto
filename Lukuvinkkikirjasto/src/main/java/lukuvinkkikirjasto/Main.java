@@ -1,5 +1,10 @@
 package lukuvinkkikirjasto;
 
+import java.sql.Connection;
+
+import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
+import lukuvinkkikirjasto.dao.DAO;
+import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.userinterface.ConsoleIO;
 import lukuvinkkikirjasto.userinterface.UserInterface;
 
@@ -20,7 +25,9 @@ final class Main {
      */
 
     public static void main(final String[] args) {
-        UserInterface ui = new UserInterface(new ConsoleIO());
+        ConnectionToDatabase connection = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
+        DAO dao = new LukuvinkkiDAO(connection);
+        UserInterface ui = new UserInterface(new ConsoleIO(), dao);
         ui.run();
     }
 }
