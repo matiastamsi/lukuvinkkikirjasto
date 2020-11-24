@@ -18,5 +18,5 @@ public interface DAO {
 
     void edit(Lukuvinkki lukuvinkki);
     
-    void searchByTitle(String title);
+    List<Lukuvinkki> searchByTitle(String title);
 }

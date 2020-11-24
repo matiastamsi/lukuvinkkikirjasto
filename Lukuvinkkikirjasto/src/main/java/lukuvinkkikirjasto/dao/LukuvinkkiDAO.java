@@ -34,8 +34,8 @@ public class LukuvinkkiDAO implements DAO {
     }
     
     @Override
-    public void searchByTitle(final String title) {
-        
+    public List<Lukuvinkki> searchByTitle(final String title) {
+        return new ArrayList<>();
     }
 
 }

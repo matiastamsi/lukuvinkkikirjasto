@@ -2,6 +2,7 @@ package lukuvinkkikirjasto.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lukuvinkkikirjasto.Lukuvinkki;
 
 /**
@@ -39,8 +40,11 @@ public class EiPysyvaTallennusDAO implements DAO {
     }
     
     @Override
-    public void searchByTitle(final String title) {
-        
+    public List<Lukuvinkki> searchByTitle(final String title) {
+        List<Lukuvinkki> matches = this.list.stream()
+                .filter(l -> l.getOtsikko().matches(".*" + title + ".*"))
+                .collect(Collectors.toList());
+        return matches;
     } 
 
 }
