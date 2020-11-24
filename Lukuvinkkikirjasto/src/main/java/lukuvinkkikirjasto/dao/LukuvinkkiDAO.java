@@ -1,7 +1,9 @@
 
 package lukuvinkkikirjasto.dao;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
 /**
  * The interface that is responsible for data access
@@ -19,17 +21,17 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
-    public void delete(Lukuvinkki lukuvinkki) {
+    public void delete(final Lukuvinkki lukuvinkki) {
 
     }
 
     @Override
-    public void add(Lukuvinkki lukuvinkki) {
+    public void add(final Lukuvinkki lukuvinkki) {
  
     }
 
     @Override
-    public void edit(Lukuvinkki lukuvinkki) {
+    public void edit(final Lukuvinkki lukuvinkki) {
  
     }
     
