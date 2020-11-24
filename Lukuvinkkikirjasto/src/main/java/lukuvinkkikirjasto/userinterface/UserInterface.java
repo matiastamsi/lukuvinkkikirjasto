@@ -57,6 +57,14 @@ public class UserInterface {
             Lukuvinkki newItem = new Lukuvinkki(title);
             this.library.add(newItem);
             io.print("Lukuvinkin lisääminen onnistui!");
+            io.print("Haluatko lisätä lukuvinkille tagin? Valitse k/e");
+            String valinta = io.nextLine();
+            if (valinta.equals("k")) {
+                io.print("Anna tagi: ");
+                String tag = io.nextLine();
+                newItem.lisaaTagi(tag);
+            }
         }
+
     }
 }

@@ -16,7 +16,7 @@ public class UserInterfaceTest {
     
     @Test
     public void oneTitleCanBeAdded() {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "testTitle", "l", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "testTitle", "e", "l", "p"));
         StubIO io = new StubIO(str);
         
         UserInterface ui = new UserInterface(io);
@@ -28,7 +28,7 @@ public class UserInterfaceTest {
     
     @Test
     public void multipleTitlesCanBeAdded() {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "t1", "u", "t2", "u", "t3", "l", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "t1", "e", "u", "t2", "e", "u", "t3", "e", "l", "p"));
         StubIO io = new StubIO(str);
         
         UserInterface ui = new UserInterface(io);
