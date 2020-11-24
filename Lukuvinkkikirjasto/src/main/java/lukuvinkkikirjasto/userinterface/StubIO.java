@@ -10,10 +10,10 @@ import java.util.ArrayList;
 public class StubIO implements InputOutput {
     
     private int pointer;
-    private String[] inputs;
+    private ArrayList<String> inputs;
     private ArrayList<String> outputs;
     
-    public StubIO(final String[] inputs) {
+    public StubIO(final ArrayList<String> inputs) {
         this.inputs = inputs;
         this.pointer = 0;
         this.outputs = new ArrayList<>();
@@ -21,8 +21,8 @@ public class StubIO implements InputOutput {
     
     @Override
     public String nextLine() {
-        if (pointer < inputs.length) {
-            String line = inputs[pointer];
+        if (pointer < inputs.size()) {
+            String line = inputs.get(pointer);
             pointer++;
             return line;
         }

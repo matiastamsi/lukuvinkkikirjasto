@@ -2,6 +2,7 @@
 package lukuvinkkikirjasto;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import lukuvinkkikirjasto.userinterface.StubIO;
 import lukuvinkkikirjasto.userinterface.UserInterface;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +16,7 @@ public class UserInterfaceTest {
     
     @Test
     public void oneTitleCanBeAdded() {
-        String[] str = {"u", "testTitle", "l", "p"};
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "testTitle", "l", "p"));
         StubIO io = new StubIO(str);
         
         UserInterface ui = new UserInterface(io);
@@ -27,7 +28,7 @@ public class UserInterfaceTest {
     
     @Test
     public void multipleTitlesCanBeAdded() {
-        String[] str = {"u", "t1", "u", "t2", "u", "t3", "l", "p"};
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "t1", "u", "t2", "u", "t3", "l", "p"));
         StubIO io = new StubIO(str);
         
         UserInterface ui = new UserInterface(io);

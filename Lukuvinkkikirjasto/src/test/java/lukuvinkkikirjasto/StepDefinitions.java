@@ -10,50 +10,43 @@ import lukuvinkkikirjasto.userinterface.*;
 
 public class StepDefinitions {
     UserInterface ui;
-    String[] syotteet;
+    ArrayList<String> syotteet;
     StubIO io;
-    int i;
 
     @Before 
     public void setup() {
-        syotteet = new String[4];
-        i = 0;
+        syotteet = new ArrayList<>();
     }
 
     @Given("valikosta valitaan linkin lisäys")
         public void ohjelmaKäynnistetään() {
-            syotteet[i] = "u";
-            i++;
+            syotteet.add("u");
     }
 
     @When("valikosta valitaan vinkkien listaus")
         public void vinkkienListaus() {
-            syotteet[i] = "l";
-            i++;
+            syotteet.add("l");
         }
  
     @When("käyttäjä lisää vinkin otsikolla {string}")
         public void linkinLisäysOtsikolla(String otsikko) {
-            syotteet[i] = otsikko;
-            i++;
+            syotteet.add(otsikko);
         }
     
     @When("käyttäjä lisää tyhjän {string} otsikon")
         public void linkinLisäysTyhjäOtsikko(String tyhjä) {
-            syotteet[i] = tyhjä;
-            i++;
+            syotteet.add(tyhjä);
         }
 
     @When("käyttäjä syöttää valikkoon väärän symbolin")
         public void vääräSymboliValikkoon() {
-            syotteet[i] = "t";
-            i++;
+            syotteet.add("t");
         }
 
 
     @Then("ohjelma vastaa {string}") 
         public void ohjelmaVastaa(String vastaus) {            
-            syotteet[i] = "p";
+            syotteet.add("p");
             io = new StubIO(syotteet);
             ui = new UserInterface(io);
             ui.run();
