@@ -21,4 +21,6 @@ public interface DAO {
 	void createDatabase();
 
 	void initializeDatabase();
+
+	List<Lukuvinkki> searchByTitle(String title);
 }

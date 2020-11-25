@@ -139,4 +139,10 @@ public class LukuvinkkiDAO implements DAO {
         }
     }
 
+    @Override
+    public List<Lukuvinkki> searchByTitle(String title) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

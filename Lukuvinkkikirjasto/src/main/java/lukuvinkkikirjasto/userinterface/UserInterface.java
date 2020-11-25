@@ -86,4 +86,37 @@ public class UserInterface {
         }
 
     }
+
+    private void searchItems() {
+        while (true) {
+            io.print("Anna hakusana tai poistu antamalla tyhjä merkkijono: ");
+            System.out.println("jeejee");
+            String title = io.nextLine();
+            if (title.equals("")) {
+                break;
+            } else {
+                List<Lukuvinkki> results = this.library.searchByTitle(title);
+                switch (results.size()) {
+                    case 0:
+                        io.print("Tuloksia ei löytynyt.");
+                        break;
+                    case 1:
+                        io.print("Löydettiin lukuvinkki!");
+                        io.print(results.get(0).getOtsikko());
+                        readingTipMenu(results.get(0));
+                        break;
+                    default:
+                        io.print("Monta tulosta:");
+                        results.stream()
+                                .map(l -> l.getOtsikko())
+                                .forEach(t -> io.print(t));
+                        io.print("Tarkenna hakua!");
+                }     
+            }
+        }
+    }
+
+    private void readingTipMenu(Lukuvinkki vinkki) {
+        //toteutus kesken
+    }
 }
