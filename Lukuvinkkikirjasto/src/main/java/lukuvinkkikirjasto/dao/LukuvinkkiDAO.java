@@ -22,76 +22,6 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
-    public List<Lukuvinkki> getAll() {
-        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
-        try {
-            PreparedStatement prepared = this.connection
-                    .getPreparedStatement("SELECT id, otsikko FROM Lukuvinkit");
-            ResultSet result = prepared.executeQuery();
-            
-            while (result.next()) {
-                    lukuvinkit.add(new Lukuvinkki(
-                        result.getInt("id"),
-                        result.getString("otsikko")));
-                }
-
-            prepared.close();
-            
-        } catch (SQLException e) {
-            System.out.println("Lukuvinkkien hakeminen epäonnistui.");
-            e.printStackTrace();
-        }
-        return lukuvinkit;
-    }
-
-    @Override
-    public void delete(final Lukuvinkki lukuvinkki) {
-        System.out.println("Metodia ei ole vielä toteutettu.");
-    }
-
-    @Override
-    public void add(final Lukuvinkki lukuvinkki) {
-        try {
-            PreparedStatement prepared = this.connection
-                    .getPreparedStatement("INSERT INTO Lukuvinkit " + "(otsikko) VALUES (?)");
-            prepared.setString(1, lukuvinkki.getOtsikko());
-            prepared.executeUpdate();
-            prepared.close();
-            
-            if (lukuvinkki.getTagit()!=null) {
-
-                Integer lukuvinkki_id = queryId(lukuvinkki.getOtsikko(), 
-                    "SELECT id FROM Lukuvinkit WHERE otsikko = ?");
-
-                for (int i = 0; i < lukuvinkki.getTagit().size(); i++) {
-                    String tagiNimi = lukuvinkki.getTagit().get(i);
-                    Integer tagi_id = queryId(tagiNimi, 
-                        "SELECT id FROM Lukuvinkit WHERE otsikko = ?");
-                    if (tagi_id!=-1) {
-                        prepared = this.connection
-                            .getPreparedStatement("INSERT INTO LukuvinkitJaTagit " 
-                            + "(lukuvinkki_id, tagi_id) VALUES (?, ?)");
-                        prepared.setInt(1, lukuvinkki_id);
-                        prepared.setInt(2, tagi_id);
-                        prepared.executeUpdate();
-                        prepared.close();
-                    }
-                }
-            }
-            
-        } catch (SQLException e) {
-            System.out.println("Lukuvinkin lisääminen epäonnistui. Yritä uudestaan.");
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void edit(final Lukuvinkki lukuvinkki) {
-        System.out.println("Metodia ei ole vielä toteutettu.");
-    }
-
-    @Override
     public void createDatabase() {
         try {
             this.connection.setAutoCommit(false);
@@ -119,17 +49,140 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
+    public List<Lukuvinkki> getAll() {
+        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+        try {
+            PreparedStatement prepared = this.connection
+                    .getPreparedStatement("SELECT id, otsikko FROM Lukuvinkit");
+            ResultSet result = prepared.executeQuery();
+            
+            while (result.next()) {
+                    ArrayList<String> lukuvinkinTagit = queryTagit(result
+                        .getInt("id"));
+                    //System.out.println("lukuvinkin tagit" + lukuvinkinTagit);
+                    Lukuvinkki vinkki = new Lukuvinkki(
+                        result.getInt("id"),
+                        result.getString("otsikko"));
+                    vinkki.setTagit(lukuvinkinTagit);
+                    lukuvinkit.add(vinkki);
+                }
+
+            prepared.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Lukuvinkkien hakeminen epäonnistui.");
+            e.printStackTrace();
+        }
+        return lukuvinkit;
+    }
+
+    @Override
+    public void delete(final Lukuvinkki lukuvinkki) {
+        System.out.println("Metodia ei ole vielä toteutettu.");
+    }
+
+    @Override
+    public void add(final Lukuvinkki lukuvinkki) {
+        try {
+            PreparedStatement prepared = this.connection
+                    .getPreparedStatement("INSERT INTO Lukuvinkit " 
+                        + "(otsikko) VALUES (?)");
+            prepared.setString(1, lukuvinkki.getOtsikko());
+            prepared.executeUpdate();
+            prepared.close();
+            
+            if (lukuvinkki.getTagit() != null) {
+
+                Integer lukuvinkkiId = queryId(lukuvinkki.getOtsikko(), 
+                    "SELECT id FROM Lukuvinkit WHERE otsikko = ?");
+                System.out.println("lukuvinkin id: " + lukuvinkkiId);
+
+                for (int i = 0; i < lukuvinkki.getTagit().size(); i++) {
+                    String tagiNimi = lukuvinkki.getTagit().get(i);
+                    Integer tagiId = queryId(tagiNimi, 
+                        "SELECT id FROM Tagit WHERE nimi = ?");
+                    //System.out.println("tagin id: " + tagi_id);
+                    //jos tagia ei ole taulussa eli tagi_id on -1, 
+                    //lisätään se Tägit-tauluun  
+                    //ja haetaan sen id:
+                    if (tagiId == -1) { 
+                        prepared = this.connection
+                            .getPreparedStatement("INSERT INTO Tagit " 
+                            + "(nimi) VALUES (?)");
+                        prepared.setString(1, tagiNimi);
+                        prepared.executeUpdate();
+                        prepared.close();
+                        tagiId = queryId(tagiNimi, 
+                        "SELECT id FROM Tagit WHERE nimi = ?");
+                        System.out.println("tagin id: " + tagiId);
+                    }
+                    //lisätään yhteys liitostauluun:
+                    prepared = this.connection.getPreparedStatement(
+                        "INSERT INTO LukuvinkitJaTagit " 
+                        + "(lukuvinkki_id, tagi_id) VALUES (?, ?)");
+                    prepared.setInt(1, lukuvinkkiId);
+                    prepared.setInt(2, tagiId);
+                    prepared.executeUpdate();
+                    prepared.close();
+                }
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Lukuvinkin lisääminen epäonnistui. "
+            + "Yritä uudestaan.");
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void edit(final Lukuvinkki lukuvinkki) {
+        System.out.println("Metodia ei ole vielä toteutettu.");
+    }
+
+    @Override
     public void initializeDatabase() {
         System.out.println("Metodia ei ole vielä toteutettu.");
 
     }
 
-    //apumetodit:
-    private Integer queryId(String value, String sqlString) {
+    @Override
+    public List<Lukuvinkki> searchByTitle(final String title) {
+        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
         try {
-            PreparedStatement prepared = this.connection.getPreparedStatement(sqlString);
-            prepared.setString(1, value);
+            PreparedStatement prepared = this.connection
+                    .getPreparedStatement(
+                        "SELECT id, otsikko "
+                        + "FROM Lukuvinkit WHERE otsikko LIKE ?");
+            prepared.setString(1, "%"+title+"%");
+            ResultSet result = prepared.executeQuery();
+            
+            while (result.next()) {
+                    ArrayList<String> lukuvinkinTagit = queryTagit(
+                        result.getInt("id"));
+                    //System.out.println("lukuvinkin tagit" + lukuvinkinTagit);
+                    Lukuvinkki vinkki = new Lukuvinkki(
+                        result.getInt("id"),
+                        result.getString("otsikko"));
+                    vinkki.setTagit(lukuvinkinTagit);
+                    lukuvinkit.add(vinkki);
+                }
 
+            prepared.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Lukuvinkkien hakeminen epäonnistui.");
+            e.printStackTrace();
+        }
+        return lukuvinkit;
+    }
+
+    //apumetodit:
+    private Integer queryId(final String value, final String sqlString) {
+        try {
+            PreparedStatement prepared = this.connection
+                .getPreparedStatement(sqlString);
+            prepared.setString(1, value);
             ResultSet result = prepared.executeQuery();
 
             return result.getInt("id");
@@ -139,10 +192,29 @@ public class LukuvinkkiDAO implements DAO {
         }
     }
 
-    @Override
-    public List<Lukuvinkki> searchByTitle(String title) {
-        // TODO Auto-generated method stub
-        return null;
+    private ArrayList<String> queryTagit(final int lukuvinkkiId) {
+        ArrayList<String> lukuvinkinTagit = new ArrayList<>();
+        try {
+            PreparedStatement prepared = connection.getPreparedStatement(
+                "SELECT Tagit.nimi "
+                + "FROM Tagit, Lukuvinkit, LukuvinkitJaTagit "
+                + "WHERE Tagit.id = LukuvinkitJaTagit.tagi_id "
+                + "AND Lukuvinkit.id = LukuvinkitJaTagit.lukuvinkki_id "
+                + "AND Lukuvinkit.id = ?");
+            prepared.setInt(1, lukuvinkkiId);
+            ResultSet result = prepared.executeQuery();
+            while (result.next()) {
+                lukuvinkinTagit.add(result.getString("nimi")); 
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Tagien hakeminen epäonnistui.");
+            e.printStackTrace();
+        }
+    
+        return lukuvinkinTagit;
     }
+
+
 
 }

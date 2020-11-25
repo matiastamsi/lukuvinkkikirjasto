@@ -50,8 +50,9 @@ public class ConnectionToDatabase {
         this.connection.setAutoCommit(bool);
     }
 
-    public PreparedStatement getPreparedStatement(String sqlString) throws SQLException {
-        return this.connection.prepareStatement(sqlString);
+    public PreparedStatement getPreparedStatement(
+        final String sqlString) throws SQLException {
+            return this.connection.prepareStatement(sqlString);
     }
 
     

@@ -21,17 +21,17 @@ public class UserInterface {
                 + "näppäintä.");
         io.print("u: Lisää uusi lukuvinkki.");
         io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
-        io.print("p: Poistu ohjelmasta.");
-
+        io.print("e: Etsi lukuvinkkiä otsikon perusteella.");
         io.print("luot: Luo tietokanta. Toiminto luo "
         + "tietokannan, ellei sitä ole jo luotu.");
         io.print("alustat: Alusta tietokanta. Toiminto poistaa "
         + "vanhan tietokannan ja luo uuden tietokannan.");
+        io.print("p: Poistu ohjelmasta.");
         
         Boolean continues = true;
         
         while (continues) {
-            io.print("Valitse toiminto (u, l, lt, at tai p): ");
+            io.print("Valitse toiminto (u, l, luot, alustat tai p): ");
             String command = io.nextLine();
             switch (command) {
                 case "p": 
@@ -42,6 +42,9 @@ public class UserInterface {
                     break;
                 case "l":
                     listItems();
+                    break;
+                case "e":
+                    searchItems();
                     break;
                 case "luot":
                     this.library.createDatabase();
@@ -57,12 +60,13 @@ public class UserInterface {
 
     private void listItems() {
         List<Lukuvinkki> vinkit = this.library.getAll();
-        if (vinkit==null) {
-            io.print("Lukuvinkkien hakeminen epäonnistui tai et ole vielä lisännyt yhtään lukuvinkkiä.");
+        if (vinkit == null) {
+            io.print("Lukuvinkkien hakeminen epäonnistui "
+            + "tai et ole vielä lisännyt yhtään lukuvinkkiä.");
         } else {
             vinkit.stream()
             .map(l -> l.getOtsikko())
-            .forEach(t -> io.print(t));
+            .forEach(t -> io.print(t)); 
         }
     }
 
@@ -116,7 +120,7 @@ public class UserInterface {
         }
     }
 
-    private void readingTipMenu(Lukuvinkki vinkki) {
+    private void readingTipMenu(final Lukuvinkki vinkki) {
         //toteutus kesken
     }
 }

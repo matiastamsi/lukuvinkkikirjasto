@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Lukuvinkki {
     private Integer id;
     private final String otsikko;
-    private final ArrayList<String> tagit;
+    private ArrayList<String> tagit;
     
     public Lukuvinkki(final String otsikko) {
        this.otsikko = otsikko;
@@ -30,4 +30,8 @@ public class Lukuvinkki {
     public String getOtsikko() {
         return this.otsikko;
     }
+
+	public void setTagit(final ArrayList<String> lukuvinkinTagit) {
+        this.tagit = lukuvinkinTagit;
+	}
 }
