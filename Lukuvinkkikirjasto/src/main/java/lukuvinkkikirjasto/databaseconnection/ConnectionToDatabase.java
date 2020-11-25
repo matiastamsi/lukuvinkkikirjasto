@@ -2,6 +2,7 @@ package lukuvinkkikirjasto.databaseconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -48,5 +49,10 @@ public class ConnectionToDatabase {
     public void setAutoCommit(final Boolean bool) throws SQLException {
         this.connection.setAutoCommit(bool);
     }
+
+    public PreparedStatement getPreparedStatement(String sqlString) throws SQLException {
+        return this.connection.prepareStatement(sqlString);
+    }
+
     
 }

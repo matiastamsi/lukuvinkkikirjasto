@@ -1,5 +1,7 @@
 package lukuvinkkikirjasto.userinterface;
 
+import java.util.List;
+
 import lukuvinkkikirjasto.Lukuvinkki;
 import lukuvinkkikirjasto.dao.DAO;
 
@@ -21,9 +23,9 @@ public class UserInterface {
         io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
         io.print("p: Poistu ohjelmasta.");
 
-        io.print("t: Luo tietokanta. Toiminto luo "
+        io.print("luot: Luo tietokanta. Toiminto luo "
         + "tietokannan, ellei sitä ole jo luotu.");
-        io.print("a: Alusta tietokanta. Toiminto poistaa "
+        io.print("alustat: Alusta tietokanta. Toiminto poistaa "
         + "vanhan tietokannan ja luo uuden tietokannan.");
         
         Boolean continues = true;
@@ -41,10 +43,10 @@ public class UserInterface {
                 case "l":
                     listItems();
                     break;
-                case "lt":
+                case "luot":
                     this.library.createDatabase();
                     break;
-                case "at":
+                case "alustat":
                     this.library.initializeDatabase();
                     break;
                 default:
@@ -54,9 +56,14 @@ public class UserInterface {
     }
 
     private void listItems() {
-        this.library.getAll().stream()
+        List<Lukuvinkki> vinkit = this.library.getAll();
+        if (vinkit==null) {
+            io.print("Lukuvinkkien hakeminen epäonnistui tai et ole vielä lisännyt yhtään lukuvinkkiä.");
+        } else {
+            vinkit.stream()
             .map(l -> l.getOtsikko())
             .forEach(t -> io.print(t));
+        }
     }
 
     private void addToLibrary() {
@@ -66,8 +73,7 @@ public class UserInterface {
             io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
         } else {
             Lukuvinkki newItem = new Lukuvinkki(title);
-            this.library.add(newItem);
-            io.print("Lukuvinkin lisääminen onnistui!");
+            
             io.print("Haluatko lisätä lukuvinkille tagin? Valitse k/e");
             String valinta = io.nextLine();
             if (valinta.equals("k")) {
@@ -75,6 +81,8 @@ public class UserInterface {
                 String tag = io.nextLine();
                 newItem.lisaaTagi(tag);
             }
+            this.library.add(newItem);
+            io.print("Lukuvinkin lisääminen onnistui!");
         }
 
     }
