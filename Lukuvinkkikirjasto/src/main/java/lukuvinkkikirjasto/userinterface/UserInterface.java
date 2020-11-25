@@ -34,7 +34,8 @@ public class UserInterface {
             io.print("Valitse toiminto (u, l, e, luot, alustat tai p): ");
             String command = io.nextLine();
             switch (command) {
-                case "p": 
+                case "p":
+                    this.library.close();
                     continues = false;
                     break;
                 case "u":

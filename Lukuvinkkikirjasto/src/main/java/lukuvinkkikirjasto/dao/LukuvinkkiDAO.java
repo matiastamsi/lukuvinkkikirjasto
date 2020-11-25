@@ -49,6 +49,16 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
+    public void close() {
+        try {
+            this.connection.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
     public List<Lukuvinkki> getAll() {
         List<Lukuvinkki> lukuvinkit = new ArrayList<>();
         try {
@@ -214,7 +224,6 @@ public class LukuvinkkiDAO implements DAO {
     
         return lukuvinkinTagit;
     }
-
 
 
 }
