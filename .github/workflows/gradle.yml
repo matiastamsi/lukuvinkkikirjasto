@@ -18,9 +18,10 @@ jobs:
     - name: Grant execute permission for gradlew
       working-directory: ./Lukuvinkkikirjasto
       run: chmod +x gradlew
-    - name: Test with Gradle
-      working-directory: ./Lukuvinkkikirjasto
-      run: ./gradlew test
     - name: Checkstyle test
       working-directory: ./Lukuvinkkikirjasto
       run: ./gradlew checkstyleMain
+    - name: Test with Gradle
+      working-directory: ./Lukuvinkkikirjasto
+      run: ./gradlew test
+    
