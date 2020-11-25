@@ -31,7 +31,7 @@ public class UserInterface {
         Boolean continues = true;
         
         while (continues) {
-            io.print("Valitse toiminto (u, l, luot, alustat tai p): ");
+            io.print("Valitse toiminto (u, l, e, luot, alustat tai p): ");
             String command = io.nextLine();
             switch (command) {
                 case "p": 
