@@ -4,13 +4,14 @@ import java.util.List;
 
 import lukuvinkkikirjasto.Lukuvinkki;
 import lukuvinkkikirjasto.dao.DAO;
+import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
 
 public class UserInterface {
     private InputOutput io;
-    private DAO library;
+    private LukuvinkkiDAO library;
 
 
-    public UserInterface(final InputOutput io, final DAO dao) {
+    public UserInterface(final InputOutput io, final LukuvinkkiDAO dao) {
         this.io = io;
         this.library = dao;
     }
