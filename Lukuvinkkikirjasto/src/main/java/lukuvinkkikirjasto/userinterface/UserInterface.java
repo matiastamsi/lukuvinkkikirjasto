@@ -1,10 +1,10 @@
 package lukuvinkkikirjasto.userinterface;
 
 import java.util.List;
-
-
 import lukuvinkkikirjasto.Lukuvinkki;
+import lukuvinkkikirjasto.Validi;
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
+
 
 public class UserInterface {
 
@@ -70,15 +70,16 @@ public class UserInterface {
     }
 
     private void listItems() {
+
         List<Lukuvinkki> vinkit = this.library.getAll();
         if (vinkit == null) {
             io.print("Lukuvinkkien hakeminen epäonnistui "
                     + "tai et ole vielä lisännyt yhtään lukuvinkkiä.");
         } else {
             vinkit.stream()
-                    .map(l -> l.getOtsikko())
-                    .forEach(t -> io.print(t));
-        }
+                .map(l -> l.getOtsikko() + "\n" + l.getLinkki())
+                .forEach(t -> io.print(t));
+	}
     }
 
     private void addToLibrary() {
@@ -96,6 +97,7 @@ public class UserInterface {
                 String tag = io.nextLine();
                 newItem.lisaaTagi(tag);
             }
+
             this.library.add(newItem);
             io.print("Lukuvinkin lisääminen onnistui!");
         }
@@ -139,6 +141,18 @@ public class UserInterface {
                     break;
                 } else {
                     System.out.println("Yritä uudestaan.");
+            io.print("Haluatko lisätä lukuvinkille linkin? Valitse k/e");
+            String valinta2 = io.nextLine();
+            if (valinta2.equals("k")) {
+                while (true) {
+                    io.print("Anna linkki tai poistu antamalla tyhjä merkkijono: ");
+                    String linkki = io.nextLine();
+                    if (linkki.equals("")) {
+                        break;
+                    } else if (Validi.tarkistaURL(linkki)) {
+                        newItem.lisaaLinkki(linkki);
+                        break;
+                    }                  
                 }
             }
         }

@@ -7,17 +7,13 @@ public class Lukuvinkki {
     private Integer id;
     private final String otsikko;
     private ArrayList<String> tagit;
-
-    public Lukuvinkki(final String otsikko) {
-        this.otsikko = otsikko;
-        this.tagit = new ArrayList<>();
-    }
+    private final String linkki;
 
     public Lukuvinkki(final Integer id, final String otsikko) {
         this.id = id;
         this.otsikko = otsikko;
         this.tagit = new ArrayList<>();
-    }
+        this.linkki = "Ei lisättyä linkkiä";
 
     public void lisaaTagi(final String tag) {
         this.tagit.add(tag);
@@ -25,6 +21,14 @@ public class Lukuvinkki {
 
     public ArrayList<String> getTagit() {
         return this.tagit;
+    }
+    
+    public void lisaaLinkki(final String link) {
+        this.linkki = link;
+    }
+    
+    public String getLinkki() {
+        return this.linkki;
     }
 
     public String getOtsikko() {
