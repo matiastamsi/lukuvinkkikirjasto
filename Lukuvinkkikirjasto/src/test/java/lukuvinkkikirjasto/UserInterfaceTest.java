@@ -51,7 +51,7 @@ public class UserInterfaceTest {
         ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "Test", "", "p"));
         StubIO io = new StubIO(str);
         
-        UserInterface ui = new UserInterface(io);
+        UserInterface ui = new UserInterface(io, new LukuvinkkiDAO(connection));
         ui.run();
         
         ArrayList<String> prints = io.getOutputs();

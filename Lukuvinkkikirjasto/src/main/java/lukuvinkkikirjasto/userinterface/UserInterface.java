@@ -5,7 +5,6 @@ import lukuvinkkikirjasto.Lukuvinkki;
 import lukuvinkkikirjasto.Validi;
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
 
-
 public class UserInterface {
 
     private InputOutput io;
@@ -77,9 +76,9 @@ public class UserInterface {
                     + "tai et ole vielä lisännyt yhtään lukuvinkkiä.");
         } else {
             vinkit.stream()
-                .map(l -> l.getOtsikko() + "\n" + l.getLinkki())
-                .forEach(t -> io.print(t));
-	}
+                    .map(l -> l.getOtsikko() + "\n" + l.getLinkki())
+                    .forEach(t -> io.print(t));
+        }
     }
 
     private void addToLibrary() {
@@ -88,7 +87,8 @@ public class UserInterface {
         if (title.equals("")) {
             io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
         } else {
-            Lukuvinkki newItem = new Lukuvinkki(title);
+            Lukuvinkki newItem = new Lukuvinkki(
+                    this.library.getLukuvinkkienMaara(), title);
 
             io.print("Haluatko lisätä lukuvinkille tagin? Valitse k/e");
             String valinta = io.nextLine();
@@ -96,6 +96,20 @@ public class UserInterface {
                 io.print("Anna tagi: ");
                 String tag = io.nextLine();
                 newItem.lisaaTagi(tag);
+            }
+            io.print("Haluatko lisätä lukuvinkille linkin? Valitse k/e");
+            String valinta2 = io.nextLine();
+            if (valinta2.equals("k")) {
+                while (true) {
+                    io.print("Anna linkki tai poistu antamalla tyhjä merkkijono: ");
+                    String linkki = io.nextLine();
+                    if (linkki.equals("")) {
+                        break;
+                    } else if (Validi.tarkistaURL(linkki)) {
+                        newItem.lisaaLinkki(linkki);
+                        break;
+                    }
+                }
             }
 
             this.library.add(newItem);
@@ -141,20 +155,9 @@ public class UserInterface {
                     break;
                 } else {
                     System.out.println("Yritä uudestaan.");
-            io.print("Haluatko lisätä lukuvinkille linkin? Valitse k/e");
-            String valinta2 = io.nextLine();
-            if (valinta2.equals("k")) {
-                while (true) {
-                    io.print("Anna linkki tai poistu antamalla tyhjä merkkijono: ");
-                    String linkki = io.nextLine();
-                    if (linkki.equals("")) {
-                        break;
-                    } else if (Validi.tarkistaURL(linkki)) {
-                        newItem.lisaaLinkki(linkki);
-                        break;
-                    }                  
                 }
             }
+
         }
     }
 
@@ -182,7 +185,7 @@ public class UserInterface {
                                 .map(l -> l.getOtsikko())
                                 .forEach(t -> io.print(t));
                         io.print("Tarkenna hakua!");
-                }     
+                }
             }
         }
     }

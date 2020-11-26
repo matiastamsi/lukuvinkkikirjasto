@@ -160,6 +160,7 @@ public class LukuvinkkiDAO implements DAO {
             prepared.close();
         }
     }
+
     @Override
     public boolean edit(final String title) {
         //Ei vielä toteutettu. Huom. tällä hetkellä muokkaaminen tapahtuu
@@ -297,9 +298,20 @@ public class LukuvinkkiDAO implements DAO {
         return lukuvinkinTagit;
     }
     
-    @Override
-    public List<Lukuvinkki> searchByTitle(final String title) {
-        return new ArrayList<>();
+    public int getLukuvinkkienMaara() {
+        try {
+        PreparedStatement p = connection.getPreparedStatement(
+                "SELECT COUNT(id) FROM Lukuvinkit");
+        ResultSet r = p.executeQuery();
+        int i = 0;
+        while(r.next()) {
+            i++;
+        }
+        return i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        
     }
-
 }
