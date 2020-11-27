@@ -1,5 +1,6 @@
 package lukuvinkkikirjasto.userinterface;
 
+import java.nio.file.Paths;
 import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
 import lukuvinkkikirjasto.Validi;
@@ -59,16 +60,20 @@ public class UserInterface {
                     this.library.createDatabase();
                     break;
                 case "alustat":
-                    this.library.initializeDatabase();
+                    this.library.initializeDatabase(Paths.get("tietokanta.db"));
+                    io.print("Tietokanta alustettu. Uuden saat syöttämällä 'luot'");
                     break;
                 default:
                     io.print("Virheellinen näppäinvalinta. Yritä uudestaan.");
             }
         }
     }
-
+    /**
+     * Get all 'lukuvinkki' from database and print those like:
+     * "title"
+     * "URL"
+     */
     private void listItems() {
-
         List<Lukuvinkki> vinkit = this.library.getAll();
         if (vinkit == null) {
             io.print("Lukuvinkkien hakeminen epäonnistui "

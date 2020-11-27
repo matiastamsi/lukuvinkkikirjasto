@@ -1,5 +1,6 @@
 package lukuvinkkikirjasto.dao;
 
+import java.nio.file.Path;
 import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
 
@@ -20,7 +21,7 @@ public interface DAO {
 
     void createDatabase();
 
-    void initializeDatabase();
+    void initializeDatabase(Path path);
 
     List<Lukuvinkki> searchByTitle(String title, boolean exact);
 

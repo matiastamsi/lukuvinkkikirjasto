@@ -1,26 +1,30 @@
 package lukuvinkkikirjasto;
 
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import java.nio.file.Paths;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.userinterface.*;
+import org.junit.Before;
 
 public class StepDefinitions {
 
     UserInterface ui;
-    ArrayList<String> syotteet;
+    ArrayList<String> syotteet = new ArrayList<>();
     StubIO io;
-    ConnectionToDatabase connection
-            = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
+    ConnectionToDatabase connection;
+    LukuvinkkiDAO dao;
 
     @Before
-    public void setup() {
-        syotteet = new ArrayList<>();
+    public void setUp() {
+        dao.initializeDatabase(Paths.get("tietokantaTest.db"));
+        connection = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
+        dao = new LukuvinkkiDAO(connection);
+        dao.createDatabase();
     }
 
     @Given("valikosta valitaan linkin lisäys")
@@ -53,7 +57,7 @@ public class StepDefinitions {
     public void ohjelmaVastaa(String vastaus) {
         syotteet.add("p");
         io = new StubIO(syotteet);
-        UserInterface ui = new UserInterface(io, new LukuvinkkiDAO(connection));
+        ui = new UserInterface(io, dao);
         ui.run();
         ArrayList<String> vastaukset = io.getOutputs();
         assertTrue(vastaukset.contains(vastaus));

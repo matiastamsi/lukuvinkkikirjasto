@@ -1,5 +1,8 @@
 package lukuvinkkikirjasto.dao;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -260,8 +263,12 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
-    public void initializeDatabase() {
-        System.out.println("Metodia ei ole vielä toteutettu.");
+    public void initializeDatabase(Path path) {
+        try {
+        Files.deleteIfExists(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
