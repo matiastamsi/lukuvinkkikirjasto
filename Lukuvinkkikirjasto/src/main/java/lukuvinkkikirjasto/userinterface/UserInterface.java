@@ -75,7 +75,7 @@ public class UserInterface {
             io.print("Lukuvinkkien hakeminen epäonnistui "
                     + "tai et ole vielä lisännyt yhtään lukuvinkkiä.");
         } else {
-            vinkit.stream()
+            this.library.getAll().stream()
                     .map(l -> l.getOtsikko() + "\n" + l.getLinkki())
                     .forEach(t -> io.print(t));
         }
@@ -88,7 +88,7 @@ public class UserInterface {
             io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
         } else {
             Lukuvinkki newItem = new Lukuvinkki(
-                    this.library.getLukuvinkkienMaara(), title);
+                    this.library.getLukuvinkkienMaara() + 1, title);
 
             io.print("Haluatko lisätä lukuvinkille tagin? Valitse k/e");
             String valinta = io.nextLine();
