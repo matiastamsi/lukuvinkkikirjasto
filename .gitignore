@@ -1,6 +1,8 @@
 
 /Lukuvinkkikirjasto/.gradle/
 /Lukuvinkkikirjasto/build
+/Lukuvinkkikirjasto/tietokanta.db
+/Lukuvinkkikirjasto/tietokantaTest.db
 /Lukuvinkkikirjasto/.project
 /Lukuvinkkikirjasto/.classpath
 /Lukuvinkkikirjasto/bin/
