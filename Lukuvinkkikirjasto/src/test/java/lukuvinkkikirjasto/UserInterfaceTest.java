@@ -30,7 +30,6 @@ public class UserInterfaceTest {
         dao.initializeDatabase(Paths.get("tietokantaTest.db"));
         connection = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
         dao = new LukuvinkkiDAO(connection);
-        dao.createDatabase();
     }
 
     @Test

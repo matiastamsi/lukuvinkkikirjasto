@@ -24,7 +24,6 @@ public class StepDefinitions {
         dao.initializeDatabase(Paths.get("tietokantaTest.db"));
         connection = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
         dao = new LukuvinkkiDAO(connection);
-        dao.createDatabase();
     }
 
     @Given("valikosta valitaan linkin lisäys")

@@ -265,7 +265,8 @@ public class LukuvinkkiDAO implements DAO {
     @Override
     public void initializeDatabase(Path path) {
         try {
-        Files.deleteIfExists(path);
+            Files.deleteIfExists(path);
+            this.connection = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -362,7 +363,7 @@ public class LukuvinkkiDAO implements DAO {
         PreparedStatement findLinkkiId = this.connection
                 .getPreparedStatement(
                         "SELECT linkki_id FROM LukuvinkitJaLinkit "
-                                + "WHERE lukuvinkki_id= ?");
+                        + "WHERE lukuvinkki_id= ?");
         findLinkkiId.setInt(1, lukuvinkki_id);
         ResultSet r = findLinkkiId.executeQuery();
         int linkki_id = 1;

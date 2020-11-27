@@ -61,7 +61,6 @@ public class UserInterface {
                     break;
                 case "alustat":
                     this.library.initializeDatabase(Paths.get("tietokanta.db"));
-                    io.print("Tietokanta alustettu. Uuden saat syöttämällä 'luot'");
                     break;
                 default:
                     io.print("Virheellinen näppäinvalinta. Yritä uudestaan.");
