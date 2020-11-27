@@ -28,7 +28,7 @@ public class LukuvinkkiDAO implements DAO {
             this.connection.setAutoCommit(false);
             this.connection.getStatement()
                     .execute("CREATE TABLE Lukuvinkit "
-                            + "(id INTEGER PRIMARY KEY, otsikko TEXT)");
+                            + "(id INTEGER PRIMARY KEY, otsikko TEXT UNIQUE)");
 
             this.connection.getStatement()
                     .execute("CREATE TABLE Tagit "
