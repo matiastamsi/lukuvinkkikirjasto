@@ -4,6 +4,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import java.nio.file.Paths;
+import java.sql.SQLException;
+
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
@@ -19,15 +21,8 @@ public class StepDefinitions {
     ConnectionToDatabase connection;
     LukuvinkkiDAO dao;
 
-    @Before
-    public void setUp() {
-        dao.initializeDatabase(Paths.get("tietokantaTest.db"));
-        connection = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
-        dao = new LukuvinkkiDAO(connection);
-    }
-
     @Given("valikosta valitaan linkin lisäys")
-    public void ohjelmaKäynnistetään() {
+    public void vinkinLisäys() {
         syotteet.add("u");
     }
 
@@ -40,11 +35,15 @@ public class StepDefinitions {
     public void linkinLisäysOtsikolla(String otsikko) {
         syotteet.add(otsikko);
         syotteet.add("e");
+        syotteet.add("e");
     }
 
     @When("käyttäjä lisää tyhjän {string} otsikon")
     public void linkinLisäysTyhjäOtsikko(String tyhjä) {
         syotteet.add(tyhjä);
+        syotteet.add("ei tyhjä");
+        syotteet.add("e");
+        syotteet.add("e");
     }
 
     @When("käyttäjä syöttää valikkoon väärän symbolin")
@@ -53,8 +52,11 @@ public class StepDefinitions {
     }
 
     @Then("ohjelma vastaa {string}")
-    public void ohjelmaVastaa(String vastaus) {
+    public void ohjelmaVastaa(String vastaus) throws SQLException {
         syotteet.add("p");
+        connection = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
+        dao = new LukuvinkkiDAO(connection);
+        dao.initializeDatabase(Paths.get("tietokantaTest.db"));
         io = new StubIO(syotteet);
         ui = new UserInterface(io, dao);
         ui.run();

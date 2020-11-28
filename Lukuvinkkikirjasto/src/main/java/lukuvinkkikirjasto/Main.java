@@ -1,5 +1,7 @@
 package lukuvinkkikirjasto;
 
+import java.sql.SQLException;
+
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.userinterface.ConsoleIO;
@@ -21,8 +23,9 @@ final class Main {
      * The main method that launches the user interface.
      *
      * @param args
+     * @throws SQLException
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws SQLException {
         ConnectionToDatabase connection
                 = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
         LukuvinkkiDAO lukuvinkkiDao = new LukuvinkkiDAO(connection);

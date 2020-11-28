@@ -20,6 +20,10 @@ public class Lukuvinkki {
         this.tagit.add(tag);
     }
 
+    public void poistaTagi(final String tag) {
+        this.tagit.remove(tag);
+    }
+
     public ArrayList<String> getTagit() {
         return this.tagit;
     }

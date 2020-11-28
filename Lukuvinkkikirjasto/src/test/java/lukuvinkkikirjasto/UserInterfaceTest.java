@@ -1,6 +1,7 @@
 package lukuvinkkikirjasto;
 
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ import org.junit.Test;
  * @author henri
  */
 public class UserInterfaceTest {
-    
+
     UserInterface ui;
     ArrayList<String> syotteet;
     StubIO io;
@@ -27,14 +28,14 @@ public class UserInterfaceTest {
 
     @Before
     public void setUp() {
-        dao.initializeDatabase(Paths.get("tietokantaTest.db"));
         connection = new ConnectionToDatabase("jdbc:sqlite:tietokantaTest.db");
         dao = new LukuvinkkiDAO(connection);
+        dao.initializeDatabase(Paths.get("tietokantaTest.db"));
     }
 
     @Test
-    public void oneTitleCanBeAdded() {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "testTitle", "e", "l", "p"));
+    public void oneTitleCanBeAdded() throws SQLException {
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "testTitle", "e", "e", "l", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -43,8 +44,8 @@ public class UserInterfaceTest {
     }
 
     @Test
-    public void multipleTitlesCanBeAdded() {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "t1", "e", "u", "t2", "e", "u", "t3", "e", "l", "p"));
+    public void multipleTitlesCanBeAdded() throws SQLException {
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "t1", "e", "e", "u", "t2", "e", "e", "u", "t3", "e", "e", "l", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -55,7 +56,7 @@ public class UserInterfaceTest {
     }
 
     @Test
-    public void searchFindsATitle() {
+    public void searchFindsATitle() throws SQLException {
         ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "Test", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);

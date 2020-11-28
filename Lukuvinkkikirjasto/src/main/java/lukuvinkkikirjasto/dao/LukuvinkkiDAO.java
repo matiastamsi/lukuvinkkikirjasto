@@ -116,7 +116,7 @@ public class LukuvinkkiDAO implements DAO {
             return false;
         }
         try {
-            tagIds = fingTagIds(lukuvinkki);
+            tagIds = findAllTagIds(lukuvinkki);
             deleteLukuvinkkiJaTagi(lukuvinkki);
         } catch (SQLException e) {
             System.out.println("Lukuvinkin ja Tagin poisto/muokkaus epäonnistui");
@@ -124,7 +124,7 @@ public class LukuvinkkiDAO implements DAO {
             return false;
         }
         try {
-            deleteTagit(tagIds);
+            deleteKaikkiTagit(tagIds);
         } catch (SQLException e) {
             System.out.println("Tagien poisto/muokkaus epäonnistui");
             e.printStackTrace();
@@ -134,7 +134,7 @@ public class LukuvinkkiDAO implements DAO {
         return true;
     }
 
-    private ArrayList<Integer> fingTagIds(Lukuvinkki lukuvinkki) throws SQLException {
+    private ArrayList<Integer> findAllTagIds(Lukuvinkki lukuvinkki) throws SQLException {
         ArrayList<Integer> tags = new ArrayList<>();
         PreparedStatement prepared = this.connection
                 .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit WHERE lukuvinkki_id= ?");
@@ -147,7 +147,29 @@ public class LukuvinkkiDAO implements DAO {
         return tags;
     }
 
-    private void deleteLukuvinkki(Lukuvinkki lukuvinkki) throws SQLException {
+    public boolean findValidTag(Lukuvinkki lukuvinkki, String taginNimi) throws SQLException {
+        PreparedStatement prepared = this.connection
+                    .getPreparedStatement("SELECT count(*) FROM LukuvinkitJaTagit, Tagit WHERE LukuvinkitjaTagit.lukuvinkki_id = ? AND Tagit.nimi = ?");
+        prepared.setInt(1, lukuvinkki.getId());
+        prepared.setString(2, taginNimi);
+        ResultSet results = prepared.executeQuery();
+        int tagId = results.getInt("count(*)");
+        prepared.close();  
+        return (tagId > 0);
+    }
+
+    public Integer findTagId(Lukuvinkki lukuvinkki, String taginNimi) throws SQLException {
+        PreparedStatement prepared = this.connection     
+                    .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit, Tagit WHERE LukuvinkitJaTagit.lukuvinkki_id = ? AND Tagit.nimi= ?");
+        prepared.setInt(1, lukuvinkki.getId());
+        prepared.setString(2, taginNimi);
+        ResultSet results = prepared.executeQuery();
+        int tagId = results.getInt("tagi_id");
+        prepared.close();            
+        return tagId;
+    }
+
+    public void deleteLukuvinkki(Lukuvinkki lukuvinkki) throws SQLException {
         PreparedStatement prepared = this.connection
                 .getPreparedStatement("DELETE FROM Lukuvinkit WHERE id= ?");
         prepared.setInt(1, lukuvinkki.getId());
@@ -163,7 +185,7 @@ public class LukuvinkkiDAO implements DAO {
         prepared.close();
     }
 
-    private void deleteTagit(List<Integer> tagit) throws SQLException {
+    private void deleteKaikkiTagit(List<Integer> tagit) throws SQLException {
         for (Integer tagi : tagit) {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement("DELETE FROM Tagit WHERE id= ?");
@@ -171,6 +193,14 @@ public class LukuvinkkiDAO implements DAO {
             prepared.executeUpdate();
             prepared.close();
         }
+    }
+
+    public void deleteTagi(Integer tagiId) throws SQLException {
+        PreparedStatement prepared = this.connection
+                    .getPreparedStatement("DELETE FROM Tagit WHERE id= ?");
+        prepared.setInt(1, tagiId);
+        prepared.executeUpdate();
+        prepared.close();
     }
 
     @Override
@@ -231,6 +261,24 @@ public class LukuvinkkiDAO implements DAO {
                     + "Yritä uudestaan.");
             e.printStackTrace();
         }
+    }
+
+    public void addTagi(Lukuvinkki lukuvinkki, String tagi) throws SQLException {
+        PreparedStatement prepared = this.connection.getPreparedStatement(
+                    "INSERT INTO Tagit (nimi) values (?)");
+                    prepared.setString(1, tagi);
+                    prepared.executeUpdate();
+                    prepared.close();
+                    Integer tagiId = queryId(tagi,
+                    "SELECT id FROM Tagit WHERE nimi = ?");
+                    prepared = this.connection.getPreparedStatement(
+                        "INSERT INTO LukuvinkitJaTagit "
+                        + "(lukuvinkki_id, tagi_id) VALUES (?, ?)");
+                prepared.setInt(1, lukuvinkki.getId());
+                prepared.setInt(2, tagiId);
+                prepared.executeUpdate();
+                prepared.close();          
+        
     }
 
     private void addLinkki(Lukuvinkki lukuvinkki) {
