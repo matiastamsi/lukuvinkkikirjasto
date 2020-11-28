@@ -238,10 +238,9 @@ public class UserInterface {
                             this.library.deleteTagi(tagiId);
                             lukuvinkki.poistaTagi(input);
                             io.print("Tagi poistettu!");
-                    }
-                else {
-                    io.print("Tagia " + input + " ei löytynyt");
-                }  
+                    } else {
+                        io.print("Tagia " + input + " ei löytynyt");
+                    }  
                 break;
             case "l":
                 while (true) {
@@ -251,8 +250,7 @@ public class UserInterface {
                         lukuvinkki.lisaaTagi(input);
                         this.library.addTagi(lukuvinkki, input);
                         io.print("Tagi lisätty!");
-                    }
-                    else {
+                    } else {
                         io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen ");
                     }
                     break;
@@ -277,8 +275,7 @@ public class UserInterface {
                         } 
                         io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen ");
                         }
-                    }
-                    else {
+                    } else {
                         io.print("Tagia " + input + " ei löytynyt");
                     }  
                     break;
