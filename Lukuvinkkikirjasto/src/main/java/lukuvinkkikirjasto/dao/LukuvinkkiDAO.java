@@ -281,7 +281,7 @@ public class LukuvinkkiDAO implements DAO {
         
     }
 
-    private void addLinkki(Lukuvinkki lukuvinkki) {
+    public void addLinkki(Lukuvinkki lukuvinkki) {
         try {
             PreparedStatement setIdsToMatch = this.connection
                     .getPreparedStatement("INSERT INTO LukuvinkitJaLinkit "

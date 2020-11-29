@@ -219,8 +219,25 @@ public class UserInterface {
                     break;
                 case "t":
                     taginMuokkaus(lukuvinkki);
+                case "l":
+                    linkinMuokkaus(lukuvinkki);
             }
             break;
+        }
+    }
+
+    private void linkinMuokkaus(Lukuvinkki lukuvinkki) throws SQLException {
+        while(true) {
+            io.print("Anna linkki"); 
+            String url = io.nextLine();
+            if(Validi.tarkistaURL(url)) {
+                lukuvinkki.lisaaLinkki(url);
+                this.library.addLinkki(lukuvinkki);
+                io.print("Linkin tallentaminen onnistui!");
+                break;
+            } else {
+                io.print("Virheellinen URL. Anna uusi linkki!");
+            }
         }
     }
 
