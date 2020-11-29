@@ -220,13 +220,13 @@ public class UserInterface {
                 case "t":
                     taginMuokkaus(lukuvinkki);
                 case "l":
-                    linkinMuokkaus(lukuvinkki);
+                 editLink(lukuvinkki);
             }
             break;
         }
     }
 
-    private void linkinMuokkaus(Lukuvinkki lukuvinkki) throws SQLException {
+    private void editLink(Lukuvinkki lukuvinkki) throws SQLException {
         while(true) {
             io.print("Anna linkki"); 
             String url = io.nextLine();
