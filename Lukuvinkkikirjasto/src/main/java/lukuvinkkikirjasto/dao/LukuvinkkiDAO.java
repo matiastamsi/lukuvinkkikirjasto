@@ -86,7 +86,6 @@ public class LukuvinkkiDAO implements DAO {
                 vinkki.setTagit(lukuvinkinTagit);
                 String linkki = findLinkki(result.getInt("id"));
                 vinkki.lisaaLinkki(linkki);
-                lukuvinkit.add(vinkki);
             }
 
             prepared.close();
@@ -351,6 +350,20 @@ public class LukuvinkkiDAO implements DAO {
         } catch (SQLException e) {
             System.out.println("Lukuvinkkien hakeminen epäonnistui.");
             e.printStackTrace();
+        }
+        return lukuvinkit;
+    }
+
+    @Override 
+    public List<Lukuvinkki> searchByTags(List<String> tagfilter) {
+        // TODO: optimointia?, haku = O(n^3)
+        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+        for(Lukuvinkki lukuvinkki : getAll()) {
+            for(String vinkkitag : lukuvinkki.getTagit()) {
+                if(tagfilter.contains(vinkkitag)) {
+                    lukuvinkit.add(lukuvinkki);
+                }
+            }
         }
         return lukuvinkit;
     }
