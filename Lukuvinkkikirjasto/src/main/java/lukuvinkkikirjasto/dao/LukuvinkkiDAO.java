@@ -86,6 +86,7 @@ public class LukuvinkkiDAO implements DAO {
                 vinkki.setTagit(lukuvinkinTagit);
                 String linkki = findLinkki(result.getInt("id"));
                 vinkki.lisaaLinkki(linkki);
+                lukuvinkit.add(vinkki);
             }
 
             prepared.close();
