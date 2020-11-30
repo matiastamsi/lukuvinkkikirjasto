@@ -187,15 +187,17 @@ public class UserInterface {
 
     private void searchByTags() {
         ArrayList<String> tagit = new ArrayList<>();
-        while(true) {
+        while (true) {
             io.print("Syötä tageja tai poistu antamalla tyhjä merkkijono; ");
             String input = io.nextLine();
-            if(input.isEmpty()) break;
+            if (input.isEmpty()) {
+                break;
+            }
             tagit.add(input);
         }
         List<Lukuvinkki> vinkit = this.library.searchByTags(tagit);
         io.print("Löydetyt vinkit tageilla: " + tagit);
-        for(Lukuvinkki vinkki : vinkit) {
+        for (Lukuvinkki vinkki : vinkit) {
             io.print(vinkki.getOtsikko());
         }
     }
