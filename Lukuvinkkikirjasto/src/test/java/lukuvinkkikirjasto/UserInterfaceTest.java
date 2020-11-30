@@ -1,6 +1,5 @@
 package lukuvinkkikirjasto;
 
-import io.cucumber.java.After;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,6 +13,7 @@ import lukuvinkkikirjasto.userinterface.UserInterface;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 /**
