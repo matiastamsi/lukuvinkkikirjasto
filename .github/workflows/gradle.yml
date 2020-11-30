@@ -24,7 +24,7 @@ jobs:
     - name: Test with Gradle
       working-directory: ./Lukuvinkkikirjasto
       run: ./gradlew test
-    - name: Code coverage rapost
+    - name: Code coverage report
       working-directory: ./Lukuvinkkikirjasto
       run: ./gradlew jacocoTestReport
     - name: Data to codecov
