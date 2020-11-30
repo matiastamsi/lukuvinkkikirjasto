@@ -25,8 +25,8 @@ public class UserInterfaceTest {
     UserInterface ui;
     ArrayList<String> syotteet = new ArrayList<>();
     StubIO io;
-    static ConnectionToDatabase connection;
-    static LukuvinkkiDAO dao;
+    ConnectionToDatabase connection;
+    LukuvinkkiDAO dao;
 
     @Before
     public void setUp() throws SQLException, IOException {
