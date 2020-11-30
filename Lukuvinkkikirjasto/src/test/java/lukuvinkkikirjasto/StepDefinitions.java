@@ -74,6 +74,12 @@ public class StepDefinitions {
         String[] i = {"xd", "p"};
         Collections.addAll(inputs, i);
     }
+
+    @Given("valitaan et ja etsitään tagilla {string} ja poistutaan")
+    public void etsitaanTagilla(String tagi) {
+        String[] i = {"et", tagi, "", "p"};
+        Collections.addAll(inputs, i);
+    }
     
     @When("poistutaan")
     public void poistutaan() {
