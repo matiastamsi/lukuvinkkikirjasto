@@ -2,6 +2,7 @@ package lukuvinkkikirjasto.userinterface;
 
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
 import lukuvinkkikirjasto.Validi;
@@ -23,6 +24,7 @@ public class UserInterface {
         io.print("u: Lisää uusi lukuvinkki.");
         io.print("l: Listaa lisäämiesi lukuvinkkien otsikot.");
         io.print("e: Etsi lukuvinkkiä otsikon perusteella.");
+        io.print("et: Etsi lukuvinkkiä tagin perusteella. ");
         io.print("x: Poista lukuvinkki otsikon perusteella.");
         io.print("m: Muokkaa lukuvinkkiä.");
         io.print("luot: Luo tietokanta. Toiminto luo " + "tietokannan, ellei sitä ole jo luotu.");
@@ -47,6 +49,9 @@ public class UserInterface {
                     break;
                 case "e":
                     searchItems();
+                    break;
+                case "et":
+                    searchByTags();
                     break;
                 case "x":
                     deleteItem();
@@ -176,6 +181,21 @@ public class UserInterface {
                 }
             }
 
+        }
+    }
+
+    private void searchByTags() {
+        ArrayList<String> tagit = new ArrayList<>();
+        while(true) {
+            io.print("Syötä tageja tai poistu antamalla tyhjä merkkijono; ");
+            String input = io.nextLine();
+            if(input.isEmpty()) break;
+            tagit.add(input);
+        }
+        List<Lukuvinkki> vinkit = this.library.searchByTags(tagit);
+        io.print("Löydetyt vinkit tageilla: " + tagit);
+        for(Lukuvinkki vinkki : vinkit) {
+            io.print(vinkki.getOtsikko());
         }
     }
 
