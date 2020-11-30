@@ -224,7 +224,7 @@ public class UserInterface {
                 case "t":
                     taginMuokkaus(lukuvinkki);
                 case "l":
-                 editLink(lukuvinkki);
+                    editLink(lukuvinkki);
             }
             break;
         }
@@ -232,16 +232,32 @@ public class UserInterface {
 
     private void editLink(Lukuvinkki lukuvinkki) throws SQLException {
         while(true) {
-            io.print("Anna linkki"); 
-            String url = io.nextLine();
-            if(Validi.tarkistaURL(url)) {
-                lukuvinkki.lisaaLinkki(url);
-                this.library.addLinkki(lukuvinkki);
-                io.print("Linkin tallentaminen onnistui!");
-                break;
-            } else {
-                io.print("Virheellinen URL. Anna uusi linkki!");
+            io.print("Haluatko muokata tai poistaa linkin? Valitse m/p, tyhjä rivi poistuu"); 
+            String input = io.nextLine();
+            switch (input) {
+                case "":
+                    break;
+                case "m":
+                    io.print("Anna linkki:");
+                    String linkki = io.nextLine();
+                    if (linkki.equals("")) {
+                        break;
+                    } else if(Validi.tarkistaURL(linkki)) {
+                        lukuvinkki.lisaaLinkki(linkki);
+                        this.library.addLinkki(lukuvinkki, linkki);
+                        io.print("Linkin tallentaminen onnistui!");
+                    } else {
+                        io.print("Virheellinen URL. Anna uusi linkki!");
+                    }
+                    break;
+                case "p":
+                    lukuvinkki.poistaLinkki();
+                    this.library.deleteLinkki(lukuvinkki);
+                    io.print("Linkin poistaminen onnistui!");
+                    break;
             }
+            break;
+            
         }
     }
 

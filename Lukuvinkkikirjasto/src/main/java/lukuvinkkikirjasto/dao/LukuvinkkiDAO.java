@@ -31,7 +31,8 @@ public class LukuvinkkiDAO implements DAO {
             this.connection.setAutoCommit(false);
             this.connection.getStatement()
                     .execute("CREATE TABLE Lukuvinkit "
-                            + "(id INTEGER PRIMARY KEY, otsikko TEXT UNIQUE)");
+                            + "(id INTEGER PRIMARY KEY, otsikko TEXT UNIQUE, "
+                            + "linkki TEXT)");
 
             this.connection.getStatement()
                     .execute("CREATE TABLE Tagit "
@@ -40,13 +41,6 @@ public class LukuvinkkiDAO implements DAO {
             this.connection.getStatement()
                     .execute("CREATE TABLE LukuvinkitJaTagit "
                             + "(lukuvinkki_id INTEGER, tagi_id INTEGER)");
-            this.connection.getStatement()
-                    .execute("CREATE TABLE Linkit "
-                            + "(id INTEGER PRIMARY KEY, nimi TEXT)");
-
-            this.connection.getStatement()
-                    .execute("CREATE TABLE LukuvinkitJaLinkit "
-                            + "(lukuvinkki_id INTEGER, linkki_id INTEGER)");
             connection.commit();
             connection.setAutoCommit(true);
             System.out.println("Tietokanta luotu.");
@@ -69,11 +63,11 @@ public class LukuvinkkiDAO implements DAO {
     @Override
     public List<Lukuvinkki> getAll() {
         List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+        
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement(
-                            "SELECT id, otsikko "
-                            + "FROM Lukuvinkit");
+                            "SELECT id, otsikko, linkki FROM Lukuvinkit");
             ResultSet result = prepared.executeQuery();
 
             while (result.next()) {
@@ -82,9 +76,9 @@ public class LukuvinkkiDAO implements DAO {
                 //System.out.println("lukuvinkin tagit" + lukuvinkinTagit);
                 Lukuvinkki vinkki = new Lukuvinkki(
                         result.getInt("id"),
-                        result.getString("otsikko"));
+                        result.getString("otsikko"));                      
                 vinkki.setTagit(lukuvinkinTagit);
-                String linkki = findLinkki(result.getInt("id"));
+                String linkki = result.getString("linkki");
                 vinkki.lisaaLinkki(linkki);
                 lukuvinkit.add(vinkki);
             }
@@ -212,12 +206,13 @@ public class LukuvinkkiDAO implements DAO {
 
     @Override
     public void add(final Lukuvinkki lukuvinkki) {
-        addLinkki(lukuvinkki);
+        addLinkki(lukuvinkki, lukuvinkki.getLinkki());
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement("INSERT INTO Lukuvinkit "
-                            + "(otsikko) VALUES (?)");
+                            + "(otsikko, linkki) VALUES (?, ?)");
             prepared.setString(1, lukuvinkki.getOtsikko());
+            prepared.setString(2, lukuvinkki.getLinkki());
             prepared.executeUpdate();
 
             if (lukuvinkki.getTagit() != null) {
@@ -281,30 +276,36 @@ public class LukuvinkkiDAO implements DAO {
         
     }
 
-    public void addLinkki(Lukuvinkki lukuvinkki) {
+    public void addLinkki(Lukuvinkki lukuvinkki, String linkki) {
         try {
-            PreparedStatement setIdsToMatch = this.connection
-                    .getPreparedStatement("INSERT INTO LukuvinkitJaLinkit "
-                            + "(lukuvinkki_id, linkki_id) VALUES (?, ?)");
-            setIdsToMatch.setInt(1, lukuvinkki.getId());
-            PreparedStatement getLinkkiId = this.connection.getPreparedStatement(
-                    "SELECT COUNT(id) count FROM Linkit");
-            ResultSet r = getLinkkiId.executeQuery();
-            int linkki_id = r.getInt("count") + 1;
-            getLinkkiId.close();
-            setIdsToMatch.setInt(2, linkki_id);
-            setIdsToMatch.executeUpdate();
-            setIdsToMatch.close();
+            String vinkkiNimi = lukuvinkki.getOtsikko();
+            Integer vinkkiId = queryId(vinkkiNimi, "SELECT id FROM "
+                    + "Lukuvinkit WHERE otsikko = ?");
+            PreparedStatement prepared = this.connection
+                    .getPreparedStatement("UPDATE Lukuvinkit "
+                            + "SET linkki = ? WHERE id = ?");
+            prepared.setInt(2, vinkkiId);
+            prepared.setString(1, linkki);
+            prepared.executeUpdate();
+            prepared.close();
 
-            PreparedStatement setLinkki = this.connection
-                    .getPreparedStatement("INSERT INTO Linkit "
-                            + "(id, nimi) VALUES (?, ?)");
-            setLinkki.setInt(1, linkki_id);
-            //System.out.println("linkki id: " + linkki_id);
-            setLinkki.setString(2, lukuvinkki.getLinkki());
-            setLinkki.executeUpdate();
-            setLinkki.close();
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void deleteLinkki(Lukuvinkki lukuvinkki) {
+        try {
+            String vinkkiNimi = lukuvinkki.getOtsikko();
+            Integer vinkkiId = queryId(vinkkiNimi, "SELECT id FROM "
+                    + "Lukuvinkit WHERE otsikko = ?");
+            PreparedStatement prepared = this.connection
+                    .getPreparedStatement("UPDATE Lukuvinkit "
+                            + "SET linkki = ? WHERE id = ?");
+            prepared.setString(1, "Ei lisättyä linkkiä");
+            prepared.setInt(2, vinkkiId);
+            prepared.executeUpdate();
+            prepared.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -405,29 +406,5 @@ public class LukuvinkkiDAO implements DAO {
             e.printStackTrace();
             return -1;
         }
-    }
-
-    private String findLinkki(int lukuvinkki_id) throws SQLException {
-        PreparedStatement findLinkkiId = this.connection
-                .getPreparedStatement(
-                        "SELECT linkki_id FROM LukuvinkitJaLinkit "
-                        + "WHERE lukuvinkki_id= ?");
-        findLinkkiId.setInt(1, lukuvinkki_id);
-        ResultSet r = findLinkkiId.executeQuery();
-        int linkki_id = 1;
-        while (r.next()) {
-            linkki_id = r.getInt("linkki_id");
-        }
-        findLinkkiId.close();
-        PreparedStatement findLinkkiUrl = this.connection
-                .getPreparedStatement(
-                        "SELECT nimi FROM Linkit WHERE id= ?");
-        findLinkkiUrl.setInt(1, linkki_id);
-        ResultSet r2 = findLinkkiUrl.executeQuery();
-        while (r2.next()) {
-            return r2.getString("nimi");
-        }
-        findLinkkiUrl.close();
-        return "Ei lisättyä linkkiä.";
     }
 }

@@ -31,6 +31,10 @@ public class Lukuvinkki {
     public void lisaaLinkki(final String link) {
         this.linkki = link;
     }
+    
+    public void poistaLinkki() {
+        this.linkki = "Ei lisättyä linkkiä";
+    }
 
     public String getLinkki() {
         return this.linkki;
