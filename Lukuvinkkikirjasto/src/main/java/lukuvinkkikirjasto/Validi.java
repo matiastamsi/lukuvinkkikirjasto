@@ -11,5 +11,9 @@ public class Validi {
             return false;
         }
     }
+
+    public static boolean tarkistaTag(String tag) {
+        return tag.matches("^[^\\d\\s]+$");
+    }
     
 }

@@ -22,6 +22,7 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-java:' + cucumberVersion
     testImplementation 'io.cucumber:cucumber-junit:' + cucumberVersion
     testImplementation 'junit:junit:' + junitVersion
+    implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
 }
 
 test {
