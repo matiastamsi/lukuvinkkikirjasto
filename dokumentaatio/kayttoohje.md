@@ -11,8 +11,13 @@ u: Lisää uusi lukuvinkki.
 
 l: Listaa lisäämiesi lukuvinkkien otsikot.
 
+e: Etsi lukuvinkkiä otsikon perusteella
+
+x: Poista lukuvinkki otsikon perusteella
+
 p: Poistu ohjelmasta.
 
-Valitse toiminto (u, l tai p): 
-
 ---------------------------------------------------------------------------------------------------------------------------
+
+Kun lukuvinkkejä etsitään otsikon perusteella, listaa sovellus kaikki lukuvinkit, jotka vastaavat hakua. Hakua tulee tarkentaa niin pitkään kunnes lukuvinkki
+voidaan valita haun perusteella yksikäsitteisesti.
