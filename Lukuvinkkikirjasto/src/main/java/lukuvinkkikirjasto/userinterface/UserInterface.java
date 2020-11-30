@@ -79,7 +79,11 @@ public class UserInterface {
         if (vinkit == null) {
             io.print("Lukuvinkkien hakeminen epäonnistui " + "tai et ole vielä lisännyt yhtään lukuvinkkiä.");
         } else {
-            this.library.getAll().stream().map(l -> l.getOtsikko() + "\n" + l.getLinkki()).forEach(t -> io.print(t));
+            //this.library.getAll().stream().map(l -> l.getOtsikko() + "\n" + l.getLinkki()).forEach(t -> io.print(t));
+            List<Lukuvinkki> entries = this.library.getAll();
+            entries.forEach(v -> {
+                io.print(v.toString());
+            });
         }
     }
 
