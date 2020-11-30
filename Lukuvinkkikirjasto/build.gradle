@@ -31,6 +31,13 @@ test {
     systemProperties System.getProperties()
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'lukuvinkkikirjasto.Main'
