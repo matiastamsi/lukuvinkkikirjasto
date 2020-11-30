@@ -1,21 +1,19 @@
 package lukuvinkkikirjasto;
 
+import io.cucumber.java.After;
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
-import lukuvinkkikirjasto.userinterface.ConsoleIO;
 import lukuvinkkikirjasto.userinterface.StubIO;
 import lukuvinkkikirjasto.userinterface.UserInterface;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -30,9 +28,9 @@ public class UserInterfaceTest {
     static ConnectionToDatabase connection;
     static LukuvinkkiDAO dao;
 
-    @BeforeClass
-    public static void setUp() throws SQLException, IOException {
-        connection = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
+    @Before
+    public void setUp() throws SQLException, IOException {
+        connection = new ConnectionToDatabase("jdbc:sqlite:test.db");
         dao = new LukuvinkkiDAO(connection);
         dao.createDatabase();
     }
@@ -86,11 +84,18 @@ public class UserInterfaceTest {
 
     @Test
     public void searchFindsATitle() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "Test", "", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "e", "Test", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
         ArrayList<String> prints = io.getOutputs();
         assertTrue(prints.contains("Löydettiin lukuvinkki!"));
+    }
+    
+    @After
+    public void tearDown() {
+        dao.close();
+        File db = new File("test.db");
+        db.delete();
     }
 }
