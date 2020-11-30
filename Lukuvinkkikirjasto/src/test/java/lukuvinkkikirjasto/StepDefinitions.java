@@ -57,6 +57,12 @@ public class StepDefinitions {
         Collections.addAll(inputs, i);
     }
     
+    @Given("avataan vinkin muokkaus vinkille {string}")
+    public void muokataanVinkkia(String vinkki) {
+        String[] i = {"e", vinkki, "", "p"};
+        Collections.addAll(inputs, i);
+    }
+
     @Given("yritetään lisätä lukuvinkki otsikolla {string} ja virheellisellä linkillä {string}")
     public void lisataanLukuvinkkiOtsikollaJaVirheellisellaLinkilla(String otsikko, String huonoLinkki) {
         String[] i = {"u", otsikko, "e", "k", huonoLinkki, "http://google.com"};
