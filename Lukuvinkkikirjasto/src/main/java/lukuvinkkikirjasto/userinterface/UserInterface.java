@@ -125,6 +125,7 @@ public class UserInterface {
                             newItem.lisaaLinkki(linkki);
                             break;
                         }
+                        io.print("Antamasi linkki ei ole validi URL, yritä uudestaan");
                     }
                 }
 
