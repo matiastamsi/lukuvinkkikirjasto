@@ -1,6 +1,7 @@
 package lukuvinkkikirjasto;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,11 +28,12 @@ public class UserInterfaceTest {
     UserInterface ui;
     ArrayList<String> syotteet = new ArrayList<>();
     StubIO io;
-    static ConnectionToDatabase connection;
-    static LukuvinkkiDAO dao;
+    ConnectionToDatabase connection;
+    LukuvinkkiDAO dao;
 
-    @BeforeClass
-    public static void setUp() throws SQLException, IOException {
+    @Before
+    public void setUp() throws SQLException, IOException {
+        Files.deleteIfExists(Paths.get("tietokanta.db"));
         connection = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
         dao = new LukuvinkkiDAO(connection);
         dao.createDatabase();
@@ -86,7 +88,7 @@ public class UserInterfaceTest {
 
     @Test
     public void searchFindsATitle() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "Test", "", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "e", "Test", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
