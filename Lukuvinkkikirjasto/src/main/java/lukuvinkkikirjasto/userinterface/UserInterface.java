@@ -1,6 +1,5 @@
 package lukuvinkkikirjasto.userinterface;
 
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
@@ -14,6 +13,7 @@ public class UserInterface {
 
     public UserInterface(final InputOutput io, final LukuvinkkiDAO dao) {
         this.io = io;
+        System.out.println(dao);
         this.library = dao;
     }
 
@@ -26,7 +26,6 @@ public class UserInterface {
         io.print("x: Poista lukuvinkki otsikon perusteella.");
         io.print("m: Muokkaa lukuvinkkiä.");
         io.print("luot: Luo tietokanta. Toiminto luo " + "tietokannan, ellei sitä ole jo luotu.");
-        io.print("alustat: Alusta tietokanta. Toiminto poistaa " + "vanhan tietokannan ja luo uuden tietokannan.");
         io.print("p: Poistu ohjelmasta.");
 
         Boolean continues = true;
@@ -57,9 +56,6 @@ public class UserInterface {
                 case "luot":
                     this.library.createDatabase();
                     break;
-                case "alustat":
-                    this.library.initializeDatabase(Paths.get("tietokanta.db"));
-                    break;
                 default:
                     io.print("Virheellinen näppäinvalinta. Yritä uudestaan.");
             }
@@ -86,7 +82,7 @@ public class UserInterface {
         while (true) {
             io.print("Anna lukuvinkin otsikko: ");
             String title = io.nextLine();
-            // Check wether there already exists lukuvinkki with same title.
+            // Check wether there already exists lukuvinkki with same title
             List<Lukuvinkki> exists = this.library.searchByTitle(title, true);
             if (!exists.isEmpty()) { // Already exists.
                 io.print("Löytyy jo lukuvinkki kyseisellä otsikolla.");
@@ -125,6 +121,7 @@ public class UserInterface {
                             newItem.lisaaLinkki(linkki);
                             break;
                         }
+                        io.print("Linkki ei ollut validi!");
                     }
                 }
 
@@ -231,7 +228,7 @@ public class UserInterface {
     }
 
     private void editLink(Lukuvinkki lukuvinkki) throws SQLException {
-        while(true) {
+        while (true) {
             io.print("Haluatko muokata tai poistaa linkin? Valitse m/p, tyhjä rivi poistuu"); 
             String input = io.nextLine();
             switch (input) {
@@ -242,7 +239,7 @@ public class UserInterface {
                     String linkki = io.nextLine();
                     if (linkki.equals("")) {
                         break;
-                    } else if(Validi.tarkistaURL(linkki)) {
+                    } else if (Validi.tarkistaURL(linkki)) {
                         lukuvinkki.lisaaLinkki(linkki);
                         this.library.addLinkki(lukuvinkki, linkki);
                         io.print("Linkin tallentaminen onnistui!");

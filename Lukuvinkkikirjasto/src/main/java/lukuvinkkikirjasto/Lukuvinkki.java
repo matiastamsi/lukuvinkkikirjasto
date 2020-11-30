@@ -54,8 +54,12 @@ public class Lukuvinkki {
     
     public String toString() {
         String vinkki = otsikko + "\n" + linkki + "\n";
-        for (String t: tagit) {
-            vinkki += "[" + t + "] ";
+        if (tagit.isEmpty()) {
+            vinkki += "Ei tageja";
+        } else {
+            for (String t: tagit) {
+                vinkki += "[" + t + "] ";
+            }
         }
         return vinkki;
     }
