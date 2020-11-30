@@ -47,4 +47,12 @@ public class Lukuvinkki {
     public int getId() {
         return this.id;
     }
+    
+    public String toString() {
+        String vinkki = otsikko + "\n" + linkki + "\n";
+        for (String t: tagit) {
+            vinkki += "[" + t + "] ";
+        }
+        return vinkki;
+    }
 }
