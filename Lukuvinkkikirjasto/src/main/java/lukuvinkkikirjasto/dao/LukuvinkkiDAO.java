@@ -356,6 +356,20 @@ public class LukuvinkkiDAO implements DAO {
         return lukuvinkit;
     }
 
+    @Override 
+    public List<Lukuvinkki> searchByTags(List<String> tagfilter) {
+        // TODO: optimointia?, haku = O(n^3)
+        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+        for(Lukuvinkki lukuvinkki : getAll()) {
+            for(String vinkkitag : lukuvinkki.getTagit()) {
+                if(tagfilter.contains(vinkkitag)) {
+                    lukuvinkit.add(lukuvinkki);
+                }
+            }
+        }
+        return lukuvinkit;
+    }
+
     //apumetodit:
     private Integer queryId(final String value, final String sqlString) {
         try {

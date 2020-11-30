@@ -25,5 +25,7 @@ public interface DAO {
 
     List<Lukuvinkki> searchByTitle(String title, boolean exact);
 
+    List<Lukuvinkki> searchByTags(List<String> tagfilter);
+
     void close();
 }
