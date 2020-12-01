@@ -182,8 +182,7 @@ public class UserInterface {
         String input = io.nextLine();
         if (input.equals("o")) {
             addAsTitle();
-        }
-        else if (input.equals("u")) {
+        } else if (input.equals("u")) {
             addAsURL();
         }
 
