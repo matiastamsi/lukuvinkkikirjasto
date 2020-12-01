@@ -129,7 +129,6 @@ public class UserInterface {
                         io.print("Linkki ei ollut validi!");
                     }
                 }
-
                 this.library.add(newItem);
                 io.print("Lukuvinkin lisääminen onnistui!");
                 break;
@@ -169,7 +168,6 @@ public class UserInterface {
                         }
                     }
                 }
-
                 this.library.add(newItem);
                 io.print("Lukuvinkin lisääminen onnistui!");
                 break;
@@ -182,12 +180,13 @@ public class UserInterface {
     private void addToLibrary() {
         io.print("Haluatko lisätä lukuvinkin otsikolla, vai URLina? Valitse 'o'/'u'");
         String input = io.nextLine();
-        switch (input) {
-            case "o":
-                addAsTitle();
-            case "u":
-                addAsURL();
+        if (input.equals("o")) {
+            addAsTitle();
         }
+        else if (input.equals("u")) {
+            addAsURL();
+        }
+
     }   
 
     private void deleteItem() throws SQLException {

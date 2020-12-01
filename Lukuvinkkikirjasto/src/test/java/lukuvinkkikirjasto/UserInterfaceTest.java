@@ -38,7 +38,7 @@ public class UserInterfaceTest {
 
     @Test
     public void oneTitleCanBeAdded() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "testTitle", "e", "e", "l", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "testTitle", "e", "e", "l", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -48,7 +48,7 @@ public class UserInterfaceTest {
 
     @Test
     public void multipleTitlesCanBeAdded() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "t1", "e", "e", "u", "t2", "e", "e", "u", "t3", "e", "e", "l", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "t1", "e", "e", "u", "o", "t2",  "e", "e", "u", "o", "t3", "e", "e", "l", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -64,7 +64,7 @@ public class UserInterfaceTest {
 
     @Test
     public void tagsCanBeAdded() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "tagTest", "k", "tag", "tagx", "", "e", "l", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "tagTest", "k", "tag", "tagx", "", "e", "l", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -74,7 +74,7 @@ public class UserInterfaceTest {
 
     @Test
     public void deletionTest() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "delete", "e", "e", "x", "delete", "", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "delete", "e", "e", "x", "delete", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -84,7 +84,7 @@ public class UserInterfaceTest {
 
     @Test
     public void searchFindsATitle() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "TestTitle", "e", "e", "e", "Test", "", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "TestTitle", "e", "e", "e", "Test", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
