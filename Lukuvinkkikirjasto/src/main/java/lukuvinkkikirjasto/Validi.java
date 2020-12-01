@@ -1,6 +1,13 @@
 
 package lukuvinkkikirjasto;
+
+
 import java.net.URL;
+import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+
 public class Validi {
     
     public static boolean tarkistaURL(String url) {
@@ -16,4 +23,15 @@ public class Validi {
         return tag.matches("^[^\\d\\s]+$");
     }
     
+    public static String getURLTitle(String URL) {
+        Document document;
+        String title = "";
+        try {
+            document = Jsoup.connect(URL).get();
+            title = document.title(); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return title;
+    }
 }

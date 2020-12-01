@@ -24,6 +24,7 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-junit:' + cucumberVersion
     testImplementation 'junit:junit:' + junitVersion
     implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
+    implementation 'org.jsoup:jsoup:1.13.1'
 }
 
 test {

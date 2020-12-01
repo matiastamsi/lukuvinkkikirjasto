@@ -91,6 +91,16 @@ public class UserInterfaceTest {
         ArrayList<String> prints = io.getOutputs();
         assertTrue(prints.contains("Löydettiin lukuvinkki!"));
     }
+
+    @Test
+    public void addAsURL() throws SQLException {
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "u", "https://ohjelmistotuotanto-hy.github.io/miniprojekti/", "e", "p"));
+        io = new StubIO(str);
+        ui = new UserInterface(io, dao);
+        ui.run();
+        ArrayList<String> vastaukset = io.getOutputs();
+        assertTrue(vastaukset.contains("Lukuvinkin lisääminen onnistui!"));
+    }
     
     @After
     public void tearDown() {

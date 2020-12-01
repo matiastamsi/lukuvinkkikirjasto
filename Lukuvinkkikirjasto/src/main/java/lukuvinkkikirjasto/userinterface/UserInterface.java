@@ -83,7 +83,7 @@ public class UserInterface {
         }
     }
 
-    private void addToLibrary() {
+    private void addAsTitle() {
         while (true) {
             io.print("Anna lukuvinkin otsikko: ");
             String title = io.nextLine();
@@ -136,6 +136,59 @@ public class UserInterface {
             }
         }
     }
+
+    private void addAsURL() {
+        while (true) {
+            io.print("Anna lukuvinkin URL: ");
+            String url = io.nextLine();
+            if (Validi.tarkistaURL(url)) {
+            String title = Validi.getURLTitle(url);
+            List<Lukuvinkki> exists = this.library.searchByTitle(title, true);
+            if (!exists.isEmpty()) { // Already exists.
+                io.print("Löytyy jo lukuvinkki kyseisellä otsikolla: " + title + ".");
+                continue;
+            }
+            if (title.equals("")) {
+                io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
+            } else {
+                Lukuvinkki newItem = new Lukuvinkki(this.library.getLukuvinkkienMaara() + 1, title);
+                newItem.lisaaLinkki(url);
+                io.print("Haluatko lisätä lukuvinkille tageja? Valitse k/e");
+                String valinta = io.nextLine();
+                if (valinta.equals("k")) {
+                    io.print("Anna tageja tai poistu antamalla tyhjä merkkijono: ");
+                    while (true) {
+                        String tag = io.nextLine();
+                        if (tag.equals("")) {
+                            break;
+                        }
+                        if (Validi.tarkistaTag(tag)) {
+                            newItem.lisaaTagi(tag);
+                        } else {
+                            io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen: ");
+                        }
+                    }
+                }
+
+                this.library.add(newItem);
+                io.print("Lukuvinkin lisääminen onnistui!");
+                break;
+            }
+        }
+        io.print("URL ei ollut validi!");
+        }
+    }
+
+    private void addToLibrary() {
+        io.print("Haluatko lisätä lukuvinkin otsikolla, vai URLina? Valitse 'o'/'u'");
+        String input = io.nextLine();
+        switch (input) {
+            case "o":
+                addAsTitle();
+            case "u":
+                addAsURL();
+        }
+    }   
 
     private void deleteItem() throws SQLException {
         while (true) {
