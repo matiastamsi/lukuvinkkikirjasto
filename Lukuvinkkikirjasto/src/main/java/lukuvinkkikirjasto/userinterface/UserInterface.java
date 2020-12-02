@@ -34,7 +34,7 @@ public class UserInterface {
         Boolean continues = true;
 
         while (continues) {
-            io.print("Valitse toiminto (u, l, e, et, x, m, luot, alustat tai p): ");
+            io.print("Valitse toiminto (u, l, e, et, x, m, luettu, luot tai p): ");
             String command = io.nextLine();
             switch (command) {
                 case "p":
@@ -72,7 +72,7 @@ public class UserInterface {
     }
 
     private void markAsRead(Lukuvinkki lukuvinkki) throws SQLException {
-        System.out.println("markAsRead()");
+        System.out.println("markAsRead() " + lukuvinkki.getRead());
         
     }
 

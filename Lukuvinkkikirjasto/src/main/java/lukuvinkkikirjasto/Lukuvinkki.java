@@ -1,5 +1,6 @@
 package lukuvinkkikirjasto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Lukuvinkki {
@@ -8,12 +9,22 @@ public class Lukuvinkki {
     private final String otsikko;
     private ArrayList<String> tagit;
     private String linkki;
+    private LocalDate read;
 
     public Lukuvinkki(final Integer id, final String otsikko) {
         this.id = id;
         this.otsikko = otsikko;
         this.tagit = new ArrayList<>();
         this.linkki = "Ei lisättyä linkkiä";
+
+    }
+
+    public LocalDate getRead() {
+        return read;
+    }
+
+    public void setRead(LocalDate read) {
+        this.read = read;
     }
 
     public void lisaaTagi(final String tag) {
