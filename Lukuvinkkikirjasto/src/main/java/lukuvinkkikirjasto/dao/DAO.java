@@ -27,5 +27,7 @@ public interface DAO {
 
     List<Lukuvinkki> searchByTags(List<String> tagfilter);
 
+    String markAsRead(Lukuvinkki lukuvinkki);
+
     void close();
 }
