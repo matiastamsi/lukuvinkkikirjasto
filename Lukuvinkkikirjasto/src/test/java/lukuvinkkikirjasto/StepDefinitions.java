@@ -5,6 +5,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import java.io.File;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -149,6 +150,21 @@ public class StepDefinitions {
         Collections.addAll(inputs, i);
     }
 
+    @When("ohjelma hakee merkitsemispäivän päivämäärän") 
+    public void ohjelmaHakeeMerkitsemispaivanPaivamaaran() {
+        String[] i = {LocalDate.now().toString()};
+        Collections.addAll(inputs, i);
+    }
+
+    @Then("ohjelma palauttaa merkitsemispäivän päivämäärän")
+    public void ohjelmaPalauttaaMerkitsemispaivanPaivamaaran() throws SQLException {
+        String vastaus = "Lukuvinkin lukupäiväksi tallennettiin: " + LocalDate.now().toString();
+        io = new StubIO(inputs);
+        ui = new UserInterface(io, dao);
+        ui.run();
+        //System.out.println("outputs: " + io.getOutputs());
+        assertTrue(io.getOutputs().contains(vastaus));
+    }
     
     @Then("ohjelma vastaa {string}")
     public void ohjelmaVastaa(String vastaus) throws SQLException {
@@ -158,6 +174,8 @@ public class StepDefinitions {
         //System.out.println("outputs: " + io.getOutputs());
         assertTrue(io.getOutputs().contains(vastaus));
     }
+
+    
     
     @Then("ohjelma vastaa {string} ja {string}")
     public void ohjelmaVastaaKahdesti(String vastaus1, String vastaus2) throws SQLException {

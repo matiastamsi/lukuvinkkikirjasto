@@ -17,8 +17,9 @@ Feature: Käyttäjä voi merkitä vinkin luetuksi
     Scenario: käyttäjä voi merkitä lukuvinkin lukupäiväksi merkitsemispäivän
         Given lisätään lukuvinkki otsikolla "SQLite Tutorial"
         When käyttäjä valitsee luettu, antaa otsikon "SQLite Tutorial", valitsee luettu ja t
+        And ohjelma hakee merkitsemispäivän päivämäärän
         And poistutaan
-        Then ohjelma vastaa "Lukuvinkin lukupäiväksi tallennettiin: 2020-12-02"
+        Then ohjelma palauttaa merkitsemispäivän päivämäärän
     
     Scenario: päivämäärä validoidaan
         Given lisätään lukuvinkki otsikolla "SQLite Tutorial"
