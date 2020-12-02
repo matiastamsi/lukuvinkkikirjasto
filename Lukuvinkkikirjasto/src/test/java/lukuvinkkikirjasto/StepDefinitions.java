@@ -47,7 +47,7 @@ public class StepDefinitions {
     
     @Given("lisätään lukuvinkki otsikolla {string}")
     public void lisataanLukuvinkkiOtsikolla(String otsikko) {
-        String[] i = {"u", otsikko, "e", "e"};
+        String[] i = {"u", "o", otsikko, "e", "e"};
         Collections.addAll(inputs, i);
     }
     
@@ -124,12 +124,38 @@ public class StepDefinitions {
         String[] i = {"x", otsikko, ""};
         Collections.addAll(inputs, i);
     }
+
+    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja keskeyttää")
+    public void halutaanMerkitäLuetuksi(String otsikko) {
+        String[] i = {"luettu", otsikko, "luettu", "e"};
+        Collections.addAll(inputs, i);
+    }
+
+    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja a")
+    public void annetaanMikaTahansaPaivamaara(String otsikko) {
+        String[] i = {"luettu", otsikko, "luettu", "a"};
+        Collections.addAll(inputs, i);
+    }
+
+    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja t")
+    public void valitaanLukupaivaksiTamaPaiva(String otsikko) {
+        String[] i = {"luettu", otsikko, "luettu", "t"};
+        Collections.addAll(inputs, i);
+    }
+
+    @When("antaa päivämäärän {string}")
+    public void antaaPaivamaaran(String paivamaara) {
+        String[] i = {paivamaara};
+        Collections.addAll(inputs, i);
+    }
+
     
     @Then("ohjelma vastaa {string}")
     public void ohjelmaVastaa(String vastaus) throws SQLException {
         io = new StubIO(inputs);
         ui = new UserInterface(io, dao);
         ui.run();
+        //System.out.println("outputs: " + io.getOutputs());
         assertTrue(io.getOutputs().contains(vastaus));
     }
     

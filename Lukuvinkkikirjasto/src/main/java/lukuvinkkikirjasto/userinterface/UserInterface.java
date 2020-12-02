@@ -94,7 +94,7 @@ public class UserInterface {
                     io.print(notification);
                     break;
                 } else {
-                    io.print("Päivämäärä oli väärässä muodossa. Sinut ohjataan "
+                    io.print("Päivämäärä oli väärässä muodossa tai muutoin virheellinen. Sinut ohjataan "
                     + "takaisin päävalikkoon.");
                     break;
                 }

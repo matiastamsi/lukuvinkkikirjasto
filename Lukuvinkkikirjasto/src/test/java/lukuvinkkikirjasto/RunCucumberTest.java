@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
     plugin = "pretty", 
     features = "src/test/resources/lukuvinkkikirjasto",
     snippets = SnippetType.CAMELCASE
-    
+    //tags = "@problem"
 )
 
 public class RunCucumberTest {}

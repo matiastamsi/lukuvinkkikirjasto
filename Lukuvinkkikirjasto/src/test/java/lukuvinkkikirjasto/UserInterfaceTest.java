@@ -101,6 +101,17 @@ public class UserInterfaceTest {
         ArrayList<String> vastaukset = io.getOutputs();
         assertTrue(vastaukset.contains("Lukuvinkin lisääminen onnistui!"));
     }
+
+    @Test
+    public void markAsReadTest() throws SQLException {
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "SQLite Tutorial", "e", "e",
+                                                "luettu", "SQLite Tutorial", "luettu", "a", "2020-12-02", "p"));
+        io = new StubIO(str);
+        ui = new UserInterface(io, dao);
+        ui.run();
+        ArrayList<String> vastaukset = io.getOutputs();
+        assertTrue(vastaukset.contains("Lukuvinkin lukupäiväksi tallennettiin: 2020-12-02"));
+    }
     
     @After
     public void tearDown() {
