@@ -27,6 +27,7 @@ public class UserInterface {
         io.print("et: Etsi lukuvinkkiä tagin perusteella. ");
         io.print("x: Poista lukuvinkki otsikon perusteella.");
         io.print("m: Muokkaa lukuvinkkiä.");
+        io.print("luettu: Merkitse lukuvinkki luetuksi.");
         io.print("luot: Luo tietokanta. Toiminto luo " + "tietokannan, ellei sitä ole jo luotu.");
         io.print("p: Poistu ohjelmasta.");
 
@@ -58,6 +59,9 @@ public class UserInterface {
                 case "m":
                     editItem();
                     break;
+                case "luettu":
+                    searchItems();
+                    break;
                 case "luot":
                     this.library.createDatabase();
                     break;
@@ -65,6 +69,11 @@ public class UserInterface {
                     io.print("Virheellinen näppäinvalinta. Yritä uudestaan.");
             }
         }
+    }
+
+    private void markAsRead(Lukuvinkki lukuvinkki) throws SQLException {
+        System.out.println("markAsRead()");
+        
     }
 
     /**
@@ -283,7 +292,7 @@ public class UserInterface {
     private void readingTipMenu(final Lukuvinkki lukuvinkki) throws SQLException {
         // Tässä voisi sitten kysellä poistetaanko/muokataanko vinkkiä.
         while (true) {
-            io.print("Haluatko muokata tageja, linkkiä vai otsikkoa? Valitse t/l/o, tyhjä rivi poistuu");
+            io.print("Haluatko muokata tageja, linkkiä tai otsikkoa vai merkitä vinkin luetuksi? Valitse t/l/o/luettu, tyhjä rivi poistuu");
             io.print("Otsikko: " + lukuvinkki.getOtsikko());
             io.print("Tagit: " + lukuvinkki.getTagit());
             io.print("Linkki: " + lukuvinkki.getLinkki());
@@ -295,6 +304,8 @@ public class UserInterface {
                     taginMuokkaus(lukuvinkki);
                 case "l":
                     editLink(lukuvinkki);
+                case "luettu":
+                    markAsRead(lukuvinkki);
             }
             break;
         }
