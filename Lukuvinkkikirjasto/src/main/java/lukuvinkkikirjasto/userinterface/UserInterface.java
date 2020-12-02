@@ -1,6 +1,5 @@
 package lukuvinkkikirjasto.userinterface;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -83,7 +82,6 @@ public class UserInterface {
             if (option.equals("t")) {
                 LocalDate date = LocalDate.now();
                 lukuvinkki.setRead(date);
-                //System.out.println("lukuvinkkiin asetettu tämän päivän pvm: " + lukuvinkki.getRead());
                 String notification = this.library.markAsRead(lukuvinkki);
                 io.print(notification);
             } 
@@ -92,18 +90,15 @@ public class UserInterface {
                 String date = io.nextLine();
                 if (Validi.date(date)) {
                     lukuvinkki.setRead(LocalDate.parse(date));
-                    //System.out.println("lukuvinkkiin asetettu aiemman päivän pvm: " + lukuvinkki.getRead());
                     String notification = this.library.markAsRead(lukuvinkki);
                     io.print(notification);
-                    break; //tämän jälkeen päävalikkoon
-                } 
-                else {
+                    break;
+                } else {
                     io.print("Päivämäärä oli väärässä muodossa. Sinut ohjataan "
                     + "takaisin päävalikkoon.");
                     break;
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
