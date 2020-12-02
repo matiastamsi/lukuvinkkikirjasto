@@ -1,8 +1,9 @@
 
 package lukuvinkkikirjasto;
 
-
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -34,4 +35,14 @@ public class Validi {
         }
         return title;
     }
+
+	public static boolean date(String date) {
+        try {
+            LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+
+	}
 }

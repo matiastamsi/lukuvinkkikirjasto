@@ -1,6 +1,7 @@
 package lukuvinkkikirjasto.userinterface;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lukuvinkkikirjasto.Lukuvinkki;
@@ -72,7 +73,35 @@ public class UserInterface {
     }
 
     private void markAsRead(Lukuvinkki lukuvinkki) throws SQLException {
-        System.out.println("markAsRead() " + lukuvinkki.getRead());
+        //System.out.println("markAsRead() " + lukuvinkki.getRead());
+        io.print("Merkitäänkö lukuvinkki luetuksi tänään "
+            + "vai aiempana päivänä? Valitse t/a. "
+            + "Keskeytä painamalla mitä tahansa muuta näppäintä.");
+        String option = io.nextLine();
+        while (true) {
+            if (option.equals("t")) {
+                LocalDate date = LocalDate.now();
+                System.out.println("tänään: " + date); //tämän jälkeen päävalikkoon
+                //this.library.markAsRead(lukuvinkki);
+            } 
+            if (option.equals("a")) {
+                io.print("Anna päivämäärä muodossa vvvv-kk-pp:");
+                String date = io.nextLine();
+                if (Validi.date(date)) {
+                    System.out.println("aiemmin: " + date);
+                    break; //tämän jälkeen päävalikkoon
+                } 
+                else {
+                    io.print("Päivämäärä oli väärässä muodossa. Sinut ohjataan "
+                    + "takaisin päävalikkoon.");
+                    break;
+                }
+                
+            }
+            else {
+                break;
+            }
+        }
         
     }
 
