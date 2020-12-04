@@ -88,7 +88,7 @@ public class UserInterface {
             if (option.equals("a")) {
                 io.print("Anna päivämäärä muodossa vvvv-kk-pp:");
                 String date = io.nextLine();
-                if (Validi.date(date)) {
+                if (Validi.checkDate(date)) {
                     lukuvinkki.setRead(LocalDate.parse(date));
                     String notification = this.library.markAsRead(lukuvinkki);
                     io.print(notification);
@@ -145,7 +145,7 @@ public class UserInterface {
                         if (tag.equals("")) {
                             break;
                         }
-                        if (Validi.tarkistaTag(tag)) {
+                        if (Validi.checkTag(tag)) {
                             newItem.lisaaTagi(tag);
                         } else {
                             io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen: ");
@@ -160,7 +160,7 @@ public class UserInterface {
                         String linkki = io.nextLine();
                         if (linkki.equals("")) {
                             break;
-                        } else if (Validi.tarkistaURL(linkki)) {
+                        } else if (Validi.checkURL(linkki)) {
                             newItem.lisaaLinkki(linkki);
                             break;
                         }
@@ -178,7 +178,7 @@ public class UserInterface {
         while (true) {
             io.print("Anna lukuvinkin URL: ");
             String url = io.nextLine();
-            if (Validi.tarkistaURL(url)) {
+            if (Validi.checkURL(url)) {
             String title = Validi.getURLTitle(url);
             List<Lukuvinkki> exists = this.library.searchByTitle(title, true);
             if (!exists.isEmpty()) { // Already exists.
@@ -199,7 +199,7 @@ public class UserInterface {
                         if (tag.equals("")) {
                             break;
                         }
-                        if (Validi.tarkistaTag(tag)) {
+                        if (Validi.checkTag(tag)) {
                             newItem.lisaaTagi(tag);
                         } else {
                             io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen: ");
@@ -352,7 +352,7 @@ public class UserInterface {
                     String linkki = io.nextLine();
                     if (linkki.equals("")) {
                         break;
-                    } else if (Validi.tarkistaURL(linkki)) {
+                    } else if (Validi.checkURL(linkki)) {
                         lukuvinkki.lisaaLinkki(linkki);
                         this.library.addLinkki(lukuvinkki, linkki);
                         io.print("Linkin tallentaminen onnistui!");
@@ -393,7 +393,7 @@ public class UserInterface {
                 while (true) {
                     io.print("Anna uusi tagi: ");
                     input = io.nextLine();
-                    if (Validi.tarkistaTag(input)) {
+                    if (Validi.checkTag(input)) {
                         lukuvinkki.lisaaTagi(input);
                         this.library.addTagi(lukuvinkki, input);
                         io.print("Tagi lisätty!");
@@ -411,7 +411,7 @@ public class UserInterface {
                         while (true) {
                         io.print("Anna muokattu tagi: ");
                         String newTag = io.nextLine();
-                        if (Validi.tarkistaTag(newTag)) {
+                        if (Validi.checkTag(newTag)) {
                             int oldTag = this.library.findTagId(lukuvinkki, input);
                             lukuvinkki.poistaTagi(input);
                             lukuvinkki.lisaaTagi(newTag);

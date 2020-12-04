@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
 
 public class Validi {
     
-    public static boolean tarkistaURL(String url) {
+    public static boolean checkURL(String url) {
         try {
             new URL(url).toURI();
             return true;
@@ -20,23 +20,24 @@ public class Validi {
         }
     }
 
-    public static boolean tarkistaTag(String tag) {
+    public static boolean checkTag(String tag) {
         return tag.matches("^[^\\d\\s]+$");
     }
     
     public static String getURLTitle(String URL) {
         Document document;
-        String title = "";
+        String title;
         try {
             document = Jsoup.connect(URL).get();
             title = document.title(); 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            title = "";
         }
         return title;
     }
 
-	public static boolean date(String date) {
+	public static boolean checkDate(String date) {
         try {
             LocalDate.parse(date);
         } catch (DateTimeParseException e) {
