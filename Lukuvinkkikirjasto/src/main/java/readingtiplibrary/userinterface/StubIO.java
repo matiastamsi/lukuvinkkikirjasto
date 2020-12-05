@@ -30,8 +30,8 @@ public class StubIO implements InputOutput {
     }
     
     @Override
-    public void print(final String input) {
-        outputs.add(input);
+    public void print(final String output) {
+        outputs.add(output);
     }
     
     public ArrayList<String> getOutputs() {

@@ -26,14 +26,19 @@ public class StubIOTest {
 
     @Test
     public void nextLineWorksCorrectly() {
-
         ArrayList<String> inputs = new ArrayList<>();
         inputs.add("eka");
         inputs.add("toka");
         s = new StubIO(inputs);
         assertEquals("eka", s.nextLine());
         assertEquals("toka", s.nextLine());
-
+    }
+    
+    @Test
+    public void nextLineWorksCorrectlyWhenNoInputs() {
+        ArrayList<String> inputs = new ArrayList<>();
+        s = new StubIO(inputs);
+        assertEquals("", s.nextLine());
     }
 
     @Test
