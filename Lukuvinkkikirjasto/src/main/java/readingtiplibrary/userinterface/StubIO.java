@@ -1,5 +1,5 @@
 
-package lukuvinkkikirjasto.userinterface;
+package readingtiplibrary.userinterface;
 
 import java.util.ArrayList;
 

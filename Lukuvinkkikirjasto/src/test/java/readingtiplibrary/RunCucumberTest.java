@@ -1,4 +1,4 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

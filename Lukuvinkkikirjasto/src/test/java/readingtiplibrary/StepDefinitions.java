@@ -1,5 +1,7 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
+import readingtiplibrary.userinterface.UserInterface;
+import readingtiplibrary.userinterface.StubIO;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -9,9 +11,8 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import lukuvinkkikirjasto.dao.ReadingTipDAO;
-import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
-import lukuvinkkikirjasto.userinterface.*;
+import readingtiplibrary.dao.ReadingTipDAO;
+import readingtipslibrary.databaseconnection.ConnectionToDatabase;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import java.util.Arrays;

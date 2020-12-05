@@ -1,12 +1,12 @@
-package lukuvinkkikirjasto.userinterface;
+package readingtiplibrary.userinterface;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import lukuvinkkikirjasto.ReadingTip;
-import lukuvinkkikirjasto.Valid;
-import lukuvinkkikirjasto.dao.ReadingTipDAO;
+import readingtiplibrary.ReadingTip;
+import readingtiplibrary.Valid;
+import readingtiplibrary.dao.ReadingTipDAO;
 
 public class UserInterface {
 

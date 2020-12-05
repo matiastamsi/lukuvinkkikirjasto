@@ -1,11 +1,11 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
 import java.sql.SQLException;
 
-import lukuvinkkikirjasto.dao.ReadingTipDAO;
-import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
-import lukuvinkkikirjasto.userinterface.ConsoleIO;
-import lukuvinkkikirjasto.userinterface.UserInterface;
+import readingtiplibrary.dao.ReadingTipDAO;
+import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.userinterface.ConsoleIO;
+import readingtiplibrary.userinterface.UserInterface;
 
 /**
  * The Main class of the application that is a mini-project on the

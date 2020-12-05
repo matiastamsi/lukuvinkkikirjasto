@@ -1,4 +1,4 @@
-package lukuvinkkikirjasto.databaseconnection;
+package readingtipslibrary.databaseconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

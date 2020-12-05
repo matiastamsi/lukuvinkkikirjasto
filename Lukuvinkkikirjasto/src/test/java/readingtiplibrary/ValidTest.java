@@ -1,5 +1,6 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
+import readingtiplibrary.Valid;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

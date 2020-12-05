@@ -1,5 +1,5 @@
 
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
 import java.net.URL;
 import java.time.LocalDate;

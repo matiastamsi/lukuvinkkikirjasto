@@ -1,8 +1,8 @@
-package lukuvinkkikirjasto.dao;
+package readingtiplibrary.dao;
 
 import java.nio.file.Path;
 import java.util.List;
-import lukuvinkkikirjasto.ReadingTip;
+import readingtiplibrary.ReadingTip;
 
 /**
  * The interface that is responsible for data access.

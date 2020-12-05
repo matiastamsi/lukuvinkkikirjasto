@@ -1,14 +1,14 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import lukuvinkkikirjasto.dao.ReadingTipDAO;
-import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
-import lukuvinkkikirjasto.userinterface.StubIO;
-import lukuvinkkikirjasto.userinterface.UserInterface;
+import readingtiplibrary.dao.ReadingTipDAO;
+import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.userinterface.StubIO;
+import readingtiplibrary.userinterface.UserInterface;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

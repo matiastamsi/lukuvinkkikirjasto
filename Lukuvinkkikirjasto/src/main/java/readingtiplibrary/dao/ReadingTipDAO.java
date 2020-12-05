@@ -1,4 +1,4 @@
-package lukuvinkkikirjasto.dao;
+package readingtiplibrary.dao;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import lukuvinkkikirjasto.ReadingTip;
-import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.ReadingTip;
+import readingtipslibrary.databaseconnection.ConnectionToDatabase;
 
 /**
  * The interface that is responsible for data access when the data is stored
