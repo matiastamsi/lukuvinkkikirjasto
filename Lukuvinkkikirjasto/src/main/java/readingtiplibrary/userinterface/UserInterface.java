@@ -134,7 +134,7 @@ public class UserInterface {
             if (title.equals("")) {
                 io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
             } else {
-                ReadingTip newItem = new ReadingTip(this.library.getLukuvinkkienMaara() + 1, title);
+                ReadingTip newItem = new ReadingTip(this.library.getAmountOfReadingTips() + 1, title);
 
                 io.print("Haluatko lisätä lukuvinkille tageja? Valitse k/e");
                 String valinta = io.nextLine();
@@ -188,7 +188,7 @@ public class UserInterface {
             if (title.equals("")) {
                 io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
             } else {
-                ReadingTip newItem = new ReadingTip(this.library.getLukuvinkkienMaara() + 1, title);
+                ReadingTip newItem = new ReadingTip(this.library.getAmountOfReadingTips() + 1, title);
                 newItem.addLink(url);
                 io.print("Haluatko lisätä lukuvinkille tageja? Valitse k/e");
                 String valinta = io.nextLine();
@@ -240,7 +240,7 @@ public class UserInterface {
                         break;
                     case 1:
                         io.print("Löydettiin lukuvinkki!");
-                        this.library.deleteLukuvinkki(results.get(0));
+                        this.library.deleteReadingTip(results.get(0));
                         io.print("Lukuvinkki poistettu!");
                         break;
                     default:
@@ -354,7 +354,7 @@ public class UserInterface {
                         break;
                     } else if (Valid.checkURL(linkki)) {
                         lukuvinkki.addLink(linkki);
-                        this.library.addLinkki(lukuvinkki, linkki);
+                        this.library.addLink(lukuvinkki, linkki);
                         io.print("Linkin tallentaminen onnistui!");
                     } else {
                         io.print("Virheellinen URL. Anna uusi linkki!");
@@ -362,7 +362,7 @@ public class UserInterface {
                     break;
                 case "p":
                     lukuvinkki.deleteLink();
-                    this.library.deleteLinkki(lukuvinkki);
+                    this.library.deleteLink(lukuvinkki);
                     io.print("Linkin poistaminen onnistui!");
                     break;
             }
@@ -382,7 +382,7 @@ public class UserInterface {
                     String input = io.nextLine();
                     if (this.library.findValidTag(lukuvinkki, input)) {
                             int tagiId = this.library.findTagId(lukuvinkki, input);
-                            this.library.deleteTagi(tagiId);
+                            this.library.deleteTag(tagiId);
                             lukuvinkki.deleteTag(input);
                             io.print("Tagi poistettu!");
                     } else {
@@ -395,7 +395,7 @@ public class UserInterface {
                     input = io.nextLine();
                     if (Valid.checkTag(input)) {
                         lukuvinkki.addTag(input);
-                        this.library.addTagi(lukuvinkki, input);
+                        this.library.addTag(lukuvinkki, input);
                         io.print("Tagi lisätty!");
                     } else {
                         io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen ");
@@ -415,8 +415,8 @@ public class UserInterface {
                             int oldTag = this.library.findTagId(lukuvinkki, input);
                             lukuvinkki.deleteTag(input);
                             lukuvinkki.addTag(newTag);
-                            this.library.deleteTagi(oldTag);
-                            this.library.addTagi(lukuvinkki, newTag);
+                            this.library.deleteTag(oldTag);
+                            this.library.addTag(lukuvinkki, newTag);
                             io.print("Tagi muokattu!");
                             break;
                         } 

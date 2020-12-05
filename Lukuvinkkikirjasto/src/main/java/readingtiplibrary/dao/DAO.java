@@ -15,8 +15,6 @@ public interface DAO {
 
     boolean delete(String title);
 
-    boolean edit(String title);
-
     void add(ReadingTip lukuvinkki);
 
     void createDatabase();
