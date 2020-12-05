@@ -1,6 +1,6 @@
-package readingtiplibrary;
+package readingtiplibrary.domain;
 
-import readingtiplibrary.Valid;
+import readingtiplibrary.domain.Valid;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

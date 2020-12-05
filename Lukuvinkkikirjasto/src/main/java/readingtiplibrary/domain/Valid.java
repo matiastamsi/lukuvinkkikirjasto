@@ -1,5 +1,5 @@
 
-package readingtiplibrary;
+package readingtiplibrary.domain;
 
 import java.net.URL;
 import java.time.LocalDate;

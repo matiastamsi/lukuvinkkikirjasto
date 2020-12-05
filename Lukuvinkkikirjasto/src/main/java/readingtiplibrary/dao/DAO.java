@@ -2,7 +2,7 @@ package readingtiplibrary.dao;
 
 import java.nio.file.Path;
 import java.util.List;
-import readingtiplibrary.ReadingTip;
+import readingtiplibrary.domain.ReadingTip;
 
 /**
  * The interface that is responsible for data access.

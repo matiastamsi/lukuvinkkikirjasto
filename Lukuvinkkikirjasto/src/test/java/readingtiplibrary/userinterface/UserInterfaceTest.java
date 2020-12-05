@@ -1,4 +1,4 @@
-package readingtiplibrary;
+package readingtiplibrary.userinterface;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,5 +1,6 @@
-package readingtiplibrary;
+package readingtiplibrary.domain;
 
+import readingtiplibrary.domain.ReadingTip;
 import java.time.LocalDate;
 import org.junit.Test;
 import static org.junit.Assert.*;
