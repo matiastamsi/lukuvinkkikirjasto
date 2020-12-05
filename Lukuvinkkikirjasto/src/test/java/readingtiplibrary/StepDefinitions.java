@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import readingtiplibrary.dao.ReadingTipDAO;
-import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import java.util.Arrays;

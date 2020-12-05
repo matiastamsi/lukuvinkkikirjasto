@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import readingtiplibrary.dao.ReadingTipDAO;
-import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;

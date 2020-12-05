@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import readingtiplibrary.domain.ReadingTip;
-import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 
 /**
  * The interface that is responsible for data access when the data is stored

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 
 /**
  * Test the ReadinTipDAO class that is the class which is responsible for saving

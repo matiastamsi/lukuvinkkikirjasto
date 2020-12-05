@@ -1,4 +1,4 @@
-package readingtipslibrary.databaseconnection;
+package readingtiplibrary.databaseconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

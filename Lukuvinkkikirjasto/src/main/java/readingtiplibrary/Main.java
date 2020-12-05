@@ -3,7 +3,7 @@ package readingtiplibrary;
 import java.sql.SQLException;
 
 import readingtiplibrary.dao.ReadingTipDAO;
-import readingtipslibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 import readingtiplibrary.userinterface.ConsoleIO;
 import readingtiplibrary.userinterface.UserInterface;
 
