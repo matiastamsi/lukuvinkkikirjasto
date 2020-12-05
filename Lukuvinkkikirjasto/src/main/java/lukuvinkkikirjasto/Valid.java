@@ -9,7 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 
-public class Validi {
+public class Valid {
     
     public static boolean checkURL(String url) {
         try {

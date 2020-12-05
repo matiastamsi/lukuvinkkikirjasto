@@ -3,7 +3,7 @@ package lukuvinkkikirjasto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Lukuvinkki {
+public class ReadingTip {
 
     private Integer id;
     private final String otsikko;
@@ -11,7 +11,7 @@ public class Lukuvinkki {
     private String linkki;
     private LocalDate read;
 
-    public Lukuvinkki(final Integer id, final String otsikko) {
+    public ReadingTip(final Integer id, final String otsikko) {
         this.id = id;
         this.otsikko = otsikko;
         this.tagit = new ArrayList<>();
@@ -27,35 +27,35 @@ public class Lukuvinkki {
         this.read = read;
     }
 
-    public void lisaaTagi(final String tag) {
+    public void addTag(final String tag) {
         this.tagit.add(tag);
     }
 
-    public void poistaTagi(final String tag) {
+    public void deleteTag(final String tag) {
         this.tagit.remove(tag);
     }
 
-    public ArrayList<String> getTagit() {
+    public ArrayList<String> getTags() {
         return this.tagit;
     }
 
-    public void lisaaLinkki(final String link) {
+    public void addLink(final String link) {
         this.linkki = link;
     }
     
-    public void poistaLinkki() {
+    public void deleteLink() {
         this.linkki = "Ei lisättyä linkkiä";
     }
 
-    public String getLinkki() {
+    public String getLink() {
         return this.linkki;
     }
 
-    public String getOtsikko() {
+    public String getTitle() {
         return this.otsikko;
     }
 
-    public void setTagit(final ArrayList<String> lukuvinkinTagit) {
+    public void setTags(final ArrayList<String> lukuvinkinTagit) {
         this.tagit = lukuvinkinTagit;
     }
 

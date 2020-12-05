@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import lukuvinkkikirjasto.Lukuvinkki;
+import lukuvinkkikirjasto.ReadingTip;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 
 /**
@@ -17,11 +17,11 @@ import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
  *
  * @author Lukuvinkkikirjasto-group
  */
-public class LukuvinkkiDAO implements DAO {
+public class ReadingTipDAO implements DAO {
 
     private ConnectionToDatabase connection;
 
-    public LukuvinkkiDAO(final ConnectionToDatabase connection) {
+    public ReadingTipDAO(final ConnectionToDatabase connection) {
         this.connection = connection;
     }
 
@@ -62,8 +62,8 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
-    public List<Lukuvinkki> getAll() {
-        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+    public List<ReadingTip> getAll() {
+        List<ReadingTip> lukuvinkit = new ArrayList<>();
         
         try {
             PreparedStatement prepared = this.connection
@@ -75,12 +75,12 @@ public class LukuvinkkiDAO implements DAO {
                 ArrayList<String> lukuvinkinTagit = queryTagit(
                         result.getInt("id"));
                 //System.out.println("lukuvinkin tagit" + lukuvinkinTagit);
-                Lukuvinkki vinkki = new Lukuvinkki(
+                ReadingTip vinkki = new ReadingTip(
                         result.getInt("id"),
                         result.getString("otsikko"));                      
-                vinkki.setTagit(lukuvinkinTagit);
+                vinkki.setTags(lukuvinkinTagit);
                 String linkki = result.getString("linkki");
-                vinkki.lisaaLinkki(linkki);
+                vinkki.addLink(linkki);
                 lukuvinkit.add(vinkki);
             }
 
@@ -96,13 +96,13 @@ public class LukuvinkkiDAO implements DAO {
     @Override
     public boolean delete(final String title) {
 
-        List<Lukuvinkki> lukuvinkit = searchByTitle(title, true);
+        List<ReadingTip> lukuvinkit = searchByTitle(title, true);
         List<Integer> tagIds = new ArrayList<>();
         if (lukuvinkit.size() == 0) {
             System.out.println("Ei löytynyt lukuvinkkiä!");
             return false;
         }
-        Lukuvinkki lukuvinkki = lukuvinkit.get(0);
+        ReadingTip lukuvinkki = lukuvinkit.get(0);
         try {
             deleteLukuvinkki(lukuvinkki);
         } catch (SQLException e) {
@@ -129,7 +129,7 @@ public class LukuvinkkiDAO implements DAO {
         return true;
     }
 
-    private ArrayList<Integer> findAllTagIds(Lukuvinkki lukuvinkki) throws SQLException {
+    private ArrayList<Integer> findAllTagIds(ReadingTip lukuvinkki) throws SQLException {
         ArrayList<Integer> tags = new ArrayList<>();
         PreparedStatement prepared = this.connection
                 .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit WHERE lukuvinkki_id= ?");
@@ -142,7 +142,7 @@ public class LukuvinkkiDAO implements DAO {
         return tags;
     }
 
-    public boolean findValidTag(Lukuvinkki lukuvinkki, String taginNimi) throws SQLException {
+    public boolean findValidTag(ReadingTip lukuvinkki, String taginNimi) throws SQLException {
         PreparedStatement prepared = this.connection
                     .getPreparedStatement("SELECT count(*) FROM LukuvinkitJaTagit, Tagit WHERE LukuvinkitjaTagit.lukuvinkki_id = ? AND Tagit.nimi = ?");
         prepared.setInt(1, lukuvinkki.getId());
@@ -153,7 +153,7 @@ public class LukuvinkkiDAO implements DAO {
         return (tagId > 0);
     }
 
-    public Integer findTagId(Lukuvinkki lukuvinkki, String taginNimi) throws SQLException {
+    public Integer findTagId(ReadingTip lukuvinkki, String taginNimi) throws SQLException {
         PreparedStatement prepared = this.connection     
                     .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit, Tagit WHERE LukuvinkitJaTagit.lukuvinkki_id = ? AND Tagit.nimi= ?");
         prepared.setInt(1, lukuvinkki.getId());
@@ -164,7 +164,7 @@ public class LukuvinkkiDAO implements DAO {
         return tagId;
     }
 
-    public void deleteLukuvinkki(Lukuvinkki lukuvinkki) throws SQLException {
+    public void deleteLukuvinkki(ReadingTip lukuvinkki) throws SQLException {
         PreparedStatement prepared = this.connection
                 .getPreparedStatement("DELETE FROM Lukuvinkit WHERE id= ?");
         prepared.setInt(1, lukuvinkki.getId());
@@ -172,7 +172,7 @@ public class LukuvinkkiDAO implements DAO {
         prepared.close();
     }
 
-    private void deleteLukuvinkkiJaTagi(Lukuvinkki lukuvinkki) throws SQLException {
+    private void deleteLukuvinkkiJaTagi(ReadingTip lukuvinkki) throws SQLException {
         PreparedStatement prepared = this.connection
                 .getPreparedStatement("DELETE FROM LukuvinkitJaTagit WHERE lukuvinkki_id= ?");
         prepared.setInt(1, lukuvinkki.getId());
@@ -206,24 +206,24 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
-    public void add(final Lukuvinkki lukuvinkki) {
-        addLinkki(lukuvinkki, lukuvinkki.getLinkki());
+    public void add(final ReadingTip lukuvinkki) {
+        addLinkki(lukuvinkki, lukuvinkki.getLink());
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement("INSERT INTO Lukuvinkit "
                             + "(otsikko, linkki) VALUES (?, ?)");
-            prepared.setString(1, lukuvinkki.getOtsikko());
-            prepared.setString(2, lukuvinkki.getLinkki());
+            prepared.setString(1, lukuvinkki.getTitle());
+            prepared.setString(2, lukuvinkki.getLink());
             prepared.executeUpdate();
 
-            if (lukuvinkki.getTagit() != null) {
+            if (lukuvinkki.getTags() != null) {
 
-                Integer lukuvinkkiId = queryId(lukuvinkki.getOtsikko(),
+                Integer lukuvinkkiId = queryId(lukuvinkki.getTitle(),
                         "SELECT id FROM Lukuvinkit WHERE otsikko = ?");
                 //System.out.println("lukuvinkin id: " + lukuvinkkiId);
 
-                for (int i = 0; i < lukuvinkki.getTagit().size(); i++) {
-                    String tagiNimi = lukuvinkki.getTagit().get(i);
+                for (int i = 0; i < lukuvinkki.getTags().size(); i++) {
+                    String tagiNimi = lukuvinkki.getTags().get(i);
                     Integer tagiId = queryId(tagiNimi,
                             "SELECT id FROM Tagit WHERE nimi = ?");
                     //System.out.println("tagin id: " + tagi_id);
@@ -259,7 +259,7 @@ public class LukuvinkkiDAO implements DAO {
         }
     }
 
-    public void addTagi(Lukuvinkki lukuvinkki, String tagi) throws SQLException {
+    public void addTagi(ReadingTip lukuvinkki, String tagi) throws SQLException {
         PreparedStatement prepared = this.connection.getPreparedStatement(
                     "INSERT INTO Tagit (nimi) values (?)");
                     prepared.setString(1, tagi);
@@ -277,9 +277,9 @@ public class LukuvinkkiDAO implements DAO {
         
     }
 
-    public void addLinkki(Lukuvinkki lukuvinkki, String linkki) {
+    public void addLinkki(ReadingTip lukuvinkki, String linkki) {
         try {
-            String vinkkiNimi = lukuvinkki.getOtsikko();
+            String vinkkiNimi = lukuvinkki.getTitle();
             Integer vinkkiId = queryId(vinkkiNimi, "SELECT id FROM "
                     + "Lukuvinkit WHERE otsikko = ?");
             PreparedStatement prepared = this.connection
@@ -295,9 +295,9 @@ public class LukuvinkkiDAO implements DAO {
         }
     }
     
-    public void deleteLinkki(Lukuvinkki lukuvinkki) {
+    public void deleteLinkki(ReadingTip lukuvinkki) {
         try {
-            String vinkkiNimi = lukuvinkki.getOtsikko();
+            String vinkkiNimi = lukuvinkki.getTitle();
             Integer vinkkiId = queryId(vinkkiNimi, "SELECT id FROM "
                     + "Lukuvinkit WHERE otsikko = ?");
             PreparedStatement prepared = this.connection
@@ -323,8 +323,8 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override
-    public List<Lukuvinkki> searchByTitle(final String title, final boolean exact) {
-        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+    public List<ReadingTip> searchByTitle(final String title, final boolean exact) {
+        List<ReadingTip> lukuvinkit = new ArrayList<>();
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement(
@@ -341,10 +341,10 @@ public class LukuvinkkiDAO implements DAO {
                 ArrayList<String> lukuvinkinTagit = queryTagit(
                         result.getInt("id"));
                 //System.out.println("lukuvinkin tagit" + lukuvinkinTagit);
-                Lukuvinkki vinkki = new Lukuvinkki(
+                ReadingTip vinkki = new ReadingTip(
                         result.getInt("id"),
                         result.getString("otsikko"));
-                vinkki.setTagit(lukuvinkinTagit);
+                vinkki.setTags(lukuvinkinTagit);
                 lukuvinkit.add(vinkki);
             }
 
@@ -358,11 +358,11 @@ public class LukuvinkkiDAO implements DAO {
     }
 
     @Override 
-    public List<Lukuvinkki> searchByTags(List<String> tagfilter) {
+    public List<ReadingTip> searchByTags(List<String> tagfilter) {
         // todo: optimointia?, haku = O(n^3)
-        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
-        for (Lukuvinkki lukuvinkki : getAll()) {
-            for (String vinkkitag : lukuvinkki.getTagit()) {
+        List<ReadingTip> lukuvinkit = new ArrayList<>();
+        for (ReadingTip lukuvinkki : getAll()) {
+            for (String vinkkitag : lukuvinkki.getTags()) {
                 if (tagfilter.contains(vinkkitag)) {
                     lukuvinkit.add(lukuvinkki);
                 }
@@ -423,7 +423,7 @@ public class LukuvinkkiDAO implements DAO {
         }
     }
 
-	public String markAsRead(Lukuvinkki lukuvinkki)  {
+	public String markAsRead(ReadingTip lukuvinkki)  {
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement("UPDATE Lukuvinkit " 

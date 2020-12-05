@@ -2,7 +2,7 @@ package lukuvinkkikirjasto;
 
 import java.sql.SQLException;
 
-import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
+import lukuvinkkikirjasto.dao.ReadingTipDAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.userinterface.ConsoleIO;
 import lukuvinkkikirjasto.userinterface.UserInterface;
@@ -28,7 +28,7 @@ final class Main {
     public static void main(final String[] args) throws SQLException {
         ConnectionToDatabase connection
                 = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
-        LukuvinkkiDAO lukuvinkkiDao = new LukuvinkkiDAO(connection);
+        ReadingTipDAO lukuvinkkiDao = new ReadingTipDAO(connection);
         UserInterface ui = new UserInterface(new ConsoleIO(), lukuvinkkiDao);
         ui.run();
     }

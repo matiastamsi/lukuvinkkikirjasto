@@ -2,7 +2,7 @@ package lukuvinkkikirjasto.dao;
 
 import java.nio.file.Path;
 import java.util.List;
-import lukuvinkkikirjasto.Lukuvinkki;
+import lukuvinkkikirjasto.ReadingTip;
 
 /**
  * The interface that is responsible for data access.
@@ -11,23 +11,23 @@ import lukuvinkkikirjasto.Lukuvinkki;
  */
 public interface DAO {
 
-    List<Lukuvinkki> getAll();
+    List<ReadingTip> getAll();
 
     boolean delete(String title);
 
     boolean edit(String title);
 
-    void add(Lukuvinkki lukuvinkki);
+    void add(ReadingTip lukuvinkki);
 
     void createDatabase();
 
     void initializeDatabase(Path path);
 
-    List<Lukuvinkki> searchByTitle(String title, boolean exact);
+    List<ReadingTip> searchByTitle(String title, boolean exact);
 
-    List<Lukuvinkki> searchByTags(List<String> tagfilter);
+    List<ReadingTip> searchByTags(List<String> tagfilter);
 
-    String markAsRead(Lukuvinkki lukuvinkki);
+    String markAsRead(ReadingTip lukuvinkki);
 
     void close();
 }

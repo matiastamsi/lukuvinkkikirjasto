@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
+import lukuvinkkikirjasto.dao.ReadingTipDAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.userinterface.*;
 import io.cucumber.java.Before;
@@ -24,12 +24,12 @@ public class StepDefinitions {
     ArrayList<String> inputs;
     StubIO io;
     ConnectionToDatabase connection;
-    LukuvinkkiDAO dao;
+    ReadingTipDAO dao;
     
     @Before
     public void setUp() {
         connection = new ConnectionToDatabase("jdbc:sqlite:cucumberTest.db");
-        dao = new LukuvinkkiDAO(connection);
+        dao = new ReadingTipDAO(connection);
         dao.createDatabase();
         inputs = new ArrayList<>();
     }
@@ -104,7 +104,7 @@ public class StepDefinitions {
     @When("ohjelma käynnistetään")
     public void kaynnistaOhjelma() {
         connection = new ConnectionToDatabase("jdbc:sqlite:cucumberTest.db");
-        dao = new LukuvinkkiDAO(connection);
+        dao = new ReadingTipDAO(connection);
         inputs = new ArrayList<>();
     }
     

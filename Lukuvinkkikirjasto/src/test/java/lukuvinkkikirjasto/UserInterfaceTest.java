@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
+import lukuvinkkikirjasto.dao.ReadingTipDAO;
 import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
 import lukuvinkkikirjasto.userinterface.StubIO;
 import lukuvinkkikirjasto.userinterface.UserInterface;
@@ -26,12 +26,12 @@ public class UserInterfaceTest {
     ArrayList<String> syotteet = new ArrayList<>();
     StubIO io;
     ConnectionToDatabase connection;
-    LukuvinkkiDAO dao;
+    ReadingTipDAO dao;
 
     @Before
     public void setUp() throws SQLException, IOException {
         connection = new ConnectionToDatabase("jdbc:sqlite:test.db");
-        dao = new LukuvinkkiDAO(connection);
+        dao = new ReadingTipDAO(connection);
         dao.createDatabase();
     }
 

@@ -4,16 +4,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import lukuvinkkikirjasto.Lukuvinkki;
-import lukuvinkkikirjasto.Validi;
-import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
+import lukuvinkkikirjasto.ReadingTip;
+import lukuvinkkikirjasto.Valid;
+import lukuvinkkikirjasto.dao.ReadingTipDAO;
 
 public class UserInterface {
 
     private InputOutput io;
-    private LukuvinkkiDAO library;
+    private ReadingTipDAO library;
 
-    public UserInterface(final InputOutput io, final LukuvinkkiDAO dao) {
+    public UserInterface(final InputOutput io, final ReadingTipDAO dao) {
         this.io = io;
         System.out.println(dao);
         this.library = dao;
@@ -72,7 +72,7 @@ public class UserInterface {
         }
     }
 
-    private void markAsRead(Lukuvinkki lukuvinkki) throws SQLException {
+    private void markAsRead(ReadingTip lukuvinkki) throws SQLException {
         //System.out.println("markAsRead() " + lukuvinkki.getRead());
         io.print("Merkitäänkö lukuvinkki luetuksi tänään "
             + "vai aiempana päivänä? Valitse t/a. "
@@ -88,7 +88,7 @@ public class UserInterface {
             if (option.equals("a")) {
                 io.print("Anna päivämäärä muodossa vvvv-kk-pp:");
                 String date = io.nextLine();
-                if (Validi.checkDate(date)) {
+                if (Valid.checkDate(date)) {
                     lukuvinkki.setRead(LocalDate.parse(date));
                     String notification = this.library.markAsRead(lukuvinkki);
                     io.print(notification);
@@ -109,12 +109,12 @@ public class UserInterface {
      * Get all 'lukuvinkki' from database and print those like: "title" "URL"
      */
     private void listItems() {
-        List<Lukuvinkki> vinkit = this.library.getAll();
+        List<ReadingTip> vinkit = this.library.getAll();
         if (vinkit == null) {
             io.print("Lukuvinkkien hakeminen epäonnistui " + "tai et ole vielä lisännyt yhtään lukuvinkkiä.");
         } else {
-            //this.library.getAll().stream().map(l -> l.getOtsikko() + "\n" + l.getLinkki()).forEach(t -> io.print(t));
-            List<Lukuvinkki> entries = this.library.getAll();
+            //this.library.getAll().stream().map(l -> l.getTitle() + "\n" + l.getLink()).forEach(t -> io.print(t));
+            List<ReadingTip> entries = this.library.getAll();
             entries.forEach(v -> {
                 io.print(v.toString());
             });
@@ -126,7 +126,7 @@ public class UserInterface {
             io.print("Anna lukuvinkin otsikko: ");
             String title = io.nextLine();
             // Check wether there already exists lukuvinkki with same title
-            List<Lukuvinkki> exists = this.library.searchByTitle(title, true);
+            List<ReadingTip> exists = this.library.searchByTitle(title, true);
             if (!exists.isEmpty()) { // Already exists.
                 io.print("Löytyy jo lukuvinkki kyseisellä otsikolla.");
                 continue;
@@ -134,7 +134,7 @@ public class UserInterface {
             if (title.equals("")) {
                 io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
             } else {
-                Lukuvinkki newItem = new Lukuvinkki(this.library.getLukuvinkkienMaara() + 1, title);
+                ReadingTip newItem = new ReadingTip(this.library.getLukuvinkkienMaara() + 1, title);
 
                 io.print("Haluatko lisätä lukuvinkille tageja? Valitse k/e");
                 String valinta = io.nextLine();
@@ -145,8 +145,8 @@ public class UserInterface {
                         if (tag.equals("")) {
                             break;
                         }
-                        if (Validi.checkTag(tag)) {
-                            newItem.lisaaTagi(tag);
+                        if (Valid.checkTag(tag)) {
+                            newItem.addTag(tag);
                         } else {
                             io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen: ");
                         }
@@ -160,8 +160,8 @@ public class UserInterface {
                         String linkki = io.nextLine();
                         if (linkki.equals("")) {
                             break;
-                        } else if (Validi.checkURL(linkki)) {
-                            newItem.lisaaLinkki(linkki);
+                        } else if (Valid.checkURL(linkki)) {
+                            newItem.addLink(linkki);
                             break;
                         }
                         io.print("Linkki ei ollut validi!");
@@ -178,9 +178,9 @@ public class UserInterface {
         while (true) {
             io.print("Anna lukuvinkin URL: ");
             String url = io.nextLine();
-            if (Validi.checkURL(url)) {
-            String title = Validi.getURLTitle(url);
-            List<Lukuvinkki> exists = this.library.searchByTitle(title, true);
+            if (Valid.checkURL(url)) {
+            String title = Valid.getURLTitle(url);
+            List<ReadingTip> exists = this.library.searchByTitle(title, true);
             if (!exists.isEmpty()) { // Already exists.
                 io.print("Löytyy jo lukuvinkki kyseisellä otsikolla: " + title + ".");
                 continue;
@@ -188,8 +188,8 @@ public class UserInterface {
             if (title.equals("")) {
                 io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
             } else {
-                Lukuvinkki newItem = new Lukuvinkki(this.library.getLukuvinkkienMaara() + 1, title);
-                newItem.lisaaLinkki(url);
+                ReadingTip newItem = new ReadingTip(this.library.getLukuvinkkienMaara() + 1, title);
+                newItem.addLink(url);
                 io.print("Haluatko lisätä lukuvinkille tageja? Valitse k/e");
                 String valinta = io.nextLine();
                 if (valinta.equals("k")) {
@@ -199,8 +199,8 @@ public class UserInterface {
                         if (tag.equals("")) {
                             break;
                         }
-                        if (Validi.checkTag(tag)) {
-                            newItem.lisaaTagi(tag);
+                        if (Valid.checkTag(tag)) {
+                            newItem.addTag(tag);
                         } else {
                             io.print("Tagissa on sallittu vain kirjaimia, yritä uudelleen: ");
                         }
@@ -233,7 +233,7 @@ public class UserInterface {
             if (input.equals("")) {
                 break;
             } else {
-                List<Lukuvinkki> results = this.library.searchByTitle(input, false);
+                List<ReadingTip> results = this.library.searchByTitle(input, false);
                 switch (results.size()) {
                     case 0:
                         io.print("Tuloksia ei löytynyt.");
@@ -245,7 +245,7 @@ public class UserInterface {
                         break;
                     default:
                         io.print("Monta tulosta:");
-                        results.stream().map(l -> l.getOtsikko()).forEach(t -> io.print(t));
+                        results.stream().map(l -> l.getTitle()).forEach(t -> io.print(t));
                         io.print("Tarkenna hakua!");
                 }
             }
@@ -284,10 +284,10 @@ public class UserInterface {
             }
             tagit.add(input);
         }
-        List<Lukuvinkki> vinkit = this.library.searchByTags(tagit);
+        List<ReadingTip> vinkit = this.library.searchByTags(tagit);
         io.print("Löydetyt vinkit tageilla: " + tagit);
-        for (Lukuvinkki vinkki : vinkit) {
-            io.print(vinkki.getOtsikko());
+        for (ReadingTip vinkki : vinkit) {
+            io.print(vinkki.getTitle());
         }
     }
 
@@ -298,19 +298,19 @@ public class UserInterface {
             if (title.equals("")) {
                 break;
             } else {
-                List<Lukuvinkki> results = this.library.searchByTitle(title, false);
+                List<ReadingTip> results = this.library.searchByTitle(title, false);
                 switch (results.size()) {
                     case 0:
                         io.print("Tuloksia ei löytynyt.");
                         break;
                     case 1:
                         io.print("Löydettiin lukuvinkki!");
-                        io.print(results.get(0).getOtsikko());
+                        io.print(results.get(0).getTitle());
                         readingTipMenu(results.get(0));
                         break;
                     default:
                         io.print("Monta tulosta:");
-                        results.stream().map(l -> l.getOtsikko()).forEach(t -> io.print(t));
+                        results.stream().map(l -> l.getTitle()).forEach(t -> io.print(t));
                         io.print("Tarkenna hakua!");
                 }
             }
@@ -318,13 +318,13 @@ public class UserInterface {
         }
     }
 
-    private void readingTipMenu(final Lukuvinkki lukuvinkki) throws SQLException {
+    private void readingTipMenu(final ReadingTip lukuvinkki) throws SQLException {
         // Tässä voisi sitten kysellä poistetaanko/muokataanko vinkkiä.
         while (true) {
             io.print("Haluatko muokata tageja, linkkiä tai otsikkoa vai merkitä vinkin luetuksi? Valitse t/l/o/luettu, tyhjä rivi poistuu");
-            io.print("Otsikko: " + lukuvinkki.getOtsikko());
-            io.print("Tagit: " + lukuvinkki.getTagit());
-            io.print("Linkki: " + lukuvinkki.getLinkki());
+            io.print("Otsikko: " + lukuvinkki.getTitle());
+            io.print("Tagit: " + lukuvinkki.getTags());
+            io.print("Linkki: " + lukuvinkki.getLink());
             String command = io.nextLine();
             switch (command) {
                 case "":
@@ -340,7 +340,7 @@ public class UserInterface {
         }
     }
 
-    private void editLink(Lukuvinkki lukuvinkki) throws SQLException {
+    private void editLink(ReadingTip lukuvinkki) throws SQLException {
         while (true) {
             io.print("Haluatko muokata tai poistaa linkin? Valitse m/p, tyhjä rivi poistuu"); 
             String input = io.nextLine();
@@ -352,8 +352,8 @@ public class UserInterface {
                     String linkki = io.nextLine();
                     if (linkki.equals("")) {
                         break;
-                    } else if (Validi.checkURL(linkki)) {
-                        lukuvinkki.lisaaLinkki(linkki);
+                    } else if (Valid.checkURL(linkki)) {
+                        lukuvinkki.addLink(linkki);
                         this.library.addLinkki(lukuvinkki, linkki);
                         io.print("Linkin tallentaminen onnistui!");
                     } else {
@@ -361,7 +361,7 @@ public class UserInterface {
                     }
                     break;
                 case "p":
-                    lukuvinkki.poistaLinkki();
+                    lukuvinkki.deleteLink();
                     this.library.deleteLinkki(lukuvinkki);
                     io.print("Linkin poistaminen onnistui!");
                     break;
@@ -371,7 +371,7 @@ public class UserInterface {
         }
     }
 
-    public void taginMuokkaus(Lukuvinkki lukuvinkki) throws SQLException {
+    public void taginMuokkaus(ReadingTip lukuvinkki) throws SQLException {
         io.print("Haluatko muokata, poistaa vai lisätä tagin? Valitse m/p/l, tyhjä rivi poistuu");
         String command = io.nextLine();
         switch (command) {
@@ -383,7 +383,7 @@ public class UserInterface {
                     if (this.library.findValidTag(lukuvinkki, input)) {
                             int tagiId = this.library.findTagId(lukuvinkki, input);
                             this.library.deleteTagi(tagiId);
-                            lukuvinkki.poistaTagi(input);
+                            lukuvinkki.deleteTag(input);
                             io.print("Tagi poistettu!");
                     } else {
                         io.print("Tagia " + input + " ei löytynyt");
@@ -393,8 +393,8 @@ public class UserInterface {
                 while (true) {
                     io.print("Anna uusi tagi: ");
                     input = io.nextLine();
-                    if (Validi.checkTag(input)) {
-                        lukuvinkki.lisaaTagi(input);
+                    if (Valid.checkTag(input)) {
+                        lukuvinkki.addTag(input);
                         this.library.addTagi(lukuvinkki, input);
                         io.print("Tagi lisätty!");
                     } else {
@@ -411,10 +411,10 @@ public class UserInterface {
                         while (true) {
                         io.print("Anna muokattu tagi: ");
                         String newTag = io.nextLine();
-                        if (Validi.checkTag(newTag)) {
+                        if (Valid.checkTag(newTag)) {
                             int oldTag = this.library.findTagId(lukuvinkki, input);
-                            lukuvinkki.poistaTagi(input);
-                            lukuvinkki.lisaaTagi(newTag);
+                            lukuvinkki.deleteTag(input);
+                            lukuvinkki.addTag(newTag);
                             this.library.deleteTagi(oldTag);
                             this.library.addTagi(lukuvinkki, newTag);
                             io.print("Tagi muokattu!");
