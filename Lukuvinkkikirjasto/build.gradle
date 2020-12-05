@@ -7,7 +7,7 @@ plugins {
     id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
-mainClassName = 'lukuvinkkikirjasto.Main'
+mainClassName = 'readingtiplibrary.Main'
 
 repositories {
     jcenter()
@@ -42,7 +42,7 @@ jacocoTestReport {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'lukuvinkkikirjasto.Main'
+        attributes 'Main-Class': 'readingtiplibrary.Main'
     }
 }
 

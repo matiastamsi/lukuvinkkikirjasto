@@ -31,7 +31,6 @@ public class Valid {
             document = Jsoup.connect(URL).get();
             title = document.title(); 
         } catch (Exception e) {
-            e.printStackTrace();
             title = "";
         }
         return title;
