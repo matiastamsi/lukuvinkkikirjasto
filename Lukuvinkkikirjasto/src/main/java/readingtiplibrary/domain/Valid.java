@@ -4,7 +4,6 @@ package readingtiplibrary.domain;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
