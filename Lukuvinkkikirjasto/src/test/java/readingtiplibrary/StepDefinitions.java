@@ -15,9 +15,8 @@ import readingtiplibrary.dao.ReadingTipDAO;
 import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+
 
 public class StepDefinitions {
 
@@ -93,12 +92,29 @@ public class StepDefinitions {
         Collections.addAll(inputs, i);
     }
     
+    @Given("valikosta valitaan vinkin lisäys linkillä") 
+    public void lisataanLinkilla() {
+        String[] i = {"u", "u"};
+        Collections.addAll(inputs, i);
+    }
+
     @When("poistutaan")
     public void poistutaan() {
         String[] i = {"p", "", "p"};
         Collections.addAll(inputs, i);
     }
     
+    @When("annetaan URL {string}")
+    public void annetaanUrl(String url) {
+        inputs.add(url);
+    }
+
+    @When("annetaan virheellinen URL {string}")
+    public void annetaanVirheellinenURL(String url) {
+        String[] i = {url, "https://google.fi"};
+        Collections.addAll(inputs, i);
+    }
+
     @When("ohjelma sammutetaan")
     public void sammutetaanOhjelma() throws SQLException {
         io = new StubIO(inputs);
