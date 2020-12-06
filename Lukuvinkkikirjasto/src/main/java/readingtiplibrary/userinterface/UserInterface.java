@@ -125,7 +125,7 @@ public class UserInterface {
             io.print("Löydettiin otsikko: " + title);
             
             ReadingTip newTip = new ReadingTip(dao.getAmountOfReadingTips() + 1, title);
-            newTip.addLink(url);
+            newTip.setLink(url);
             
             io.print("\nHaluatko lisätä lukuvinkille tageja? Valitse k/e");
             String command = io.nextLine();
@@ -161,7 +161,7 @@ public class UserInterface {
             io.print("Anna linkki: ");
             String link = io.nextLine();
             if (Valid.checkURL(link)) {
-                newTip.addLink(link);
+                newTip.setLink(link);
                 break;
             }
             io.print("Linkki ei ollut validi, yritä uudestaan:");
@@ -218,7 +218,9 @@ public class UserInterface {
                     io.print("Monta tulosta:\n");
                     results.stream().map(l -> l.getTitle()).forEach(t -> io.print(t));
                     io.print("Tarkenna hakua!");
+                    break;
             }
+            break;
         }
     }
     
@@ -285,6 +287,8 @@ public class UserInterface {
                     break;
             }
         }
+       
+        
     }
     
     private void editLink(ReadingTip tip) {
@@ -293,12 +297,12 @@ public class UserInterface {
         String newLink = io.nextLine();
         
         if (newLink.equals("")) {
-            tip.addLink("Ei lisättyä linkkiä");
+            tip.setLink("Ei lisättyä linkkiä");
             dao.addLink(tip, "Ei lisättyä linkkiä");
             io.print("Linkki poistettu.\n");
             return;
         } else if (Valid.checkURL(newLink)) {
-            tip.addLink(newLink);
+            tip.setLink(newLink);
             dao.addLink(tip, newLink);
             io.print("Linkki päivitetty.\n");
             return;
