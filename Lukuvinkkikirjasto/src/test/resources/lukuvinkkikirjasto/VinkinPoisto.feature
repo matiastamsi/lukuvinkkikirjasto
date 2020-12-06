@@ -10,5 +10,6 @@ Feature: Käyttäjä voi poistaa linkin
         Given lisätään lukuvinkki otsikolla "testi1"
         And lisätään lukuvinkki otsikolla "testi2"
         When etsitään poistettavaa vinkkiä ensin otsikolla "testi" ja tarkennetaan hakua "testi1"
+        And poistetaan lukuvinkki
         And poistutaan
         Then ohjelma vastaa "Tarkenna hakua!" ja "Lukuvinkki poistettu!"

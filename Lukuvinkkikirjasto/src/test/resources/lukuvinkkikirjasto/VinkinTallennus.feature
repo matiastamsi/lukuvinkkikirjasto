@@ -5,6 +5,6 @@ Feature: Vinkit tallentuvat pysyvästi
         When ohjelma sammutetaan
         And ohjelma käynnistetään
         And käyttäjä valitsee valikosta listauksen ja poistuu
-        Then ohjelma näyttää lukuvinkin "testiOtsikko::Ei lisättyä linkkiä::Ei tageja"
+        Then ohjelma näyttää lukuvinkin "testiOtsikko::Ei lisättyä linkkiä::Ei luettu::Ei tageja"
 
     
