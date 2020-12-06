@@ -1,6 +1,5 @@
 package readingtiplibrary.domain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReadingTip {
@@ -9,7 +8,7 @@ public class ReadingTip {
     private final String title;
     private ArrayList<String> tags;
     private String link;
-    private LocalDate read;
+    private String read;
 
     public ReadingTip(final Integer id, final String title) {
         this.id = id;
@@ -19,11 +18,11 @@ public class ReadingTip {
 
     }
 
-    public LocalDate getRead() {
+    public String getRead() {
         return read;
     }
 
-    public void setRead(LocalDate read) {
+    public void setRead(String read) {
         this.read = read;
     }
 
@@ -65,11 +64,19 @@ public class ReadingTip {
     
     public String toString() {
         String tip = title + "\n" + link + "\n";
+        
+        if (read == null) {
+            tip += "Ei luettu\n";
+        } else {
+            tip += "Luettu " + read + "\n";
+        }
+        
         if (tags.isEmpty()) {
             tip += "Ei tageja";
         } else {
+            tip += "Tagit: ";
             for (String t: tags) {
-                tip += "[" + t + "] ";
+                tip +=  t + " ";
             }
         }
         return tip;

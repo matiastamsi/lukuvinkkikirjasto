@@ -12,6 +12,7 @@ public class ConsoleIO implements InputOutput {
 
     @Override
     public String nextLine() {
+        System.out.print(">");
         return reader.nextLine();
     }
 

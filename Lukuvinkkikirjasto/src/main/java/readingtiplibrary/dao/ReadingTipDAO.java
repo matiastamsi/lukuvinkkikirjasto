@@ -66,7 +66,7 @@ public class ReadingTipDAO implements DAO {
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement(
-                            "SELECT id, otsikko, linkki FROM Lukuvinkit");
+                            "SELECT id, otsikko, linkki, read FROM Lukuvinkit");
             ResultSet result = prepared.executeQuery();
 
             while (result.next()) {
@@ -77,6 +77,7 @@ public class ReadingTipDAO implements DAO {
                         result.getInt("id"),
                         result.getString("otsikko"));
                 rt.setTags(tags);
+                rt.setRead(result.getString("read"));
                 String link = result.getString("linkki");
                 rt.addLink(link);
                 readingTips.add(rt);
@@ -402,7 +403,7 @@ public class ReadingTipDAO implements DAO {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement("UPDATE Lukuvinkit "
                             + "SET read = ? WHERE id = ?");
-            prepared.setString(1, rt.getRead().toString());
+            prepared.setString(1, rt.getRead());
             prepared.setInt(2, rt.getId());
             prepared.executeUpdate();
             prepared.close();
