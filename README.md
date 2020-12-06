@@ -20,6 +20,7 @@ Ohjelmistotuotanto miniprojekti
 [Siirry käyttöohjeeseen](https://github.com/matiastamsi/lukuvinkkikirjasto/blob/main/dokumentaatio/kayttoohje.md)
 
 ## Testikattavuus
-[![codecov](https://codecov.io/gh/matiastamsi/lukuvinkkikirjasto/branch/main/graph/badge.svg?token=43YRU3O85I)](https://codecov.io/gh/matiastamsi/lukuvinkkikirjasto)
+[![Codecov](https://codecov.io/gh/matiastamsi/lukuvinkkikirjasto/branch/main/graph/badge.svg?token=43YRU3O85I)](https://codecov.io/gh/matiastamsi/lukuvinkkikirjasto)
 
-[Codecov](https://app.codecov.io/gh/matiastamsi/lukuvinkkikirjasto/)
+## Lisenssi
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/matiastamsi/lukuvinkkikirjasto/blob/main/LICENSE)
