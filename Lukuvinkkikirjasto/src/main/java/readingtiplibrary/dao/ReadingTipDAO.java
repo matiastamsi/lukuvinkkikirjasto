@@ -307,7 +307,7 @@ public class ReadingTipDAO implements DAO {
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement(
-                            "SELECT id, otsikko, linkki "
+                            "SELECT id, otsikko, linkki, read "
                             + "FROM Lukuvinkit WHERE otsikko LIKE ?");
             if (exact) {
                 prepared.setString(1, title);
@@ -323,6 +323,10 @@ public class ReadingTipDAO implements DAO {
                         result.getInt("id"),
                         result.getString("otsikko"));
                 String link = result.getString("linkki");
+                String read = result.getString("read");
+                if (!read.equals(null)) {
+                    rt.setRead(read);
+                }
                 rt.setTags(tags);
                 rt.setLink(link);
                 readingTips.add(rt);
