@@ -43,7 +43,7 @@ public class ReadingTipTest {
     @Test
     public void addingAndDeletingLinkWorks() {
         rt = new ReadingTip(6, "Linkin lisäys on helppoa");
-        rt.addLink("https://bing.com");
+        rt.setLink("https://bing.com");
         assertEquals("https://bing.com", rt.getLink());
         rt.deleteLink();
         assertEquals("Ei lisättyä linkkiä", rt.getLink());

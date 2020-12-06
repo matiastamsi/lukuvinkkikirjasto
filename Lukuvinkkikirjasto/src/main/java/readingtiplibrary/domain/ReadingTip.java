@@ -41,7 +41,7 @@ public class ReadingTip {
         return this.tags;
     }
 
-    public void addLink(final String link) {
+    public void setLink(final String link) {
         this.link = link;
     }
     
