@@ -37,13 +37,13 @@ public class StepDefinitions {
     
     @Given("valikosta valitaan vinkin lisäys ja annetaan jokin otsikko ja poistutaan")
     public void valitaanLinkinLisaysAnnetaanOtsikkoJaPoistutaan() {
-        String[] i = {"u", "testiOtsikko", "e", "e", "p"};
+        String[] i = {"u", "o", "testiOtsikko", "e", "e", "p"};
         Collections.addAll(inputs, i);
     }
     
     @Given("valikosta valitaan vinkin lisäys ja yritetään tyhjällä otsikolla ja poistutaan")
     public void valitaanLinkinLisaysAnnetaanTyhjaJaPoistutaan() {
-        String[] i = {"u", "", "eiTyhja", "e", "e", "p"};
+        String[] i = {"u", "o", "", "eiTyhja", "e", "e", "p"};
         Collections.addAll(inputs, i);
     }
     
@@ -55,26 +55,30 @@ public class StepDefinitions {
     
     @Given("lisätään lukuvinkki otsikolla {string} ja linkillä {string}")
     public void lisataanLukuvinkkiOtsikollaJaLinkilla(String otsikko, String linkki) {
-        String[] i = {"u", otsikko, "e", "k", linkki};
+        String[] i = {"u", "o", otsikko, "e", "k", linkki};
         Collections.addAll(inputs, i);
     }
     
     @Given("avataan vinkin muokkaus vinkille {string}")
     public void muokataanVinkkia(String vinkki) {
-        String[] i = {"e", vinkki, "", "p"};
+        String[] i = {"e", "o", vinkki};
         Collections.addAll(inputs, i);
     }
 
     @Given("yritetään lisätä lukuvinkki otsikolla {string} ja virheellisellä linkillä {string}")
     public void lisataanLukuvinkkiOtsikollaJaVirheellisellaLinkilla(String otsikko, String huonoLinkki) {
-        String[] i = {"u", otsikko, "e", "k", huonoLinkki, "http://google.com"};
+        String[] i = {"u", "o", otsikko, "e", "k", huonoLinkki, "http://google.com"};
         Collections.addAll(inputs, i);
     }
     
     @Given("lisätään lukuvinkki otsikolla {string} ja tageilla {string}")
     public void lisataanLukuvinkkiOtsikollaJaTageilla(String otsikko, String tagit) {
-        String[] i = {"u", otsikko, "k", tagit, "", "e"};
-        Collections.addAll(inputs, i);
+        String[] i1 = {"u", "o", otsikko, "k"};
+        String[] tags = tagit.split("::");
+        String[] i2 = {"", "e"};
+        Collections.addAll(inputs, i1);
+        Collections.addAll(inputs, tags);
+        Collections.addAll(inputs, i2);
     }
     
     @Given("käyttäjä antaa virheellisen merkin ja poistuu")
@@ -83,15 +87,16 @@ public class StepDefinitions {
         Collections.addAll(inputs, i);
     }
 
-    @Given("valitaan et ja etsitään tagilla {string} ja poistutaan")
+    @Given("etsitään tagilla {string} ja poistutaan")
     public void etsitaanTagilla(String tagi) {
-        String[] i = {"et", tagi, "", "p"};
+        String[] i = {"e", "t", tagi, "", "p"};
         Collections.addAll(inputs, i);
     }
     
     @When("poistutaan")
     public void poistutaan() {
-        inputs.add("p");
+        String[] i = {"p", "", "p"};
+        Collections.addAll(inputs, i);
     }
     
     @When("ohjelma sammutetaan")
@@ -117,37 +122,19 @@ public class StepDefinitions {
     
     @When("etsitään poistettavaa vinkkiä ensin otsikolla {string} ja tarkennetaan hakua {string}")
     public void tarkennetaanHakua(String otsikko, String tarkennettuOtsikko) {
-        String[] i = {"x", otsikko, tarkennettuOtsikko, ""};
+        String[] i = {"e", "o", otsikko, tarkennettuOtsikko};
         Collections.addAll(inputs, i);
     }
     
     @When("poistetaan lukuvinkki otsikolla {string}")
     public void poistetaanLukuvinkkiOtsikolla(String otsikko) {
-        String[] i = {"x", otsikko, ""};
+        String[] i = {"e", "o", otsikko, "poista", ""};
         Collections.addAll(inputs, i);
     }
-
-    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja keskeyttää")
-    public void halutaanMerkitäLuetuksi(String otsikko) {
-        String[] i = {"luettu", otsikko, "luettu", "e"};
-        Collections.addAll(inputs, i);
-    }
-
-    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja a")
-    public void annetaanMikaTahansaPaivamaara(String otsikko) {
-        String[] i = {"luettu", otsikko, "luettu", "a"};
-        Collections.addAll(inputs, i);
-    }
-
-    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja t")
-    public void valitaanLukupaivaksiTamaPaiva(String otsikko) {
-        String[] i = {"luettu", otsikko, "luettu", "t"};
-        Collections.addAll(inputs, i);
-    }
-
-    @When("antaa päivämäärän {string}")
-    public void antaaPaivamaaran(String paivamaara) {
-        String[] i = {paivamaara};
+    
+    @When("poistetaan lukuvinkki")
+    public void poistetaanJoHaettuLukuvinkki() {
+        String[] i = {"poista", ""};
         Collections.addAll(inputs, i);
     }
 
@@ -176,8 +163,6 @@ public class StepDefinitions {
         assertTrue(io.getOutputs().contains(vastaus));
     }
 
-    
-    
     @Then("ohjelma vastaa {string} ja {string}")
     public void ohjelmaVastaaKahdesti(String vastaus1, String vastaus2) throws SQLException {
         io = new StubIO(inputs);
@@ -190,7 +175,7 @@ public class StepDefinitions {
     @Then("ohjelma näyttää lukuvinkin {string}")
     public void ohjelmaNayttaaVinkin(String vastaus) throws SQLException {
         String[] parts = vastaus.split("::");
-        String lukuvinkki = parts[0] + "\n" + parts[1] + "\n" + parts[2];
+        String lukuvinkki = parts[0] + "\n" + parts[1] + "\n" + parts[2] + "\n" + parts[3] + "\n";
         System.out.println(lukuvinkki);
         io = new StubIO(inputs);
         ui = new UserInterface(io, dao);

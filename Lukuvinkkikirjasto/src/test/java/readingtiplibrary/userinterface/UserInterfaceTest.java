@@ -71,7 +71,7 @@ public class UserInterfaceTest {
 
     @Test
     public void deletionTest() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "delete", "e", "e", "x", "delete", "", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "delete", "e", "e", "e", "o", "delete", "poista", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -81,7 +81,7 @@ public class UserInterfaceTest {
 
     @Test
     public void searchFindsATitle() throws SQLException {
-        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "TestTitle", "e", "e", "e", "Test", "", "p"));
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "TestTitle", "e", "e", "e", "o", "Test", "p", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();
@@ -102,7 +102,7 @@ public class UserInterfaceTest {
     @Test
     public void markAsReadTest() throws SQLException {
         ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "SQLite Tutorial", "e", "e",
-                                                "luettu", "SQLite Tutorial", "luettu", "a", "2020-12-02", "p"));
+                                                "e", "o", "SQLite Tutorial", "luettu", "a", "2020-12-02", "p", "", "p"));
         io = new StubIO(str);
         ui = new UserInterface(io, dao);
         ui.run();

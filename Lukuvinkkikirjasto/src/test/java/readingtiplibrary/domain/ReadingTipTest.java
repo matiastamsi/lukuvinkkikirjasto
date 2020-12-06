@@ -20,15 +20,15 @@ public class ReadingTipTest {
     @Test
     public void readingTipCanBeInitializedWithDate() {
         rt = new ReadingTip(123, "Toimii");
-        rt.setRead(LocalDate.parse("1234-01-01"));
-        LocalDate date = rt.getRead();
-        assertEquals(LocalDate.parse("1234-01-01"), date);
+        rt.setRead("1234-01-01");
+        String date = rt.getRead();
+        assertTrue("1234-01-01".equals(date));
     }
 
     @Test
     public void readingTipCanBeRepresentedAsString() {
         rt = new ReadingTip(3, "ABC");
-        assertEquals("ABC\nEi lisättyä linkkiä\nEi tageja", rt.toString());
+        assertEquals("ABC\nEi lisättyä linkkiä\nEi luettu\nEi tageja", rt.toString());
     }
 
     @Test
