@@ -117,8 +117,9 @@ public class UserInterface {
                 io.print("Löytyy jo lukuvinkki kyseisellä otsikolla." + title + ".");
                 continue;
             } else if (title.equals("")) {
-                io.print("Otsikossa täytyy olla vähintään yksi kirjain.");
-                continue;
+                io.print("URLin otsikko on tyhjä, lisää otsikko ja linkki manuaalisesti: ");
+                addWithTitle();
+                break;
             }
             
             io.print("Löydettiin otsikko: " + title);
@@ -260,7 +261,7 @@ public class UserInterface {
                 + "\nt: muokkaa tageja\npoista: poista lukuvinkki\np: poistu");
         boolean continues = true;
         while (continues) {
-            io.print("Anna komento: (l, t, poista, p, luettu)");
+            io.print("Anna komento: (l, luettu, t, poista, p)");
             String command = io.nextLine();
             switch (command) {
                 case "l":
