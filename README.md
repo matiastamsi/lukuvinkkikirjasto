@@ -5,6 +5,7 @@ Ohjelmistotuotanto miniprojekti
 * [Product backlog](https://docs.google.com/spreadsheets/d/1y8Mbxg-VIHm2P-DQm900TaQu5d_xlWhSPXYXhAs9CT0/edit#gid=0)
 * [Sprint 1 backlog](https://docs.google.com/spreadsheets/d/1y8Mbxg-VIHm2P-DQm900TaQu5d_xlWhSPXYXhAs9CT0/edit#gid=581813755)
 * [Sprint 2 backlog](https://docs.google.com/spreadsheets/d/1y8Mbxg-VIHm2P-DQm900TaQu5d_xlWhSPXYXhAs9CT0/edit#gid=1810371135)
+* [Sprint 3 backlog](https://docs.google.com/spreadsheets/d/1y8Mbxg-VIHm2P-DQm900TaQu5d_xlWhSPXYXhAs9CT0/edit#gid=31577507)
 
 ## Definition of Done
 * User Storyjen hyväksymiskriteerit testattu Cucumberilla
