@@ -1,11 +1,11 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
 import java.sql.SQLException;
 
-import lukuvinkkikirjasto.dao.LukuvinkkiDAO;
-import lukuvinkkikirjasto.databaseconnection.ConnectionToDatabase;
-import lukuvinkkikirjasto.userinterface.ConsoleIO;
-import lukuvinkkikirjasto.userinterface.UserInterface;
+import readingtiplibrary.dao.ReadingTipDAO;
+import readingtiplibrary.databaseconnection.ConnectionToDatabase;
+import readingtiplibrary.userinterface.ConsoleIO;
+import readingtiplibrary.userinterface.UserInterface;
 
 /**
  * The Main class of the application that is a mini-project on the
@@ -28,7 +28,7 @@ final class Main {
     public static void main(final String[] args) throws SQLException {
         ConnectionToDatabase connection
                 = new ConnectionToDatabase("jdbc:sqlite:tietokanta.db");
-        LukuvinkkiDAO lukuvinkkiDao = new LukuvinkkiDAO(connection);
+        ReadingTipDAO lukuvinkkiDao = new ReadingTipDAO(connection);
         UserInterface ui = new UserInterface(new ConsoleIO(), lukuvinkkiDao);
         ui.run();
     }

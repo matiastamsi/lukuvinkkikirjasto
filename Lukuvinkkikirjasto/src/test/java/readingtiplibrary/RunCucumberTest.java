@@ -1,4 +1,4 @@
-package lukuvinkkikirjasto;
+package readingtiplibrary;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
     plugin = "pretty", 
     features = "src/test/resources/lukuvinkkikirjasto",
     snippets = SnippetType.CAMELCASE
-    
+    //tags = "@problem"
 )
 
 public class RunCucumberTest {}

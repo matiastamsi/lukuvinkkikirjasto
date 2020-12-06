@@ -5,14 +5,26 @@ Kun ohjelma on toiminnassa, tässä ovat käyttöohjeet siihen. Kyseiset ohjeet 
 
 ---------------------------------------------------------------------------------------------------------------------------
 
-Alla on lueteltu ohjelman toiminnot ja toimintoja vastaavat näppäimet. Valitse toiminto painamalla sitä vastaavaa näppäintä.
+Alla on lueteltu päävalikon toiminnot ja toimintoja vastaavat näppäimet.
 
-u: Lisää uusi lukuvinkki.
+#### u
+Lukuvinkin lisäys. Lisäämisen voi tehdä joko manuaalisesti antamalla otsikon ja mahdollisesti linkin ja tagit erikseen tai antamalla linkin, jolloin otsikko haetaan automaattisesti, jos mahdollista.
 
-l: Listaa lisäämiesi lukuvinkkien otsikot.
+#### l
+Listaa lukuvinkit, näyttää jokaisen lukuvinkin otsikon, linkin, lukemispäivämäärän ja tagit mikäli sellaisia on olemassa.
 
-p: Poistu ohjelmasta.
+#### e
+Lukuvinkin etsintä. Lukuvinkkejä voi hakea otsikolla, hakua tulee tarkentaa kunnes haku vastaa vain yhtä lukuvinkkiä. Vaihtoehtoisesti lukuvinkkiä voi hakea tagilla/tageilla. Jokaisen tagin jälkeen sovellus listaa lukuvinkit, jotka voi valita antamalla lukuvinkin vieressä olevan numeron.
 
-Valitse toiminto (u, l tai p): 
+Kun tagi on löydetty avautuu muokkausvalikko, jossa voi muuttaa lukuvinkin linkkiä, tageja tai poistaa koko vinkin.
+
+#### p
+Poistuu sovelluksesta.
+
+#### luot
+Luo tietokantataulut, mikäli niitä ei vielä ollut. Tätä komentoa täytyy toistaiseksi kutsua, jos käynnistää ohjelman ensimmäistä kertaa.
 
 ---------------------------------------------------------------------------------------------------------------------------
+
+Kun lukuvinkkejä etsitään otsikon perusteella, listaa sovellus kaikki lukuvinkit, jotka vastaavat hakua. Hakua tulee tarkentaa niin pitkään kunnes lukuvinkki
+voidaan valita haun perusteella yksikäsitteisesti.
