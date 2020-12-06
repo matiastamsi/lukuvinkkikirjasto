@@ -38,7 +38,7 @@ public class ReadingTip {
         return this.tags;
     }
 
-    public void addLink(final String link) {
+    public void setLink(final String link) {
         this.link = link;
     }
     
@@ -63,7 +63,7 @@ public class ReadingTip {
     }
     
     public String toString() {
-        String tip = title + "\n" + link + "\n";
+        String tip = title + "\n" + this.link + "\n";
         
         if (read == null) {
             tip += "Ei luettu\n";
