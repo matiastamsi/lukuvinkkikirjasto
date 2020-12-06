@@ -193,7 +193,6 @@ public class ReadingTipDAO implements DAO {
 
     @Override
     public void add(final ReadingTip rt) {
-        addLink(rt, rt.getLink());
         try {
             PreparedStatement prepared = this.connection
                     .getPreparedStatement("INSERT INTO Lukuvinkit "
@@ -270,7 +269,7 @@ public class ReadingTipDAO implements DAO {
             prepared.close();
 
         } catch (SQLException e) {
-            System.out.println("Linkin lisääminen epäonnitui!");
+            System.out.println("Linkin lisääminen epäonnistui!");
         }
     }
 
@@ -394,6 +393,21 @@ public class ReadingTipDAO implements DAO {
             return i;
         } catch (SQLException e) {
             return -1;
+        }
+    }
+
+    @Override
+    public String getLink(ReadingTip rt) {
+        try {
+            PreparedStatement prepared = this.connection
+                    .getPreparedStatement("SELECT linkki FROM Lukuvinkit WHERE id = ?");
+                    prepared.setInt(1, rt.getId());
+            ResultSet r = prepared.executeQuery();
+            String url = r.getString("linkki");
+            prepared.close();
+            return url;
+        } catch (SQLException e) {
+            return "Linkkiä ei löydetty";
         }
     }
 

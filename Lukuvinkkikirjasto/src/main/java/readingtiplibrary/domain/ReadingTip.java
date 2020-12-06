@@ -1,6 +1,7 @@
 package readingtiplibrary.domain;
 
 import java.util.ArrayList;
+import readingtiplibrary.dao.DAO;
 
 public class ReadingTip {
 
@@ -9,6 +10,8 @@ public class ReadingTip {
     private ArrayList<String> tags;
     private String link;
     private String read;
+
+
 
     public ReadingTip(final Integer id, final String title) {
         this.id = id;
@@ -63,7 +66,7 @@ public class ReadingTip {
     }
     
     public String toString() {
-        String tip = title + "\n" + link + "\n";
+        String tip = title + "\n" + this.link + "\n";
         
         if (read == null) {
             tip += "Ei luettu\n";
