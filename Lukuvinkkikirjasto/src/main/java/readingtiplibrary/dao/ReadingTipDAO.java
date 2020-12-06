@@ -90,50 +90,6 @@ public class ReadingTipDAO implements DAO {
         return readingTips;
     }
 
-    @Override
-    public boolean delete(final String title) {
-        List<ReadingTip> readingTips = searchByTitle(title, true);
-        List<Integer> tagIds = new ArrayList<>();
-        if (readingTips.isEmpty()) {
-            System.out.println("Ei löytynyt lukuvinkkiä!");
-            return false;
-        }
-        ReadingTip rt = readingTips.get(0);
-        try {
-            deleteReadingTip(rt);
-        } catch (SQLException e) {
-            System.out.println("Lukuvinkin poisto/muokkaus epäonnistui");
-            return false;
-        }
-        try {
-            tagIds = findAllTagIds(rt);
-            deleteReadingTipAndTag(rt);
-        } catch (SQLException e) {
-            System.out.println("Lukuvinkin ja Tagin poisto/muokkaus epäonnistui");
-            return false;
-        }
-        try {
-            deleteAllTags(tagIds);
-        } catch (SQLException e) {
-            System.out.println("Tagien poisto/muokkaus epäonnistui");
-            return false;
-        }
-
-        return true;
-    }
-
-    private ArrayList<Integer> findAllTagIds(ReadingTip rt) throws SQLException {
-        ArrayList<Integer> tags = new ArrayList<>();
-        PreparedStatement prepared = this.connection
-                .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit WHERE lukuvinkki_id= ?");
-        prepared.setInt(1, rt.getId());
-        ResultSet results = prepared.executeQuery();
-        while (results.next()) {
-            tags.add(results.getInt("tagi_id"));
-        }
-        prepared.close();
-        return tags;
-    }
 
     public boolean findValidTag(ReadingTip rt, String tagName) throws SQLException {
         PreparedStatement prepared = this.connection
@@ -165,23 +121,7 @@ public class ReadingTipDAO implements DAO {
         prepared.close();
     }
 
-    private void deleteReadingTipAndTag(ReadingTip rt) throws SQLException {
-        PreparedStatement prepared = this.connection
-                .getPreparedStatement("DELETE FROM LukuvinkitJaTagit WHERE lukuvinkki_id= ?");
-        prepared.setInt(1, rt.getId());
-        prepared.executeUpdate();
-        prepared.close();
-    }
 
-    private void deleteAllTags(List<Integer> tags) throws SQLException {
-        for (Integer tag : tags) {
-            PreparedStatement prepared = this.connection
-                    .getPreparedStatement("DELETE FROM Tagit WHERE id= ?");
-            prepared.setInt(1, tag);
-            prepared.executeUpdate();
-            prepared.close();
-        }
-    }
 
     public void deleteTag(Integer tagId) throws SQLException {
         PreparedStatement prepared = this.connection
@@ -273,22 +213,6 @@ public class ReadingTipDAO implements DAO {
         }
     }
 
-    public void deleteLink(ReadingTip rt) {
-        try {
-            String name = rt.getTitle();
-            Integer vinkkiId = queryId(name, "SELECT id FROM "
-                    + "Lukuvinkit WHERE otsikko = ?");
-            PreparedStatement prepared = this.connection
-                    .getPreparedStatement("UPDATE Lukuvinkit "
-                            + "SET linkki = ? WHERE id = ?");
-            prepared.setString(1, "Ei lisättyä linkkiä");
-            prepared.setInt(2, vinkkiId);
-            prepared.executeUpdate();
-            prepared.close();
-        } catch (SQLException e) {
-            System.out.println("Linkin poistaminen epäonnistui!");
-        }
-    }
 
     @Override
     public void initializeDatabase(Path path) {
@@ -323,7 +247,7 @@ public class ReadingTipDAO implements DAO {
                         result.getString("otsikko"));
                 String link = result.getString("linkki");
                 String read = result.getString("read");
-                if (!read.equals(null)) {
+                if (read != null) {
                     rt.setRead(read);
                 }
                 rt.setTags(tags);

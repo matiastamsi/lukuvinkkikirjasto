@@ -13,8 +13,6 @@ public interface DAO {
 
     List<ReadingTip> getAll();
 
-    boolean delete(String title);
-
     void add(ReadingTip lukuvinkki);
 
     void createDatabase();
@@ -24,6 +22,8 @@ public interface DAO {
     List<ReadingTip> searchByTitle(String title, boolean exact);
 
     List<ReadingTip> searchByTags(List<String> tagfilter);
+
+    String getLink(ReadingTip rt);
 
     String markAsRead(ReadingTip lukuvinkki);
 

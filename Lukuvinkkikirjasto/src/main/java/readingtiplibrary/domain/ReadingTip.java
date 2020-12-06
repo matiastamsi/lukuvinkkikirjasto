@@ -1,7 +1,6 @@
 package readingtiplibrary.domain;
 
 import java.util.ArrayList;
-import readingtiplibrary.dao.DAO;
 
 public class ReadingTip {
 

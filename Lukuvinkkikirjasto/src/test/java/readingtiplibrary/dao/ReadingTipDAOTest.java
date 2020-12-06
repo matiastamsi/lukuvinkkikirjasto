@@ -8,8 +8,6 @@ package readingtiplibrary.dao;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import readingtiplibrary.databaseconnection.ConnectionToDatabase;
 
 /**

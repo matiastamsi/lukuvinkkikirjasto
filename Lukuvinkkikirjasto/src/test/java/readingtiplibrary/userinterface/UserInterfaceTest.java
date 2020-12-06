@@ -109,6 +109,28 @@ public class UserInterfaceTest {
         ArrayList<String> vastaukset = io.getOutputs();
         assertTrue(vastaukset.contains("Lukuvinkin lukupäiväksi tallennettiin: 2020-12-02"));
     }
+
+    @Test
+    public void editLink() throws SQLException {
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "editLinkTest", "e", "k",
+                                                "https://github.com", "e", "o", "editLinkTest", "l", "https://tira.mooc.fi/syksy-2020/index", "p", "", "p"));
+        io = new StubIO(str);
+        ui = new UserInterface(io, dao);
+        ui.run();
+        ArrayList<String> vastaukset = io.getOutputs();
+        assertTrue(vastaukset.contains("Linkki päivitetty.\n"));
+    }
+
+    @Test
+    public void removeTagTest() throws SQLException {
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("u", "o", "removeTagTest", "k", "tag", "secondTag", "", "e", "e", "o", "removeTagTest", "t", "p", "secondTag","", "p", "", "p"));
+        io = new StubIO(str);
+        ui = new UserInterface(io, dao);
+        ui.run();
+        ArrayList<String> vastaukset = io.getOutputs();
+        assertTrue(vastaukset.contains("Tagi poistettu!"));
+    }
+    
     
     @After
     public void tearDown() {

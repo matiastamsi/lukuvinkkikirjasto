@@ -220,7 +220,6 @@ public class UserInterface {
                     io.print("Tarkenna hakua!");
                     break;
             }
-            break;
         }
     }
     
