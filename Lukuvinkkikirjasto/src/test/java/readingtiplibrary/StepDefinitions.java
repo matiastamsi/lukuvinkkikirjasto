@@ -160,6 +160,30 @@ public class StepDefinitions {
         Collections.addAll(inputs, i);
     }
 
+    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja keskeyttää")
+    public void halutaanMerkitäLuetuksi(String otsikko) {
+        String[] i = {"e", "o", otsikko, "luettu", "e"};
+        Collections.addAll(inputs, i);
+    }
+
+    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja a")
+    public void annetaanMikaTahansaPaivamaara(String otsikko) {
+        String[] i = {"e", "o", otsikko, "luettu", "a"};
+        Collections.addAll(inputs, i);
+    }
+
+    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja t")
+    public void valitaanLukupaivaksiTamaPaiva(String otsikko) {
+        String[] i = {"e", "o", otsikko, "luettu", "t"};
+        Collections.addAll(inputs, i);
+    }
+
+    @When("antaa päivämäärän {string}")
+    public void antaaPaivamaaran(String paivamaara) {
+        String[] i = {paivamaara};
+        Collections.addAll(inputs, i);
+    }
+
     @Then("ohjelma palauttaa merkitsemispäivän päivämäärän")
     public void ohjelmaPalauttaaMerkitsemispaivanPaivamaaran() throws SQLException {
         String vastaus = "Lukuvinkin lukupäiväksi tallennettiin: " + LocalDate.now().toString();
@@ -206,35 +230,6 @@ public class StepDefinitions {
         db.delete();
     }
 
-
-
-    /////
-
-    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja keskeyttää")
-    public void halutaanMerkitäLuetuksi(String otsikko) {
-        String[] i = {"e", "o", otsikko, "luettu", "e"};
-        Collections.addAll(inputs, i);
-    }
-
-    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja a")
-    public void annetaanMikaTahansaPaivamaara(String otsikko) {
-        String[] i = {"e", "o", otsikko, "luettu", "a"};
-        Collections.addAll(inputs, i);
-    }
-
-    @When("käyttäjä valitsee luettu, antaa otsikon {string}, valitsee luettu ja t")
-    public void valitaanLukupaivaksiTamaPaiva(String otsikko) {
-        String[] i = {"e", "o", otsikko, "luettu", "t"};
-        Collections.addAll(inputs, i);
-    }
-
-    @When("antaa päivämäärän {string}")
-    public void antaaPaivamaaran(String paivamaara) {
-        String[] i = {paivamaara};
-        Collections.addAll(inputs, i);
-    }
-
     
-////
     
 }
