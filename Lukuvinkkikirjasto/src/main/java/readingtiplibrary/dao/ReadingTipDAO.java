@@ -104,9 +104,9 @@ public class ReadingTipDAO implements DAO {
 
     public Integer findTagId(ReadingTip rt, String tagName) throws SQLException {
         PreparedStatement prepared = this.connection
-                .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit, Tagit WHERE LukuvinkitJaTagit.lukuvinkki_id = ? AND Tagit.nimi= ?");
-        prepared.setInt(1, rt.getId());
-        prepared.setString(2, tagName);
+                .getPreparedStatement("SELECT tagi_id FROM LukuvinkitJaTagit l JOIN Tagit t ON t.id = l.tagi_id "
+                        + " WHERE t.nimi = ?");
+        prepared.setString(1, tagName);
         ResultSet results = prepared.executeQuery();
         int tagId = results.getInt("tagi_id");
         prepared.close();
@@ -120,8 +120,6 @@ public class ReadingTipDAO implements DAO {
         prepared.executeUpdate();
         prepared.close();
     }
-
-
 
     public void deleteTag(Integer tagId) throws SQLException {
         PreparedStatement prepared = this.connection
