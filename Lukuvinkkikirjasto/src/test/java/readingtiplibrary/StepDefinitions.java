@@ -87,8 +87,14 @@ public class StepDefinitions {
     }
 
     @Given("etsitään tagilla {string} ja poistutaan")
-    public void etsitaanTagilla(String tagi) {
+    public void etsitaanTagillaJaPoistutaan(String tagi) {
         String[] i = {"e", "t", tagi, "", "p"};
+        Collections.addAll(inputs, i);
+    }
+    
+    @Given("etsitään tagilla {string} ja valitaan vaihtoehto 0")
+    public void etsitaanTagilla(String tagi) {
+        String[] i = {"e", "t", tagi, "0"};
         Collections.addAll(inputs, i);
     }
     
@@ -181,6 +187,18 @@ public class StepDefinitions {
     @When("antaa päivämäärän {string}")
     public void antaaPaivamaaran(String paivamaara) {
         String[] i = {paivamaara};
+        Collections.addAll(inputs, i);
+    }
+    
+    @When("lisätään uusi tagi {string} ja poistutaan")
+    public void lisaaUusiTagi(String tagi) {
+        String[] i = {"t", "l", tagi, "", "p"};
+        Collections.addAll(inputs, i);
+    }
+    
+    @When("poistetaan tagi {string} ja poistutaan")
+    public void poistaTagi(String tagi) {
+        String[] i = {"t", "p", tagi, "", "p"};
         Collections.addAll(inputs, i);
     }
 
