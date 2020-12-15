@@ -1,5 +1,7 @@
 # lukuvinkkikirjasto
 Ohjelmistotuotanto miniprojekti
+### Loppuraportti
+[Linkki loppuraporttiin](https://docs.google.com/document/d/1SghREXiYjj6uGNb8mx60xfxXZdGtCkPYE-dNUPJlrLw/edit?usp=sharing)
 
 ## Backlog
 * [Product backlog](https://docs.google.com/spreadsheets/d/1y8Mbxg-VIHm2P-DQm900TaQu5d_xlWhSPXYXhAs9CT0/edit#gid=0)
